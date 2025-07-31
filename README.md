@@ -9,7 +9,7 @@
 ## 🛠️ Tech Stack
 
 - **Engine:** Godot (GDScript)
-- **Platform:** Android (touch controls)
+- **Platform:** Android and PC
 - **Graphics:** 2D pixel-style visuals with responsive player movement
 - **Gameplay:** Fast-paced soccer with AI players or local multiplayer modes
 
