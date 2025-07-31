@@ -1,7 +1,45 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1lr5o2ydtchc"]
+[gd_scene load_steps=4 format=3 uid="uid://d1lr5o2ydtchc"]
 
 [ext_resource type="PackedScene" uid="uid://5vuci8rbf0fa" path="res://scenes/background.tscn" id="1_nnsk1"]
+[ext_resource type="Script" uid="uid://bxa8fl4wkak35" path="res://addons/touch_screen_joystick/touch_screen_joystick.gd" id="2_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://b7hv5cr5v326g" path="res://scenes/characters/player.tscn" id="3_4wyf3"]
 
 [node name="World" type="Node2D"]
 
 [node name="Background" parent="." instance=ExtResource("1_nnsk1")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MobileUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TouchScreenJoystick" type="Control" parent="CanvasLayer/MobileUI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 82.0
+offset_right = 58.0
+offset_bottom = 122.0
+grow_vertical = 0
+script = ExtResource("2_rwgxs")
+deadzone = 0.0
+base_radius = 18.0
+knob_radius = 11.9
+back_color = Color(0, 0, 0, 0.439216)
+thickness = 2.0
+use_input_actions = true
+action_left = &"walk_left"
+action_right = &"walk_right"
+action_up = &"walk_up"
+action_down = &"walk_down"
+metadata/_custom_type_script = "uid://bxa8fl4wkak35"
+
+[node name="Player" parent="." instance=ExtResource("3_4wyf3")]
+position = Vector2(113, 101)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]

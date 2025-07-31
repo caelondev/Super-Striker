@@ -17,5 +17,6 @@ texture = ExtResource("2_jougr")
 centered = false
 
 [node name="Lines" type="Sprite2D" parent="."]
+modulate = Color(0.941176, 0.941176, 0.941176, 1)
 texture = ExtResource("3_jougr")
 centered = false
