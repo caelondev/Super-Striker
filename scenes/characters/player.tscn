@@ -112,6 +112,3 @@ autoplay = "Idle"
 texture = ExtResource("3_76oj4")
 centered = false
 offset = Vector2(-8, -14)
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-anim_player = NodePath("../AnimationPlayer")
