@@ -5,7 +5,7 @@ var states : Dictionary
 func _init():
 	states = {
 		Player.State.MOVING: PlayerStateMoving,
-		Player.State.TACKLE: PlayerStateTackling,
+		Player.State.TACKLING: PlayerStateTackling,
 	}
 
 func get_fresh_tates(state: Player.State) -> PlayerState:
