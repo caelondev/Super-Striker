@@ -1,0 +1,2 @@
+class_name Ball
+extends AnimatableBody2D
