@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING}
+enum State {MOVING, TACKLING, RECOVERING}
 
 @onready var character_sprite : Sprite2D = $CharacterSprite
 @onready var animation_player : AnimationPlayer = %AnimationPlayer

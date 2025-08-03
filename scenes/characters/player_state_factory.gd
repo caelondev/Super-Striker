@@ -6,6 +6,7 @@ func _init():
 	states = {
 		Player.State.MOVING: PlayerStateMoving,
 		Player.State.TACKLING: PlayerStateTackling,
+		Player.State.RECOVERING: PlayerStateRecovering,
 	}
 
 func get_fresh_tates(state: Player.State) -> PlayerState:
