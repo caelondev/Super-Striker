@@ -66,7 +66,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rp1mh"]
-radius = 20.0
+radius = 4.0
 
 [node name="Ball" type="AnimatableBody2D"]
 collision_layer = 4
@@ -97,6 +97,7 @@ libraries = {
 unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
 position = Vector2(0, -5)

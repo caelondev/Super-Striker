@@ -104,6 +104,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
 platform_on_leave = 2
 platform_floor_layers = 4294967040
 script = ExtResource("1_yewv4")
