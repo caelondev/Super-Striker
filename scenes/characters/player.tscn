@@ -42,6 +42,20 @@ tracks/0/keys = {
 "update": 1,
 "values": [49, 50, 51]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"animation_complete"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_kqtwu"]
 resource_name = "PrepKick"
@@ -145,6 +159,7 @@ collision_layer = 2
 platform_on_leave = 2
 platform_floor_layers = 4294967040
 script = ExtResource("1_yewv4")
+movement_speed = null
 power = 70.0
 control_scheme = 1
 

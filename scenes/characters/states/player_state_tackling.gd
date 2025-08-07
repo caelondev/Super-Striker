@@ -17,4 +17,4 @@ func _process(delta) -> void:
 		if player.velocity == Vector2.ZERO:
 			is_tackle_complete = true
 	elif Time.get_ticks_msec() - time_finish_tackle > DURATION_PRIOR_RECOVERY:
-		state_transition_requested.emit(Player.State.RECOVERING)
+		transition_state(Player.State.RECOVERING)
