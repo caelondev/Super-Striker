@@ -14,7 +14,7 @@ func _physics_process(delta):
 	var vx := 0.0
 	dribble_time += delta
 	if ball.carrier.velocity != Vector2.ZERO:
-		if carrier.velocity.x > 10:
+		if abs(carrier.velocity.x) > 7:
 			vx = cos(dribble_time * DRIBBLE_FREQUENCY) * DRIBBLE_INTENSITY
 		if carrier.heading.x >= 0:
 			animation_player.play("Roll")

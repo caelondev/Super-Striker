@@ -13,5 +13,7 @@ func handle_player_input() -> void:
 	var direction = KeyUtils.get_input_vector(player.control_scheme)
 	player.velocity = direction.normalized() * player.movement_speed
 	
-	if player.velocity != Vector2.ZERO and KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
-		state_transition_requested.emit(Player.State.TACKLING)
+	if player.is_carrying_ball() and KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
+		state_transition_requested.emit(Player.State.PREP_SHOT)
+	#if player.velocity != Vector2.ZERO and KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
+	#	state_transition_requested.emit(Player.State.TACKLING)
