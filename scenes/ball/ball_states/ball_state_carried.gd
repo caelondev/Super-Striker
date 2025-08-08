@@ -11,6 +11,7 @@ func _enter_tree():
 	assert(carrier != null)
 
 func _physics_process(delta):
+	process_gravity(delta)
 	var vx := 0.0
 	dribble_time += delta
 	if ball.carrier.velocity != Vector2.ZERO:
