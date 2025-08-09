@@ -66,15 +66,38 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Pass" type="TouchScreenButton" parent="Player_1"]
-position = Vector2(9, 10)
+position = Vector2(10, 10)
 scale = Vector2(0.25, 0.25)
 texture_normal = ExtResource("2_yw2sp")
 texture_pressed = ExtResource("2_yw2sp")
 action = "p1_pass"
 
-[node name="Pass2" type="TouchScreenButton" parent="Player_1"]
-position = Vector2(46, 11)
+[node name="Shoot" type="TouchScreenButton" parent="Player_1"]
+position = Vector2(50, 10)
 scale = Vector2(0.25, 0.25)
 texture_normal = ExtResource("2_yw2sp")
 texture_pressed = ExtResource("2_yw2sp")
 action = "p1_shoot"
+
+[node name="Player_2" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="Pass" type="TouchScreenButton" parent="Player_2"]
+position = Vector2(0, 10)
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("2_yw2sp")
+texture_pressed = ExtResource("2_yw2sp")
+action = "p2_pass"
+
+[node name="Shoot" type="TouchScreenButton" parent="Player_2"]
+position = Vector2(-40, 11)
+scale = Vector2(0.25, 0.25)
+texture_normal = ExtResource("2_yw2sp")
+texture_pressed = ExtResource("2_yw2sp")
+action = "p2_shoot"

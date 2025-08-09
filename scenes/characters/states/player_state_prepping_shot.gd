@@ -8,15 +8,16 @@ var shot_direction := Vector2.ZERO
 var time_start_shot := Time.get_ticks_msec()
 
 func _enter_tree() -> void:
-	
 	animation_player.play("PrepKick")
 	player.velocity = Vector2.ZERO
 	time_start_shot = Time.get_ticks_msec()
 	
 
 func _process(delta) -> void:
-	shot_direction = KeyUtils.get_input_vector(player.control_scheme) * delta
+	print(shot_direction)
+	shot_direction = KeyUtils.get_input_vector(player.control_scheme)
 	if KeyUtils.get_actions_just_released(player.control_scheme, KeyUtils.Action.SHOOT):
+		shot_direction = player.heading if shot_direction == Vector2.ZERO else shot_direction
 		var duratiob_press = clampf(Time.get_ticks_msec() - time_start_shot, 0, DURATION_MAX_BONUS)
 		var ease_time = duratiob_press / DURATION_MAX_BONUS
 		var bonus := ease(ease_time, EASE_REWARD_FACTOR)
