@@ -1,17 +1,24 @@
 class_name Player
 extends CharacterBody2D
 
+const CONTROL_SCHEME_MAP : Dictionary = {
+	ControlScheme.CPU: preload("res://assets/art/props/cpu.png"),
+	ControlScheme.P1: preload("res://assets/art/props/1p.png"),
+	ControlScheme.P2: preload("res://assets/art/props/2p.png"),
+}
+
 enum ControlScheme {CPU, P1, P2}
 enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING}
 
 @onready var character_sprite : Sprite2D = $CharacterSprite
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
+@onready var control_sprite : Sprite2D = %ControlSprite
 @onready var teammate_detection_area : Area2D = %TeammateDetectionArea
 
 @export var ball : Ball
 @export var movement_speed : float = 80.0
 @export var power : float
-@export var control_scheme : ControlScheme
+@export var control_scheme := ControlScheme.CPU
 
 var current_state : PlayerState = null
 var heading := Vector2.RIGHT
@@ -19,10 +26,15 @@ var state_factory := PlayerStateFactory.new()
 
 func _ready() -> void:
 	switch_state(State.MOVING)
+	set_control_sprite()
 
 func _physics_process(delta) -> void:
+	set_control_visibility()
 	flip_char_sprite()
 	move_and_slide()
+
+func set_control_visibility() -> void:
+	control_sprite.visible = is_carrying_ball() or not control_scheme == ControlScheme.CPU
 
 func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:
@@ -43,6 +55,9 @@ func handle_animations() -> void:
 		animation_player.play("Run")
 	else:
 		animation_player.play("Idle")
+
+func set_control_sprite() -> void:
+	control_sprite.texture = CONTROL_SCHEME_MAP[control_scheme]
 
 func set_heading() -> void:
 	if velocity.x > 0:
