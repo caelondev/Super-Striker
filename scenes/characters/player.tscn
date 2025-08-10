@@ -159,7 +159,7 @@ collision_layer = 2
 platform_on_leave = 2
 platform_floor_layers = 4294967040
 script = ExtResource("1_yewv4")
-power = 70.0
+power = 150.0
 control_scheme = 1
 
 [node name="CharacterSprite" type="Sprite2D" parent="."]
