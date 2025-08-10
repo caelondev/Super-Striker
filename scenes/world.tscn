@@ -1,13 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1lr5o2ydtchc"]
+[gd_scene load_steps=7 format=3 uid="uid://d1lr5o2ydtchc"]
 
 [ext_resource type="Script" uid="uid://br2bes1b8lrdv" path="res://scenes/world.gd" id="1_k0juu"]
 [ext_resource type="PackedScene" uid="uid://5vuci8rbf0fa" path="res://scenes/background.tscn" id="1_nnsk1"]
 [ext_resource type="PackedScene" uid="uid://p7hq710g3vrm" path="res://scenes/characters/player.tscn" id="2_4wyf3"]
+[ext_resource type="Script" uid="uid://cb41ny6i6i6rn" path="res://scenes/camera.gd" id="2_qfnet"]
 [ext_resource type="PackedScene" uid="uid://corsystmuyfss" path="res://scenes/ball/ball.tscn" id="4_71j4m"]
 [ext_resource type="PackedScene" uid="uid://bne1g6u0dxba3" path="res://scenes/utils/mobile_ui.tscn" id="4_k0juu"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_k0juu")
+
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("ball")]
+limit_left = 0
+limit_top = 0
+limit_right = 850
+limit_bottom = 350
+position_smoothing_enabled = true
+position_smoothing_speed = 0.0
+script = ExtResource("2_qfnet")
+ball = NodePath("../Players/Ball")
 
 [node name="Background" parent="." instance=ExtResource("1_nnsk1")]
 
