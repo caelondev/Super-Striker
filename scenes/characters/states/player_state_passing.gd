@@ -7,9 +7,12 @@ func _enter_tree():
 
 func animation_complete() -> void:
 	var closest_teammate = find_team_closest()
-	print(closest_teammate)
+	if closest_teammate == null:
+		ball.pass_to(ball.position + player.heading * player.movement_speed)
+	else:
+		ball.pass_to(closest_teammate.position + closest_teammate.velocity)
 	transition_state(Player.State.MOVING)
-	
+
 func find_team_closest() -> Player:
 	var players_in_view := teammate_detection_area.get_overlapping_bodies()
 	var team_in_view := players_in_view.filter(

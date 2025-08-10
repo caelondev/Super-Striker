@@ -17,12 +17,10 @@ y_sort_enabled = true
 [node name="Player" parent="Players" node_paths=PackedStringArray("ball") instance=ExtResource("2_4wyf3")]
 position = Vector2(187, 153)
 ball = NodePath("../Ball")
-movement_speed = 80.0
 
 [node name="Player2" parent="Players" node_paths=PackedStringArray("ball") instance=ExtResource("2_4wyf3")]
 position = Vector2(136, 129)
 ball = NodePath("../Ball")
-movement_speed = 80.0
 control_scheme = 2
 
 [node name="Ball" parent="Players" instance=ExtResource("4_71j4m")]

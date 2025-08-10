@@ -27,6 +27,7 @@ func handle_animation() -> void:
 		animation_player.advance(0)
 	else:
 		animation_player.play_backwards("Idle")
+	
 func process_gravity(delta: float, bounciness: float = 0.0) -> void:
 	if ball.height > 0 or ball.height_velocity > 0:
 		ball.height_velocity -= GRAVITY * delta

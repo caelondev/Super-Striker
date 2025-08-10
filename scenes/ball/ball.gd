@@ -3,6 +3,9 @@ extends AnimatableBody2D
 
 enum State {CARRIED, FREEFORM, SHOT}
 
+@export var FRICTION_AIR := 35.0
+@export var FRICTION_GROUND := 250.0
+
 @onready var animation_player = %AnimationPlayer
 @onready var ball_sprite = %BallSprite
 @onready var player_detection_area : Area2D = %PlayerDetectionArea
@@ -28,8 +31,16 @@ func switch_state(state: Ball.State) -> void:
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "BallStateMachine " + str(state)
 	call_deferred("add_child", current_state)
-
 func shoot(shot_velocity: Vector2) -> void:
 	velocity = shot_velocity
 	carrier = null
 	switch_state(Ball.State.SHOT)
+
+func pass_to(destination: Vector2) -> void:
+	var direction := position.direction_to(destination)
+	var distance := position.distance_to(destination)
+	var intensity := sqrt(2 * distance * FRICTION_GROUND)
+	velocity = intensity * direction
+	carrier = null
+	switch_state(Ball.State.FREEFORM)
+	
