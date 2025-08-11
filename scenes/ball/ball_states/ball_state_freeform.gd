@@ -13,4 +13,7 @@ func _process(delta):
 
 func on_player_pickup(body: Player) -> void:
 	ball.carrier = body
-	state_transition_requested.emit(Ball.State.CARRIED)
+	ball.switch_state(Ball.State.CARRIED)
+
+func can_air_interact() -> bool:
+	return true

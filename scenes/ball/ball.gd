@@ -5,6 +5,8 @@ const PARABOLA_DISTANCE_TRESHOLD := 130
 
 enum State {CARRIED, FREEFORM, SHOT}
 
+@export var AIR_CONNECT_MIN_HEIGHT : float
+@export var AIR_CONNECT_MAX_HEIGHT : float
 @export var BOUNCINESS := 0.8
 @export var FRICTION_AIR := 35.0
 @export var FRICTION_GROUND := 250.0
@@ -45,9 +47,15 @@ func pass_to(destination: Vector2) -> void:
 	var intensity := sqrt(2 * distance * FRICTION_GROUND)
 	velocity = intensity * direction
 	if distance >= PARABOLA_DISTANCE_TRESHOLD:
-		height_velocity = BallState.GRAVITY * distance / (1.8 * intensity)
+		height_velocity = BallState.GRAVITY * distance / (1.9 * intensity)
 	carrier = null
 	switch_state(Ball.State.FREEFORM)
+
+func can_air_interact() -> bool:
+	return current_state != null and current_state.can_air_interact()
+
+func can_air_connect() -> bool:
+	return height >= AIR_CONNECT_MIN_HEIGHT and height <= AIR_CONNECT_MAX_HEIGHT
 
 func stop() -> void:
 	velocity = Vector2.ZERO

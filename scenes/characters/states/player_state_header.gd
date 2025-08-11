@@ -14,8 +14,7 @@ func _enter_tree():
 func on_ball_enter(contact_ball: Ball) -> void:
 	if contact_ball.can_air_connect():
 		contact_ball.shoot(player.velocity.normalized() * player.power * BONUS_POWER)
-		print("HEAD")
 
 func _process(_delta) -> void:
-	if player.height == 0:
-		transition_state(Player.State.MOVING)
+	if player.height <= 0:
+		transition_state(Player.State.RECOVERING)

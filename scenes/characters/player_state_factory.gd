@@ -4,12 +4,15 @@ var states : Dictionary
 
 func _init():
 	states = {
+		Player.State.BICYCLE_KICK: PlayerStateBicycleKick,
+		Player.State.HEADER: PlayerStateHeader,
 		Player.State.MOVING: PlayerStateMoving,
 		Player.State.PASSING: PlayerStatePassing,
 		Player.State.PREP_SHOT: PlayerStatePreppingShot,
+		Player.State.RECOVERING: PlayerStateRecovering,
 		Player.State.SHOOTING: PlayerStateShooting,
 		Player.State.TACKLING: PlayerStateTackling,
-		Player.State.RECOVERING: PlayerStateRecovering,
+		Player.State.VOLLEY_KICK: PlayerStateVolleyKick,
 	}
 
 func get_fresh_tates(state: Player.State) -> PlayerState:

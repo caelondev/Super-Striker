@@ -6,10 +6,12 @@ const CONTROL_SCHEME_MAP : Dictionary = {
 	ControlScheme.P1: preload("res://assets/art/props/1p.png"),
 	ControlScheme.P2: preload("res://assets/art/props/2p.png"),
 }
+const GRAVITY := 8.0
 
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING}
+enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, VOLLEY_KICK, BICYCLE_KICK}
 
+@onready var ball_detection_area : Area2D = %BallDetectionArea
 @onready var character_sprite : Sprite2D = $CharacterSprite
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var control_sprite : Sprite2D = %ControlSprite
@@ -22,6 +24,8 @@ enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING}
 
 var current_state : PlayerState = null
 var heading := Vector2.RIGHT
+var height := 0.0
+var height_velocity := 0.0
 var state_factory := PlayerStateFactory.new()
 
 func _ready() -> void:
@@ -30,8 +34,17 @@ func _ready() -> void:
 
 func _physics_process(delta) -> void:
 	set_control_visibility()
+	process_gravity(delta)
 	flip_char_sprite()
 	move_and_slide()
+
+func process_gravity(delta: float) -> void:
+	if height > 0:
+		height_velocity -= GRAVITY * delta
+		height += height_velocity
+		if height <= 0:
+			height = 0
+	character_sprite.position = Vector2.UP * height
 
 func set_control_visibility() -> void:
 	control_sprite.visible = is_carrying_ball() or not control_scheme == ControlScheme.CPU
@@ -41,7 +54,7 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 		current_state.queue_free()
 	
 	current_state = state_factory.get_fresh_tates(state)
-	current_state.setup(self, state_data,animation_player, ball, teammate_detection_area)
+	current_state.setup(self, state_data,animation_player, ball, teammate_detection_area, ball_detection_area)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerState: " + str(state)
 	call_deferred("add_child", current_state)
