@@ -1,6 +1,8 @@
 class_name Ball
 extends AnimatableBody2D
 
+const PARABOLA_DISTANCE_TRESHOLD := 130
+
 enum State {CARRIED, FREEFORM, SHOT}
 
 @export var BOUNCINESS := 0.8
@@ -42,6 +44,8 @@ func pass_to(destination: Vector2) -> void:
 	var distance := position.distance_to(destination)
 	var intensity := sqrt(2 * distance * FRICTION_GROUND)
 	velocity = intensity * direction
+	if distance >= PARABOLA_DISTANCE_TRESHOLD:
+		height_velocity = BallState.GRAVITY * distance / (1.8 * intensity)
 	carrier = null
 	switch_state(Ball.State.FREEFORM)
 
