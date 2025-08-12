@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://br2bes1b8lrdv" path="res://scenes/world.gd" id="1_k0juu"]
 [ext_resource type="PackedScene" uid="uid://5vuci8rbf0fa" path="res://scenes/background.tscn" id="1_nnsk1"]
-[ext_resource type="PackedScene" uid="uid://p7hq710g3vrm" path="res://scenes/characters/player.tscn" id="2_4wyf3"]
 [ext_resource type="Script" uid="uid://cb41ny6i6i6rn" path="res://scenes/camera.gd" id="2_qfnet"]
 [ext_resource type="PackedScene" uid="uid://corsystmuyfss" path="res://scenes/ball/ball.tscn" id="4_71j4m"]
+[ext_resource type="Script" uid="uid://co82uhafnbxfw" path="res://scenes/actors_container.gd" id="4_e3hyu"]
 [ext_resource type="PackedScene" uid="uid://c4a5741qtpctx" path="res://scenes/goal/goal.tscn" id="4_i7141"]
 [ext_resource type="PackedScene" uid="uid://bne1g6u0dxba3" path="res://scenes/utils/mobile_ui.tscn" id="4_k0juu"]
 [ext_resource type="Texture2D" uid="uid://cucxb51frrtke" path="res://assets/art/backgrounds/top-wall.png" id="5_4mrxx"]
@@ -30,8 +30,59 @@ ball = NodePath("../ActorsContainer/Ball")
 
 [node name="Background" parent="." instance=ExtResource("1_nnsk1")]
 
-[node name="ActorsContainer" type="Node2D" parent="."]
+[node name="ActorsContainer" type="Node2D" parent="." node_paths=PackedStringArray("ball", "goal_home", "goal_away")]
 y_sort_enabled = true
+script = ExtResource("4_e3hyu")
+ball = NodePath("Ball")
+goal_home = NodePath("FieldObjects/GoalHome")
+goal_away = NodePath("FieldObjects/GoalAway")
+team_home = "FRANCE"
+team_away = "GERMANY"
+
+[node name="HomeSpawners" type="Marker2D" parent="ActorsContainer"]
+unique_name_in_owner = true
+position = Vector2(425, 180)
+
+[node name="GoalieSpawn" type="Marker2D" parent="ActorsContainer/HomeSpawners"]
+position = Vector2(-345, 0)
+
+[node name="DefenseSpawn" type="Marker2D" parent="ActorsContainer/HomeSpawners"]
+position = Vector2(-235, -30)
+
+[node name="DefenseSpawn2" type="Marker2D" parent="ActorsContainer/HomeSpawners"]
+position = Vector2(-235, 30)
+
+[node name="MidFieldSpawn" type="Marker2D" parent="ActorsContainer/HomeSpawners"]
+position = Vector2(-125, 0)
+
+[node name="OffenseSpawn" type="Marker2D" parent="ActorsContainer/HomeSpawners"]
+position = Vector2(-25, -80)
+
+[node name="OffenseSpawn2" type="Marker2D" parent="ActorsContainer/HomeSpawners"]
+position = Vector2(-25, 80)
+
+[node name="AwaySpawners" type="Marker2D" parent="ActorsContainer"]
+unique_name_in_owner = true
+position = Vector2(425, 180)
+scale = Vector2(-1, -1)
+
+[node name="GoalieSpawn" type="Marker2D" parent="ActorsContainer/AwaySpawners"]
+position = Vector2(-345, 0)
+
+[node name="DefenseSpawn" type="Marker2D" parent="ActorsContainer/AwaySpawners"]
+position = Vector2(-235, -30)
+
+[node name="DefenseSpawn2" type="Marker2D" parent="ActorsContainer/AwaySpawners"]
+position = Vector2(-235, 30)
+
+[node name="MidFieldSpawn" type="Marker2D" parent="ActorsContainer/AwaySpawners"]
+position = Vector2(-125, 0)
+
+[node name="OffenseSpawn" type="Marker2D" parent="ActorsContainer/AwaySpawners"]
+position = Vector2(-25, -80)
+
+[node name="OffenseSpawn2" type="Marker2D" parent="ActorsContainer/AwaySpawners"]
+position = Vector2(-25, 80)
 
 [node name="FieldObjects" type="Node2D" parent="ActorsContainer"]
 y_sort_enabled = true
@@ -91,29 +142,11 @@ collision_mask = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActorsContainer/FieldObjects/RightWall/StaticBody2D"]
 polygon = PackedVector2Array(21, 0, 27, 0, 13, 117, 6, 117)
 
-[node name="Player" parent="ActorsContainer" node_paths=PackedStringArray("own_goal", "target_goal", "ball") instance=ExtResource("2_4wyf3")]
-position = Vector2(187, 153)
-own_goal = NodePath("../FieldObjects/GoalHome")
-target_goal = NodePath("../FieldObjects/GoalAway")
-ball = NodePath("../Ball")
-
-[node name="Player2" parent="ActorsContainer" node_paths=PackedStringArray("own_goal", "target_goal", "ball") instance=ExtResource("2_4wyf3")]
-position = Vector2(136, 129)
-own_goal = NodePath("../FieldObjects/GoalHome")
-target_goal = NodePath("../FieldObjects/GoalAway")
-ball = NodePath("../Ball")
-control_scheme = 2
-
-[node name="Player3" parent="ActorsContainer" node_paths=PackedStringArray("own_goal", "target_goal", "ball") instance=ExtResource("2_4wyf3")]
-position = Vector2(100, 129)
-own_goal = NodePath("../FieldObjects/GoalHome")
-target_goal = NodePath("../FieldObjects/GoalAway")
-ball = NodePath("../Ball")
-control_scheme = 0
-
 [node name="Ball" parent="ActorsContainer" instance=ExtResource("4_71j4m")]
-position = Vector2(185, 103)
+position = Vector2(425, 180)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MobileUI" parent="CanvasLayer" instance=ExtResource("4_k0juu")]
+unique_name_in_owner = true
+visible = false

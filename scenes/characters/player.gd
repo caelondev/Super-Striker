@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+const CONTROL_HEIGHT_MAX := 30
+
 const CONTROL_SCHEME_MAP : Dictionary = {
 	ControlScheme.CPU: preload("res://assets/art/props/cpu.png"),
 	ControlScheme.P1: preload("res://assets/art/props/1p.png"),
@@ -9,6 +11,8 @@ const CONTROL_SCHEME_MAP : Dictionary = {
 const GRAVITY := 8.0
 
 enum ControlScheme {CPU, P1, P2}
+enum Role {GOALIE, DEFENSE, MIDFIELD, OFFENSE}
+enum SkinColor {LIGHT, MEDIUM, DARK}
 enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL}
 
 @onready var ball_detection_area : Area2D = %BallDetectionArea
@@ -25,9 +29,12 @@ enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, 
 @export var control_scheme := ControlScheme.CPU
 
 var current_state : PlayerState = null
+var full_name := "PlayerName"
 var heading := Vector2.RIGHT
 var height := 0.0
 var height_velocity := 0.0
+var role := Player.Role.MIDFIELD
+var skin_color := Player.SkinColor.MEDIUM
 var queue_control := false
 var state_factory := PlayerStateFactory.new()
 
@@ -36,15 +43,23 @@ func _ready() -> void:
 	set_control_sprite()
 
 func _physics_process(delta) -> void:
-	if queue_control:
-		if ball.height < 15 and ball.height > 0:
-				heading = Vector2.LEFT if ball.global_position < global_position else Vector2.RIGHT
-				switch_state(State.CHEST_CONTROL)
-				queue_control = false
 	set_control_visibility()
 	process_gravity(delta)
 	flip_char_sprite()
 	move_and_slide()
+
+func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_goal: Goal, c_player_data: PlayerResources) -> void:
+	position = c_position
+	ball = c_ball
+	own_goal = c_own_goal
+	target_goal = c_target_goal
+	movement_speed = c_player_data.speed
+	power = c_player_data.power
+	role = c_player_data.role
+	full_name = c_player_data.full_name
+	name = full_name
+	skin_color = c_player_data.skin_color
+	heading = Vector2.LEFT if target_goal.global_position.x < global_position.x else Vector2.RIGHT
 
 func process_gravity(delta: float) -> void:
 	if height > 0:
@@ -100,4 +115,5 @@ func animation_complete() -> void:
 		current_state.animation_complete()
 
 func control_ball() -> void:
-	queue_control = true
+	if ball.height > CONTROL_HEIGHT_MAX and height == 0:
+		switch_state(State.CHEST_CONTROL)
