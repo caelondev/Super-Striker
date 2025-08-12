@@ -1,8 +1,19 @@
-[gd_scene load_steps=18 format=3 uid="uid://p7hq710g3vrm"]
+[gd_scene load_steps=22 format=3 uid="uid://p7hq710g3vrm"]
 
 [ext_resource type="Texture2D" uid="uid://y3vxnx8dkyex" path="res://assets/art/characters/soccer-player.png" id="1_rp718"]
 [ext_resource type="Script" uid="uid://fgmhxntynykg" path="res://scenes/characters/player.gd" id="1_yewv4"]
+[ext_resource type="Shader" uid="uid://b2rd3b236j2l0" path="res://shaders/team_handler.gdshader" id="2_kqtwu"]
+[ext_resource type="Texture2D" uid="uid://c3gpuumcxa62a" path="res://assets/art/palettes/skin-colors-palette.png" id="3_6eyoc"]
 [ext_resource type="Texture2D" uid="uid://dv5dkimb607mu" path="res://assets/art/characters/player-shadow.png" id="3_76oj4"]
+[ext_resource type="Texture2D" uid="uid://d0a33be15gp1c" path="res://assets/art/palettes/teams-color-palette.png" id="4_eojnx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_76oj4"]
+resource_local_to_scene = true
+shader = ExtResource("2_kqtwu")
+shader_parameter/skin_palette = ExtResource("3_6eyoc")
+shader_parameter/team_palette = ExtResource("4_eojnx")
+shader_parameter/skin_color = 0
+shader_parameter/team_color = 0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rp718"]
 radius = 4.0
@@ -267,6 +278,7 @@ power = 150.0
 metadata/_edit_horizontal_guides_ = [-22.0]
 
 [node name="CharacterSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_76oj4")
 texture = ExtResource("1_rp718")
 centered = false
 offset = Vector2(-16, -32)
