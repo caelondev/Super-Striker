@@ -5,8 +5,6 @@ const PARABOLA_DISTANCE_TRESHOLD := 130
 
 enum State {CARRIED, FREEFORM, SHOT}
 
-@export var AIR_CONNECT_MIN_HEIGHT : float
-@export var AIR_CONNECT_MAX_HEIGHT : float
 @export var BOUNCINESS := 0.8
 @export var FRICTION_AIR := 35.0
 @export var FRICTION_GROUND := 250.0
@@ -54,7 +52,7 @@ func pass_to(destination: Vector2) -> void:
 func can_air_interact() -> bool:
 	return current_state != null and current_state.can_air_interact()
 
-func can_air_connect() -> bool:
+func can_air_connect(AIR_CONNECT_MIN_HEIGHT: float, AIR_CONNECT_MAX_HEIGHT: float) -> bool:
 	return height >= AIR_CONNECT_MIN_HEIGHT and height <= AIR_CONNECT_MAX_HEIGHT
 
 func stop() -> void:

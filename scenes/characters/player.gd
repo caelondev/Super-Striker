@@ -9,7 +9,7 @@ const CONTROL_SCHEME_MAP : Dictionary = {
 const GRAVITY := 8.0
 
 enum ControlScheme {CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, VOLLEY_KICK, BICYCLE_KICK}
+enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL}
 
 @onready var ball_detection_area : Area2D = %BallDetectionArea
 @onready var character_sprite : Sprite2D = $CharacterSprite
@@ -17,6 +17,8 @@ enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, 
 @onready var control_sprite : Sprite2D = %ControlSprite
 @onready var teammate_detection_area : Area2D = %TeammateDetectionArea
 
+@export var own_goal : Goal
+@export var target_goal : Goal
 @export var ball : Ball
 @export var movement_speed : float = 80.0
 @export var power : float
@@ -26,6 +28,7 @@ var current_state : PlayerState = null
 var heading := Vector2.RIGHT
 var height := 0.0
 var height_velocity := 0.0
+var queue_control := false
 var state_factory := PlayerStateFactory.new()
 
 func _ready() -> void:
@@ -33,6 +36,11 @@ func _ready() -> void:
 	set_control_sprite()
 
 func _physics_process(delta) -> void:
+	if queue_control:
+		if ball.height < 15 and ball.height > 0:
+				heading = Vector2.LEFT if ball.global_position < global_position else Vector2.RIGHT
+				switch_state(State.CHEST_CONTROL)
+				queue_control = false
 	set_control_visibility()
 	process_gravity(delta)
 	flip_char_sprite()
@@ -54,7 +62,7 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 		current_state.queue_free()
 	
 	current_state = state_factory.get_fresh_tates(state)
-	current_state.setup(self, state_data,animation_player, ball, teammate_detection_area, ball_detection_area)
+	current_state.setup(self, state_data,animation_player, ball, teammate_detection_area, ball_detection_area, own_goal, target_goal)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerState: " + str(state)
 	call_deferred("add_child", current_state)
@@ -90,3 +98,6 @@ func is_carrying_ball() -> bool:
 func animation_complete() -> void:
 	if current_state != null:
 		current_state.animation_complete()
+
+func control_ball() -> void:
+	queue_control = true

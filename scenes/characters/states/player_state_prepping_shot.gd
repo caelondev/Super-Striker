@@ -14,7 +14,6 @@ func _enter_tree() -> void:
 	
 
 func _process(delta) -> void:
-	print(shot_direction)
 	shot_direction = KeyUtils.get_input_vector(player.control_scheme)
 	if KeyUtils.get_actions_just_released(player.control_scheme, KeyUtils.Action.SHOOT):
 		shot_direction = player.heading if shot_direction == Vector2.ZERO else shot_direction
