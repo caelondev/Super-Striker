@@ -137,6 +137,10 @@ func animation_complete() -> void:
 	if current_state != null:
 		current_state.animation_complete()
 
+func is_facing_target_goal() -> bool:
+	var  direction_to_target_goal := global_position.direction_to(target_goal.global_position)
+	return heading.dot(direction_to_target_goal) > 0
+
 func control_ball() -> void:
 	if ball.height > CONTROL_HEIGHT_MAX and height == 0:
 		switch_state(State.CHEST_CONTROL)

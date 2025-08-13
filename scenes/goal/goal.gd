@@ -17,3 +17,6 @@ func get_random_target_position() -> Vector2:
 		if target:
 			return target.global_position
 	return Vector2.ZERO
+
+func get_center_point() -> Vector2:
+	return targets.get_child(2).global_position

@@ -22,7 +22,7 @@ func handle_player_input() -> void:
 			transition_state(Player.State.PASSING)
 	elif ball.can_air_interact() and KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
 		if player.velocity == Vector2.ZERO:
-			if is_facing_target_goal():
+			if player.is_facing_target_goal():
 				transition_state(Player.State.VOLLEY_KICK)
 			else: 
 				transition_state(Player.State.BICYCLE_KICK)
@@ -30,7 +30,3 @@ func handle_player_input() -> void:
 			player.switch_state(Player.State.HEADER)
 	#if player.velocity != Vector2.ZERO and KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
 	#	transition_state(Player.State.TACKLING)
-
-func is_facing_target_goal() -> bool:
-	var  direction_to_target_goal := player.global_position.direction_to(target_goal.global_position)
-	return player.heading.dot(direction_to_target_goal) > 0
