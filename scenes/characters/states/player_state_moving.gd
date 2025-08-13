@@ -1,9 +1,9 @@
 class_name PlayerStateMoving
 extends PlayerState
 
-func _process(_delta) -> void:
+func _process(delta) -> void:
 	if player.control_scheme == Player.ControlScheme.CPU:
-		pass #AI has its own movement system
+		ai_behavior.process_ai()
 	else:
 		handle_player_input()
 	player.handle_animations()

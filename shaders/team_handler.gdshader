@@ -39,9 +39,3 @@ void fragment() {
 		}
 	}
 }
-
-
-
-
-
-

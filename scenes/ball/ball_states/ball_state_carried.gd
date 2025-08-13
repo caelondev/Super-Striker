@@ -15,12 +15,12 @@ func _physics_process(delta):
 	var vx := 0.0
 	dribble_time += delta
 	if carrier.velocity != Vector2.ZERO:
-		if carrier.velocity.x > 7:
+		if abs(carrier.velocity.x) > 7:
 			vx += cos(dribble_time * DRIBBLE_FREQUENCY) * DRIBBLE_INTENSITY
-		if carrier.velocity > Vector2.ZERO:
+		if carrier.velocity.x > 0:
 			animation_player.play("Roll")
 			animation_player.advance(0)
-		elif carrier.velocity < Vector2.ZERO:
+		elif carrier.velocity.x < 0:
 			animation_player.play_backwards("Roll")
 			animation_player.advance(0)
 	else:
