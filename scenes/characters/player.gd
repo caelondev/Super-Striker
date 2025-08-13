@@ -107,10 +107,13 @@ func handle_player_input() -> void:
 	velocity = direction.normalized() * movement_speed
 
 func handle_animations() -> void:
-	if velocity.length() > 0:
-		animation_player.play("Run")
-	else:
+	var vel_length := velocity.length()
+	if vel_length < 1:
 		animation_player.play("Idle")
+	elif vel_length < movement_speed * 0.5:
+		animation_player.play("Walk")
+	else:
+		animation_player.play("Run")
 
 func set_control_sprite() -> void:
 	control_sprite.texture = CONTROL_SCHEME_MAP[control_scheme]

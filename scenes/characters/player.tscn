@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://p7hq710g3vrm"]
+[gd_scene load_steps=23 format=3 uid="uid://p7hq710g3vrm"]
 
 [ext_resource type="Texture2D" uid="uid://y3vxnx8dkyex" path="res://assets/art/characters/soccer-player.png" id="1_rp718"]
 [ext_resource type="Script" uid="uid://fgmhxntynykg" path="res://scenes/characters/player.gd" id="1_yewv4"]
@@ -250,6 +250,24 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_jk2m4"]
+resource_name = "Walk"
+length = 0.9
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 12, 13, 14, 15, 16, 17]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dyp2m"]
 _data = {
 &"BicycleKick": SubResource("Animation_eojnx"),
@@ -262,7 +280,8 @@ _data = {
 &"Recover": SubResource("Animation_atpat"),
 &"Run": SubResource("Animation_yewv4"),
 &"Tackle": SubResource("Animation_dyp2m"),
-&"VolleyKick": SubResource("Animation_qgnko")
+&"VolleyKick": SubResource("Animation_qgnko"),
+&"Walk": SubResource("Animation_jk2m4")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_76oj4"]
