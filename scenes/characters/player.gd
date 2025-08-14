@@ -153,5 +153,8 @@ func on_player_tackle(tackled_player: Player) -> void:
 	if tackled_player != self and tackled_player.country != country and tackled_player == ball.carrier:
 		tackled_player.stun_player(global_position.direction_to(tackled_player.global_position))
 
+func get_teammate_in_view() -> Array:
+	return teammate_detection_area.get_overlapping_bodies() 
+
 func stun_player(knockback_origin) -> void:
 	switch_state(Player.State.HURT, PlayerStateData.build().set_hurt_direction(knockback_origin))
