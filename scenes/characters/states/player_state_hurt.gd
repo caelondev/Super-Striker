@@ -3,8 +3,8 @@ extends PlayerState
 
 const FRICTION_AIR := 35.0
 const STATE_DURATION := 1000
-const HURT_HEIGHT_VELOCITY := 5
-const BALL_TUMBLE_SPEED := 100
+const HURT_HEIGHT_VELOCITY := 15
+const BALL_TUMBLE_SPEED := 10
 
 var time_since_hurt := Time.get_ticks_msec()
 
@@ -16,6 +16,5 @@ func _enter_tree() -> void:
 
 func _physics_process(delta: float) -> void:
 	player.velocity = player.velocity.move_toward(Vector2.ZERO, delta * FRICTION_AIR)
-	if Time.get_ticks_msec() - time_since_hurt < STATE_DURATION:
-		return
-	transition_state(Player.State.RECOVERING)
+	if Time.get_ticks_msec() - time_since_hurt > STATE_DURATION:
+		transition_state(Player.State.RECOVERING)

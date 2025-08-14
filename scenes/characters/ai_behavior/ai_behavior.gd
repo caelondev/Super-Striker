@@ -5,13 +5,12 @@ const DURATION_AI_TICK_FREQUENCY := 200
 const SHOT_DISTANCE := 150
 const SHOT_PROBABILITY := 0.3
 const SPREAD_ASSIST_FACTOR := 0.8
+const TACKLE_DISTANCE := 15
+const TACKLE_PROBABILITY := 0.15
 
 var ball : Ball = null
 var player : Player = null
 var time_since_last_ai_tick := Time.get_ticks_msec()
-
-func _ready() -> void:
-	time_since_last_ai_tick = Time.get_ticks_msec() + randi_range(0, DURATION_AI_TICK_FREQUENCY)
 
 func setup(context_player: Player, context_ball: Ball) -> void:
 	player = context_player
@@ -25,26 +24,35 @@ func process_ai() -> void:
 	
 func perform_ai_movement() -> void:
 	var total_steering_force := Vector2.ZERO
-	if player.is_carrying_ball():
-		total_steering_force += get_carrier_steering_force()
-	elif player.role != Player.Role.GOALIE:
-		total_steering_force += get_onduty_steering_force()
-		if is_ball_carried_by_teammate():
-			total_steering_force += get_assist_formation_steering()
+	if player.role != Player.Role.GOALIE:
+		if player.is_carrying_ball():
+			total_steering_force += get_carrier_steering_force()
+		else:
+			total_steering_force += get_onduty_steering_force()
+			if is_ball_carried_by_teammate():
+				total_steering_force += get_assist_formation_steering()
 	total_steering_force = total_steering_force.limit_length(1.0)
 	player.velocity = total_steering_force * player.movement_speed
 
 func perform_ai_decisions() -> void:
+	var target : Vector2 = player.target_goal.get_center_point()
 	if ball.carrier == player:
-		var target : Vector2 = player.target_goal.get_center_point()
-		if player.position.distance_to(target) < SHOT_DISTANCE and randf() < SHOT_PROBABILITY:
+		target = player.target_goal.get_center_point()
+		if player.position.distance_to(target) <= SHOT_DISTANCE and randf() <= SHOT_PROBABILITY:
 			face_towards_target_goal()
 			var shot_direction := player.position.direction_to(player.target_goal.get_random_target_position())
 			var data := PlayerStateData.build().set_shot_power(player.power).set_shot_direction(shot_direction)
 			player.switch_state(Player.State.SHOOTING, data)
+	if ball.carrier != player:
+		if is_ball_carried_by_enemy():
+			if player.global_position.distance_to(ball.carrier.global_position) <= TACKLE_DISTANCE and randf() < TACKLE_PROBABILITY:
+				player.switch_state(Player.State.TACKLING)
 
 func get_onduty_steering_force() -> Vector2:
-	return player.weight_on_duty_stearing * player.position.direction_to(ball.position)
+	if ball.carrier != null:
+		return player.weight_on_duty_stearing * player.global_position.direction_to(ball.carrier.global_position)
+	else:
+		return player.weight_on_duty_stearing * player.global_position.direction_to(ball.global_position)
 
 func get_carrier_steering_force() -> Vector2:
 	var target : Vector2 = player.target_goal.get_center_point()
@@ -72,7 +80,10 @@ func get_bicircular_weight(position: Vector2, center_target: Vector2, inner_circ
 
 func face_towards_target_goal() -> void:
 	if not player.is_facing_target_goal():
-		player.heading = player.heading * -1
+		player.heading *= -1
+
+func is_ball_carried_by_enemy() -> bool:
+	return ball.carrier != null and ball.carrier != player and ball.carrier.country != player.country
 
 func is_ball_carried_by_teammate() -> bool:
 	return ball.carrier != null and ball.carrier != player and ball.carrier.country == player.country

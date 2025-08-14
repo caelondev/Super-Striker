@@ -21,7 +21,7 @@ func _ready():
 	home_squad = spawn_players(team_home, goal_home, home_spawner)
 	away_squad = spawn_players(team_away, goal_away, away_spawner)
 	
-	var player : Player = get_children().filter(func(p): return p is Player)[4]
+	var player : Player = get_children().filter(func(p): return p is Player)[3]
 	player.control_scheme = Player.ControlScheme.P1
 	player.set_control_sprite()
 

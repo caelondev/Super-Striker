@@ -13,4 +13,3 @@ func animation_complete() -> void:
 
 func shoot_ball() -> void:
 	ball.shoot(player_state_data.shot_direction * player_state_data.shot_power)
-	print(player_state_data)
