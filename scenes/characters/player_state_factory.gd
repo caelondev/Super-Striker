@@ -7,6 +7,7 @@ func _init():
 		Player.State.BICYCLE_KICK: PlayerStateBicycleKick,
 		Player.State.CHEST_CONTROL: PlayerStateChestControl,
 		Player.State.HEADER: PlayerStateHeader,
+		Player.State.HURT: PlayerStateHurt,
 		Player.State.MOVING: PlayerStateMoving,
 		Player.State.PASSING: PlayerStatePassing,
 		Player.State.PREP_SHOT: PlayerStatePreppingShot,

@@ -8,8 +8,12 @@ var is_tackle_complete := false
 var time_finish_tackle := Time.get_ticks_msec()
 
 func _enter_tree() -> void:
+	tackle_damage_emitter.monitoring = true
 	animation_player.play("Tackle")
 	time_finish_tackle = Time.get_ticks_msec()
+
+func _exit_tree() -> void:
+	tackle_damage_emitter.monitoring = false
 
 func _process(delta) -> void:
 	if not is_tackle_complete:

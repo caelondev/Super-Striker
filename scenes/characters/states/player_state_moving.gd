@@ -28,5 +28,5 @@ func handle_player_input() -> void:
 				transition_state(Player.State.BICYCLE_KICK)
 		else:
 			player.switch_state(Player.State.HEADER)
-	#if player.velocity != Vector2.ZERO and KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
-	#	transition_state(Player.State.TACKLING)
+	if not player.is_carrying_ball() and player.velocity != Vector2.ZERO and KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
+		transition_state(Player.State.TACKLING)

@@ -2,6 +2,8 @@ class_name Ball
 extends AnimatableBody2D
 
 const PARABOLA_DISTANCE_TRESHOLD := 130
+const TUMBLE_HEIGHT_VELOCITY := 10
+
 
 enum State {CARRIED, FREEFORM, SHOT}
 
@@ -38,6 +40,11 @@ func shoot(shot_velocity: Vector2) -> void:
 	velocity = shot_velocity
 	carrier = null
 	switch_state(Ball.State.SHOT)
+
+func tumble(tumble_velocity: Vector2) -> void:
+	velocity = tumble_velocity
+	carrier = null
+	switch_state(Ball.State.FREEFORM)
 
 func pass_to(destination: Vector2) -> void:
 	var direction := position.direction_to(destination)

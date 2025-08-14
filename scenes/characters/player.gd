@@ -14,13 +14,14 @@ const GRAVITY := 8.0
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENSE, MIDFIELD, OFFENSE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL}
+enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT}
 
 @onready var ball_detection_area : Area2D = %BallDetectionArea
 @onready var character_sprite : Sprite2D = $CharacterSprite
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var control_sprite : Sprite2D = %ControlSprite
 @onready var teammate_detection_area : Area2D = %TeammateDetectionArea
+@onready var tackle_damage_emitter : Area2D = %TackleDamageEmitter
 
 @export var own_goal : Goal
 @export var target_goal : Goal
@@ -48,6 +49,7 @@ func _ready() -> void:
 	set_control_sprite()
 	set_shader_properties()
 	setup_ai()
+	tackle_damage_emitter.body_entered.connect(on_player_tackle.bind())
 	spawn_position = global_position
 
 func _physics_process(delta) -> void:
@@ -97,7 +99,7 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 		current_state.queue_free()
 	
 	current_state = state_factory.get_fresh_tates(state)
-	current_state.setup(self, state_data,animation_player, ball, teammate_detection_area, ball_detection_area, own_goal, target_goal, ai_behavior)
+	current_state.setup(self, state_data,animation_player, ball, teammate_detection_area, ball_detection_area, own_goal, target_goal, ai_behavior, tackle_damage_emitter)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerState: " + str(state)
 	call_deferred("add_child", current_state)
@@ -127,8 +129,10 @@ func set_heading() -> void:
 func flip_char_sprite() -> void:
 	if heading == Vector2.RIGHT:
 		character_sprite.flip_h = false
+		tackle_damage_emitter.scale.x = 1
 	elif heading == Vector2.LEFT:
 		character_sprite.flip_h = true
+		tackle_damage_emitter.scale.x = -1
 
 func is_carrying_ball() -> bool:
 	return ball.carrier == self
@@ -144,3 +148,10 @@ func is_facing_target_goal() -> bool:
 func control_ball() -> void:
 	if ball.height > CONTROL_HEIGHT_MAX and height == 0:
 		switch_state(State.CHEST_CONTROL)
+
+func on_player_tackle(tackled_player: Player) -> void:
+	if tackled_player != self and tackled_player.country != country and tackled_player == ball.carrier:
+		tackled_player.stun_player(global_position.direction_to(tackled_player.global_position))
+
+func stun_player(knockback_origin) -> void:
+	switch_state(Player.State.HURT, PlayerStateData.build().set_hurt_direction(knockback_origin))

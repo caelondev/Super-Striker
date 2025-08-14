@@ -60,3 +60,8 @@ position = Vector2(30, -60)
 
 [node name="Marker2D2" type="Marker2D" parent="Targets"]
 position = Vector2(30, -40)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-12, -86, -21, -6, -29, -4, -21, -86)
