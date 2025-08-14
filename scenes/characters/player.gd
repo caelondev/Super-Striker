@@ -22,6 +22,7 @@ enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, 
 @onready var control_sprite : Sprite2D = %ControlSprite
 @onready var teammate_detection_area : Area2D = %TeammateDetectionArea
 @onready var tackle_damage_emitter : Area2D = %TackleDamageEmitter
+@onready var opponent_detection_area : Area2D = %OpponentDetectionArea
 
 @export var own_goal : Goal
 @export var target_goal : Goal
@@ -59,7 +60,7 @@ func _physics_process(delta) -> void:
 	move_and_slide()
 
 func setup_ai():
-	ai_behavior.setup(self, ball)
+	ai_behavior.setup(self, ball, opponent_detection_area)
 	ai_behavior.name = "[AI] " + full_name
 	add_child(ai_behavior)
 
@@ -130,9 +131,11 @@ func flip_char_sprite() -> void:
 	if heading == Vector2.RIGHT:
 		character_sprite.flip_h = false
 		tackle_damage_emitter.scale.x = 1
+		opponent_detection_area.scale.x = 1
 	elif heading == Vector2.LEFT:
 		character_sprite.flip_h = true
 		tackle_damage_emitter.scale.x = -1
+		opponent_detection_area.scale.x = -1
 
 func is_carrying_ball() -> bool:
 	return ball.carrier == self
@@ -152,9 +155,6 @@ func control_ball() -> void:
 func on_player_tackle(tackled_player: Player) -> void:
 	if tackled_player != self and tackled_player.country != country and tackled_player == ball.carrier:
 		tackled_player.stun_player(global_position.direction_to(tackled_player.global_position))
-
-func get_teammate_in_view() -> Array:
-	return teammate_detection_area.get_overlapping_bodies() 
 
 func stun_player(knockback_origin) -> void:
 	switch_state(Player.State.HURT, PlayerStateData.build().set_hurt_direction(knockback_origin))
