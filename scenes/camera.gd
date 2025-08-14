@@ -2,8 +2,8 @@ class_name Camera
 extends Camera2D
 
 const DISTANCE_TARGET := 100
-const SMOOTHING_BALL_CARRIED = 2
-const SMOOTHING_BALL_DEFAULT = 5
+const SMOOTHING_BALL_CARRIED = 1.5
+const SMOOTHING_BALL_DEFAULT = 3
 
 @export var ball : Ball
 
