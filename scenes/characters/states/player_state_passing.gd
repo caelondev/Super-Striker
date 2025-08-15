@@ -6,23 +6,18 @@ func _enter_tree():
 	player.velocity = Vector2.ZERO
 
 func animation_complete() -> void:
-	var closest_teammate = find_team_closest()
-	if closest_teammate == null:
+	var colliding_player = check_colliding_team()
+	if colliding_player == null:
 		ball.pass_to(ball.position + player.heading * player.movement_speed)
 	else:
-		ball.pass_to(closest_teammate.position + closest_teammate.velocity)
+		ball.pass_to(colliding_player.position + colliding_player.velocity)
 	transition_state(Player.State.MOVING)
 
-func find_team_closest() -> Player:
-	var players_in_view := teammate_detection_area.get_overlapping_bodies()
-	var team_in_view := players_in_view.filter(
-		func(p: Player): return p != player
-	)
-	if team_in_view.is_empty():
-		return null
-	team_in_view.sort_custom(
-		func(p1: Player, p2: Player): return p1.position.distance_squared_to(player.position) < p2.position.distance_squared_to(player.position) 
-	)
-	if team_in_view.size() > 0:
-		return team_in_view[0]
+func check_colliding_team() -> Player:
+	var player_in_view : Player = null
+	if teammate_detection_ray.is_colliding():
+		player_in_view = teammate_detection_ray.get_collider()
+		if player_in_view.country == player.country and player_in_view.role != Player.Role.GOALIE:
+			return player_in_view
 	return null
+	

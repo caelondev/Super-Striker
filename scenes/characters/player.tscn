@@ -348,17 +348,6 @@ texture = ExtResource("3_76oj4")
 centered = false
 offset = Vector2(-8, -15)
 
-[node name="TeammateDetectionArea" type="Area2D" parent="."]
-unique_name_in_owner = true
-visible = false
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-priority = 1
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TeammateDetectionArea"]
-polygon = PackedVector2Array(0, -40, 280, -150, 330, -100, 330, 100, 280, 150, 0, 40)
-
 [node name="ControlSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, -35)
@@ -389,6 +378,7 @@ shape = SubResource("RectangleShape2D_kqtwu")
 
 [node name="OpponentDetectionArea" type="Area2D" parent="."]
 unique_name_in_owner = true
+visible = false
 collision_layer = 0
 collision_mask = 2
 monitorable = false
@@ -397,3 +387,8 @@ monitorable = false
 position = Vector2(20, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_kqtwu")
+
+[node name="TeammateDetectionRay" type="RayCast2D" parent="."]
+unique_name_in_owner = true
+target_position = Vector2(300, 0)
+collision_mask = 2

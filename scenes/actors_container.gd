@@ -4,11 +4,13 @@ extends Node2D
 const WEIGHT_CACHE_CALCULATION := 200
 const PLAYER_SCENE := preload("res://scenes/characters/player.tscn")
 
+
 @export var ball : Ball
 @export var goal_home : Goal
 @export var goal_away : Goal
 @export var team_home : String
 @export var team_away : String
+@export var two_player : bool
 
 @onready var home_spawner : Marker2D = %HomeSpawners
 @onready var away_spawner : Marker2D = %AwaySpawners
@@ -16,13 +18,20 @@ const PLAYER_SCENE := preload("res://scenes/characters/player.tscn")
 var home_squad : Array[Player] = []
 var away_squad : Array[Player] = []
 var time_sincs_last_weight_cache := Time.get_ticks_msec()
+var player_one_index := 4
+var player_two_index := 10
 
 func _ready():
 	home_squad = spawn_players(team_home, goal_home, home_spawner)
 	away_squad = spawn_players(team_away, goal_away, away_spawner)
 	
-	var player : Player = get_children().filter(func(p): return p is Player)[3]
-	player.control_scheme = Player.ControlScheme.P1
+	create_player(player_one_index, Player.ControlScheme.P1)
+	if two_player:
+		create_player(player_two_index, Player.ControlScheme.P2)
+
+func create_player(role_index: int, control_scheme: Player.ControlScheme):
+	var player : Player = get_children().filter(func(p): return p is Player)[role_index - 1]
+	player.control_scheme = control_scheme
 	player.set_control_sprite()
 
 func _physics_process(_delta: float) -> void:

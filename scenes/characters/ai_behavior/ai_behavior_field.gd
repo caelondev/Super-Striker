@@ -3,10 +3,10 @@ extends AIBehavior
 
 const PASS_PROBABILITY := 0.2
 const SHOT_DISTANCE := 150
-const SHOT_PROBABILITY := 0.3
+const SHOT_PROBABILITY := 0.15
 const SPREAD_ASSIST_FACTOR := 0.8
 const TACKLE_DISTANCE := 15
-const TACKLE_PROBABILITY := 0.3
+const TACKLE_PROBABILITY := 0.15
 
 func perform_ai_movement() -> void:
 	var total_steering_force := Vector2.ZERO
@@ -31,9 +31,12 @@ func perform_ai_decisions() -> void:
 				var data := PlayerStateData.build().set_shot_power(player.power).set_shot_direction(shot_direction)
 				player.switch_state(Player.State.SHOOTING, data)
 			elif has_opponents_nearby() and randf() < PASS_PROBABILITY:
-				player.switch_state(Player.State.PASSING)
+				if teammate_detection_ray.is_colliding():
+					player.switch_state(Player.State.PASSING)
 
 func get_onduty_steering_force() -> Vector2:
+	if ball.carrier != null:
+		return player.weight_on_duty_stearing * player.global_position.direction_to(ball.carrier.global_position)
 	return player.weight_on_duty_stearing * player.position.direction_to(ball.position)
 
 func get_carrier_steering_force() -> Vector2:

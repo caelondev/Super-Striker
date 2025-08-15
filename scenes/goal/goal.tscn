@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4a5741qtpctx"]
+[gd_scene load_steps=8 format=3 uid="uid://c4a5741qtpctx"]
 
 [ext_resource type="Script" uid="uid://kswv1dlfsv66" path="res://scenes/goal/goal.gd" id="1_0ivff"]
 [ext_resource type="Texture2D" uid="uid://do3gktuisimmk" path="res://assets/art/backgrounds/goal-bottom.png" id="1_r84s2"]
@@ -12,6 +12,9 @@ size = Vector2(26, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0jila"]
 size = Vector2(8, 61)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8q8dj"]
+size = Vector2(20, 68)
 
 [node name="Goal" type="Node2D"]
 y_sort_enabled = true
@@ -64,10 +67,20 @@ position = Vector2(30, -40)
 [node name="Marker2D" type="Marker2D" parent="Targets"]
 position = Vector2(30, -20)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="PlayerBorder" type="StaticBody2D" parent="."]
 collision_layer = 8
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBorder"]
 position = Vector2(18, -32.5)
 shape = SubResource("RectangleShape2D_0jila")
+
+[node name="BallDetectionArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BallDetectionArea"]
+position = Vector2(-3, -34)
+shape = SubResource("RectangleShape2D_8q8dj")
