@@ -1,8 +1,11 @@
 class_name Goal
 extends Node2D
 
-@onready var backnet_area := %BacknetArea
-@onready var targets := %Targets
+@onready var backnet_area : Area2D = %BacknetArea
+@onready var targets : Node2D = %Targets
+
+var ball_entered := false
+var ball : Ball = null
 
 func _ready():
 	backnet_area.body_entered.connect(on_ball_enter_backnet.bind())
@@ -18,5 +21,5 @@ func get_random_target_position() -> Vector2:
 			return target.global_position
 	return Vector2.ZERO
 
-func get_center_point() -> Vector2:
-	return targets.get_child(2).global_position
+func get_goal_point(index: int) -> Vector2:
+	return targets.get_child(index-1).global_position

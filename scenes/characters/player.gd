@@ -31,8 +31,9 @@ enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, 
 @export var power : float
 @export var control_scheme := ControlScheme.CPU
 
-var ai_behavior : AIBehavior = AIBehavior.new()
+var ai_behavior_factory : AIBehaviorFactory = AIBehaviorFactory.new()
 var country := "None"
+var current_ai_behavior : AIBehavior = null
 var current_state : PlayerState = null
 var full_name := "PlayerName"
 var heading := Vector2.RIGHT
@@ -46,10 +47,10 @@ var state_factory := PlayerStateFactory.new()
 var weight_on_duty_stearing := 0.0
 
 func _ready() -> void:
+	setup_ai()
 	switch_state(State.MOVING)
 	set_control_sprite()
 	set_shader_properties()
-	setup_ai()
 	tackle_damage_emitter.body_entered.connect(on_player_tackle.bind())
 	spawn_position = global_position
 
@@ -59,10 +60,11 @@ func _physics_process(delta) -> void:
 	flip_char_sprite()
 	move_and_slide()
 
-func setup_ai():
-	ai_behavior.setup(self, ball, opponent_detection_area)
-	ai_behavior.name = "[AI] " + full_name
-	add_child(ai_behavior)
+func setup_ai() -> void:
+	current_ai_behavior = ai_behavior_factory.get_ai_behavior(role)
+	current_ai_behavior.setup(self, ball, opponent_detection_area)
+	current_ai_behavior.name = "[AI] " + full_name + " (" + str(role) + ")"
+	add_child(current_ai_behavior)
 
 func set_shader_properties() -> void:
 	character_sprite.material.set_shader_parameter("skin_color", skin_color)
@@ -100,7 +102,7 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 		current_state.queue_free()
 	
 	current_state = state_factory.get_fresh_tates(state)
-	current_state.setup(self, state_data,animation_player, ball, teammate_detection_area, ball_detection_area, own_goal, target_goal, ai_behavior, tackle_damage_emitter)
+	current_state.setup(self, state_data,animation_player, ball, teammate_detection_area, ball_detection_area, own_goal, target_goal, current_ai_behavior, tackle_damage_emitter)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerState: " + str(state)
 	call_deferred("add_child", current_state)

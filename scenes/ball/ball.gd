@@ -19,10 +19,12 @@ var carrier : Player = null
 var current_state : BallState = null
 var height := 0.0
 var height_velocity := 0.0
+var spawn_location := Vector2.ZERO
 var state_factory := BallStateFactory.new()
 var velocity := Vector2.ZERO
 
 func _ready():
+	spawn_location = global_position
 	switch_state(State.FREEFORM)
 
 func _physics_process(delta):
