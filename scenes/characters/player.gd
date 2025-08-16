@@ -20,6 +20,7 @@ enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, 
 @onready var character_sprite : Sprite2D = $CharacterSprite
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var control_sprite : Sprite2D = %ControlSprite
+@onready var teammate_detection_area: Area2D = $TeammateDetectionArea
 @onready var teammate_detection_ray : RayCast2D = %TeammateDetectionRay
 @onready var tackle_damage_emitter : Area2D = %TackleDamageEmitter
 @onready var opponent_detection_area : Area2D = %OpponentDetectionArea
@@ -55,6 +56,8 @@ func _ready() -> void:
 	spawn_position = global_position
 
 func _physics_process(delta) -> void:
+	if control_scheme != ControlScheme.P1:
+		movement_speed = 0
 	set_control_visibility()
 	process_gravity(delta)
 	flip_char_sprite()
@@ -62,7 +65,7 @@ func _physics_process(delta) -> void:
 
 func setup_ai() -> void:
 	current_ai_behavior = ai_behavior_factory.get_ai_behavior(role)
-	current_ai_behavior.setup(self, ball, opponent_detection_area, teammate_detection_ray)
+	current_ai_behavior.setup(self, ball, opponent_detection_area, teammate_detection_ray, teammate_detection_area)
 	current_ai_behavior.name = "[AI] " + full_name + " (" + str(role) + ")"
 	add_child(current_ai_behavior)
 
@@ -102,7 +105,7 @@ func switch_state(state: State, state_data: PlayerStateData = PlayerStateData.ne
 		current_state.queue_free()
 	
 	current_state = state_factory.get_fresh_tates(state)
-	current_state.setup(self, state_data,animation_player, ball, teammate_detection_ray, ball_detection_area, own_goal, target_goal, current_ai_behavior, tackle_damage_emitter)
+	current_state.setup(self, state_data,animation_player, ball, teammate_detection_ray, ball_detection_area, own_goal, target_goal, current_ai_behavior, tackle_damage_emitter, teammate_detection_area)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerState: " + str(state)
 	call_deferred("add_child", current_state)

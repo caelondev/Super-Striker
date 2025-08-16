@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://p7hq710g3vrm"]
+[gd_scene load_steps=27 format=3 uid="uid://p7hq710g3vrm"]
 
 [ext_resource type="Texture2D" uid="uid://y3vxnx8dkyex" path="res://assets/art/characters/soccer-player.png" id="1_rp718"]
 [ext_resource type="Script" uid="uid://fgmhxntynykg" path="res://scenes/characters/player.gd" id="1_yewv4"]
@@ -313,6 +313,9 @@ size = Vector2(14, 11)
 radius = 40.0
 height = 120.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6eyoc"]
+size = Vector2(300, 30)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 9
@@ -392,3 +395,10 @@ shape = SubResource("CapsuleShape2D_kqtwu")
 unique_name_in_owner = true
 target_position = Vector2(300, 0)
 collision_mask = 2
+
+[node name="TeammateDetectionArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeammateDetectionArea"]
+position = Vector2(150, 0)
+shape = SubResource("RectangleShape2D_6eyoc")

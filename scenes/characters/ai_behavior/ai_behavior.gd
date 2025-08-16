@@ -6,13 +6,15 @@ const DURATION_AI_TICK_FREQUENCY := 200
 var ball : Ball = null
 var opponent_detection_area : Area2D = null
 var player : Player = null
+var teammate_detection_area : Area2D = null
 var teammate_detection_ray : RayCast2D = null
 var time_since_last_ai_tick := Time.get_ticks_msec()
 
-func setup(context_player: Player, context_ball: Ball, context_opponent_detection_area: Area2D, context_teammate_detection_ray: RayCast2D) -> void:
+func setup(context_player: Player, context_ball: Ball, context_opponent_detection_area: Area2D, context_teammate_detection_ray: RayCast2D, context_teammate_detection_area: Area2D) -> void:
 	player = context_player
 	ball = context_ball
 	opponent_detection_area = context_opponent_detection_area
+	teammate_detection_area = context_teammate_detection_area
 	teammate_detection_ray = context_teammate_detection_ray
 	
 func process_ai() -> void:
