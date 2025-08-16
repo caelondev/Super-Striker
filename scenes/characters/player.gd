@@ -59,7 +59,13 @@ func _physics_process(delta) -> void:
 	set_control_visibility()
 	process_gravity(delta)
 	flip_char_sprite()
+	handle_aim_rotation()
 	move_and_slide()
+
+func handle_aim_rotation() -> void:
+	if velocity != Vector2.ZERO:
+		teammate_detection_ray.rotation = velocity.angle()
+		teammate_detection_area.rotation = velocity.angle()	
 
 func setup_ai() -> void:
 	current_ai_behavior = ai_behavior_factory.get_ai_behavior(role)
