@@ -356,8 +356,8 @@ size = Vector2(300, 20)
 size = Vector2(7, 7)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6eyoc"]
-radius = 3.0
-height = 18.0
+radius = 6.0
+height = 26.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -468,5 +468,5 @@ sync_to_physics = false
 
 [node name="GoalieHandsCollider" type="CollisionShape2D" parent="GoalieHands"]
 unique_name_in_owner = true
-position = Vector2(0, -14)
+position = Vector2(0, -15)
 shape = SubResource("CapsuleShape2D_6eyoc")

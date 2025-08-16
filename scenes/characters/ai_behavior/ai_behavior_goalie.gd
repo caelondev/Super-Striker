@@ -13,7 +13,13 @@ func perform_ai_movement() -> void:
 
 func perform_ai_decisions() -> void:
 	if ball.is_headed_for_scoring_area(player.own_goal.get_scoring_area()):
-		player.switch_state(Player.State.DIVING)
+		if ball.carrier != null:
+			if ball.carrier.country != player.country:
+				player.switch_state(Player.State.DIVING)
+			else:
+				player.switch_state(Player.State.MOVING)
+		else:
+			player.switch_state(Player.State.DIVING)
 
 func get_goalie_steering_force() -> Vector2:
 	if ball.carrier == null or ball.carrier.country == player.country:

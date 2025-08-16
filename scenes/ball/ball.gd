@@ -30,7 +30,10 @@ func _ready():
 
 func _physics_process(delta):
 	ball_sprite.position = Vector2.UP * height
-	scoring_ray_cast.rotation = velocity.angle()
+	if carrier != null:
+		scoring_ray_cast.rotation = carrier.velocity.angle()
+	else:
+		scoring_ray_cast.rotation = velocity.angle()
 
 func switch_state(state: Ball.State) -> void:
 	if current_state != null:

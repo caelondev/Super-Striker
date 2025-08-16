@@ -31,4 +31,4 @@ func handle_player_input() -> void:
 			transition_state(Player.State.TACKLING)
 
 func can_carry_ball() -> bool:
-	return true
+	return player.role != Player.Role.GOALIE
