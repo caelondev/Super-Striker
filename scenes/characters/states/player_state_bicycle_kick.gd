@@ -2,7 +2,7 @@ class_name PlayerStateBicycleKick
 extends PlayerState
 
 const BALL_HEIGHT_MIN := 5
-const BALL_HEIGHT_MAX := 30
+const BALL_HEIGHT_MAX := 50
 const BONUS_POWER := 2
 
 func _enter_tree():

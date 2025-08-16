@@ -4,7 +4,7 @@ extends PlayerState
 const FRICTION_AIR := 35.0
 const STATE_DURATION := 1000
 const HURT_HEIGHT_VELOCITY := 2
-const BALL_TUMBLE_SPEED := 10
+const BALL_TUMBLE_SPEED := 20
 
 var time_since_hurt := Time.get_ticks_msec()
 

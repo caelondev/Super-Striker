@@ -43,6 +43,7 @@ func switch_state(state: Ball.State) -> void:
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "BallStateMachine " + str(state)
 	call_deferred("add_child", current_state)
+
 func shoot(shot_velocity: Vector2) -> void:
 	velocity = shot_velocity
 	carrier = null
