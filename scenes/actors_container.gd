@@ -5,6 +5,8 @@ const WEIGHT_CACHE_CALCULATION := 200
 const PLAYER_SCENE := preload("res://scenes/characters/player.tscn")
 
 
+@onready var mobile_ui := $"../CanvasLayer/MobileUI"
+
 @export var ball : Ball
 @export var goal_home : Goal
 @export var goal_away : Goal
@@ -22,6 +24,7 @@ var player_one_index := 4
 var player_two_index := 10
 
 func _ready():
+	mobile_ui.has_two_players = two_player
 	home_squad = spawn_players(team_home, goal_home, home_spawner)
 	away_squad = spawn_players(team_away, goal_away, away_spawner)
 	

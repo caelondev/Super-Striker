@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bne1g6u0dxba3"]
+[gd_scene load_steps=4 format=3 uid="uid://bne1g6u0dxba3"]
 
 [ext_resource type="Script" uid="uid://bxa8fl4wkak35" path="res://addons/touch_screen_joystick/touch_screen_joystick.gd" id="1_n34wq"]
+[ext_resource type="Script" uid="uid://bl12b63bo5uc8" path="res://scenes/utils/mobile_ui.gd" id="1_yd8ix"]
 [ext_resource type="Texture2D" uid="uid://bohaj8sqelvvk" path="res://icon.svg" id="2_yw2sp"]
 
 [node name="MobileUI" type="Control"]
@@ -10,57 +11,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="TouchScreenJoystick" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 21.0
-offset_top = -65.0
-offset_right = 61.0
-offset_bottom = -25.0
-grow_vertical = 0
-script = ExtResource("1_n34wq")
-deadzone = 0.0
-base_radius = 20.0
-knob_radius = 11.9
-back_color = Color(0, 0, 0, 0.439216)
-thickness = 2.0
-use_input_actions = true
-action_left = &"p1_walk_left"
-action_right = &"p1_walk_right"
-action_up = &"p1_walk_up"
-action_down = &"p1_walk_down"
-metadata/_custom_type_script = "uid://bxa8fl4wkak35"
-
-[node name="TouchScreenJoystick2" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -63.0
-offset_top = -59.0
-offset_right = -23.0
-offset_bottom = -19.0
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("1_n34wq")
-deadzone = 0.0
-base_radius = 20.0
-knob_radius = 11.9
-back_color = Color(0, 0, 0, 0.439216)
-thickness = 2.0
-use_input_actions = true
-action_left = &"p2_walk_left"
-action_right = &"p2_walk_right"
-action_up = &"p2_walk_up"
-action_down = &"p2_walk_down"
-metadata/_custom_type_script = "uid://bxa8fl4wkak35"
+script = ExtResource("1_yd8ix")
 
 [node name="Player_1" type="Control" parent="."]
+unique_name_in_owner = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -79,7 +33,32 @@ texture_normal = ExtResource("2_yw2sp")
 texture_pressed = ExtResource("2_yw2sp")
 action = "p1_shoot"
 
+[node name="TouchScreenJoystick" type="Control" parent="Player_1"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 75.0
+offset_right = 61.0
+offset_bottom = 115.0
+grow_vertical = 0
+script = ExtResource("1_n34wq")
+deadzone = 0.0
+base_radius = 20.0
+knob_radius = 11.9
+back_color = Color(0, 0, 0, 0.439216)
+thickness = 2.0
+use_input_actions = true
+action_left = &"p1_walk_left"
+action_right = &"p1_walk_right"
+action_up = &"p1_walk_up"
+action_down = &"p1_walk_down"
+metadata/_custom_type_script = "uid://bxa8fl4wkak35"
+
 [node name="Player_2" type="Control" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -101,3 +80,30 @@ scale = Vector2(0.25, 0.25)
 texture_normal = ExtResource("2_yw2sp")
 texture_pressed = ExtResource("2_yw2sp")
 action = "p2_shoot"
+
+[node name="TouchScreenJoystick2" type="Control" parent="Player_2"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -63.0
+offset_top = 81.0
+offset_right = -23.0
+offset_bottom = 121.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_n34wq")
+deadzone = 0.0
+base_radius = 20.0
+knob_radius = 11.9
+back_color = Color(0, 0, 0, 0.439216)
+thickness = 2.0
+use_input_actions = true
+action_left = &"p2_walk_left"
+action_right = &"p2_walk_right"
+action_up = &"p2_walk_up"
+action_down = &"p2_walk_down"
+metadata/_custom_type_script = "uid://bxa8fl4wkak35"

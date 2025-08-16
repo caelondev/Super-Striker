@@ -1,7 +1,7 @@
 class_name AIBehavior
 extends Node
 
-const DURATION_AI_TICK_FREQUENCY := 200
+const DURATION_AI_TICK_FREQUENCY := 100
 
 var ball : Ball = null
 var opponent_detection_area : Area2D = null
