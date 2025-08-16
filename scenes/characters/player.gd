@@ -14,12 +14,14 @@ const GRAVITY := 8.0
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENSE, MIDFIELD, OFFENSE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT}
+enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING}
 
 @onready var ball_detection_area : Area2D = %BallDetectionArea
 @onready var character_sprite : Sprite2D = $CharacterSprite
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var control_sprite : Sprite2D = %ControlSprite
+@onready var goalie_hands_collider : CollisionShape2D = %GoalieHandsCollider
+@onready var permanent_damage_emitter_area : Area2D = %PermanentDamageEmitterArea
 @onready var teammate_detection_area: Area2D = $TeammateDetectionArea
 @onready var teammate_detection_ray : RayCast2D = %TeammateDetectionRay
 @onready var tackle_damage_emitter : Area2D = %TackleDamageEmitter
@@ -52,7 +54,10 @@ func _ready() -> void:
 	switch_state(State.MOVING)
 	set_control_sprite()
 	set_shader_properties()
+	goalie_hands_collider.disabled = role != Role.GOALIE
+	permanent_damage_emitter_area.monitoring = role == Role.GOALIE
 	tackle_damage_emitter.body_entered.connect(on_player_tackle.bind())
+	permanent_damage_emitter_area.body_entered.connect(on_player_tackle.bind())
 	spawn_position = global_position
 
 func _physics_process(delta) -> void:
@@ -164,6 +169,9 @@ func control_ball() -> void:
 func on_player_tackle(tackled_player: Player) -> void:
 	if tackled_player != self and tackled_player.country != country and tackled_player == ball.carrier:
 		tackled_player.stun_player(global_position.direction_to(tackled_player.global_position))
+
+func can_carry_ball() -> bool:
+	return current_state != null and current_state.can_carry_ball()
 
 func stun_player(knockback_origin) -> void:
 	switch_state(Player.State.HURT, PlayerStateData.build().set_hurt_direction(knockback_origin))

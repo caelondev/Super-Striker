@@ -29,3 +29,6 @@ func handle_player_input() -> void:
 				player.switch_state(Player.State.HEADER)
 		elif player.velocity != Vector2.ZERO:
 			transition_state(Player.State.TACKLING)
+
+func can_carry_ball() -> bool:
+	return true

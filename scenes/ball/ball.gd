@@ -11,9 +11,10 @@ enum State {CARRIED, FREEFORM, SHOT}
 @export var FRICTION_AIR := 35.0
 @export var FRICTION_GROUND := 250.0
 
-@onready var animation_player = %AnimationPlayer
-@onready var ball_sprite = %BallSprite
+@onready var animation_player : AnimationPlayer = %AnimationPlayer
+@onready var ball_sprite : Sprite2D = %BallSprite
 @onready var player_detection_area : Area2D = %PlayerDetectionArea
+@onready var scoring_ray_cast : RayCast2D = %ScoringRayCast
 
 var carrier : Player = null
 var current_state : BallState = null
@@ -29,6 +30,7 @@ func _ready():
 
 func _physics_process(delta):
 	ball_sprite.position = Vector2.UP * height
+	scoring_ray_cast.rotation = velocity.angle()
 
 func switch_state(state: Ball.State) -> void:
 	if current_state != null:
@@ -66,3 +68,8 @@ func can_air_connect(AIR_CONNECT_MIN_HEIGHT: float, AIR_CONNECT_MAX_HEIGHT: floa
 
 func stop() -> void:
 	velocity = Vector2.ZERO
+
+func is_headed_for_scoring_area(scoring_area: Area2D) -> bool:
+	if not scoring_ray_cast.is_colliding():
+		return false
+	return scoring_ray_cast.get_collider() == scoring_area

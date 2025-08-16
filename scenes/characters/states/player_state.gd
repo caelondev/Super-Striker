@@ -34,3 +34,6 @@ func transition_state(new_state : Player.State, player_state_data = PlayerStateD
 
 func animation_complete() -> void:
 	pass
+
+func can_carry_ball() -> bool:
+	return false

@@ -12,9 +12,10 @@ func _process(delta):
 	move_and_bounce(delta)
 
 func on_player_pickup(body: Player) -> void:
-	ball.carrier = body
-	body.control_ball()
-	ball.switch_state(Ball.State.CARRIED)
+	if body.can_carry_ball():
+		ball.carrier = body
+		body.control_ball()
+		ball.switch_state(Ball.State.CARRIED)
 
 func can_air_interact() -> bool:
 	return true

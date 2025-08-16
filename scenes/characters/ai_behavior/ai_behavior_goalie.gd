@@ -11,10 +11,14 @@ func perform_ai_movement() -> void:
 	total_steering_force = total_steering_force.limit_length(1.0)
 	player.velocity = total_steering_force * player.movement_speed
 
-func performa_ai_decisions() -> void:
-	pass
+func perform_ai_decisions() -> void:
+	if ball.is_headed_for_scoring_area(player.own_goal.get_scoring_area()):
+		player.switch_state(Player.State.DIVING)
 
 func get_goalie_steering_force() -> Vector2:
+	if ball.carrier == null or ball.carrier.country == player.country:
+		return Vector2.ZERO
+	
 	var top_goal := player.own_goal.get_goal_point(1)
 	var bottom_goal := player.own_goal.get_goal_point(3)
 	var center := player.spawn_position
