@@ -175,3 +175,8 @@ func can_carry_ball() -> bool:
 
 func stun_player(knockback_origin) -> void:
 	switch_state(Player.State.HURT, PlayerStateData.build().set_hurt_direction(knockback_origin))
+
+func send_pass_request(player: Player):
+	if ball.carrier == self and current_state != null and current_state.can_pass():
+		var data = PlayerStateData.build().set_pass_target(player)
+		switch_state(Player.State.PASSING, data)

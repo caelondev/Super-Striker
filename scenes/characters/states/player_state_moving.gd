@@ -18,6 +18,8 @@ func handle_player_input() -> void:
 			transition_state(Player.State.PREP_SHOT)
 		elif KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.PASS) and ball != null:
 			transition_state(Player.State.PASSING)
+	elif can_teammate_pass_ball() and KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.PASS):
+		ball.carrier.send_pass_request(player)
 	elif KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
 		if ball.can_air_interact():
 			if player.velocity == Vector2.ZERO:
@@ -30,5 +32,11 @@ func handle_player_input() -> void:
 		elif player.velocity != Vector2.ZERO:
 			transition_state(Player.State.TACKLING)
 
+func can_pass() -> bool:
+	return true
+
 func can_carry_ball() -> bool:
 	return player.role != Player.Role.GOALIE
+
+func can_teammate_pass_ball() -> bool:
+	return ball.carrier != null and ball.carrier.control_scheme == Player.ControlScheme.CPU and ball.carrier.country == player.country

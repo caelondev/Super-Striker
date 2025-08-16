@@ -13,6 +13,9 @@ func _enter_tree() -> void:
 	time_start_shot = Time.get_ticks_msec()
 	
 
+func can_pass() -> bool:
+	return true
+
 func _process(delta) -> void:
 	shot_direction = KeyUtils.get_input_vector(player.control_scheme)
 	if KeyUtils.get_actions_just_released(player.control_scheme, KeyUtils.Action.SHOOT):

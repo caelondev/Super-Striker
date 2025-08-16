@@ -6,13 +6,15 @@ func _enter_tree():
 	player.velocity = Vector2.ZERO  
   
 func animation_complete() -> void:  
-	var colliding_player = check_nearest_player()
-	if colliding_player != null:
-		ball.pass_to(colliding_player.position + colliding_player.velocity)
+	var pass_target = player_state_data.pass_target
+	if pass_target == null:
+		pass_target = check_nearest_player()
+	if pass_target != null:
+		ball.pass_to(pass_target.position + pass_target.velocity)
 	else:
-		colliding_player = check_nearest_player()
-		if colliding_player != null:
-			ball.pass_to(colliding_player.position + colliding_player.velocity)  
+		pass_target = check_nearest_player()
+		if pass_target != null:
+			ball.pass_to(pass_target.position + pass_target.velocity)  
 		else:
 			var raycast_direction = teammate_detection_ray.global_transform.x
 			ball.pass_to(ball.position + raycast_direction * player.movement_speed)
