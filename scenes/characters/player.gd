@@ -56,8 +56,6 @@ func _ready() -> void:
 	spawn_position = global_position
 
 func _physics_process(delta) -> void:
-	if control_scheme != ControlScheme.P1:
-		movement_speed = 0
 	set_control_visibility()
 	process_gravity(delta)
 	flip_char_sprite()
