@@ -1,6 +1,6 @@
 extends Node
 
-enum Action {LEFT, RIGHT, UP, DOWN, SHOOT, PASS}
+enum Action {LEFT, RIGHT, UP, DOWN, SHOOT, PASS, SWAP}
 
 const ACTIONS_MAP : Dictionary = {
 	Player.ControlScheme.P1: {
@@ -10,6 +10,7 @@ const ACTIONS_MAP : Dictionary = {
 		Action.DOWN: "p1_walk_down",
 		Action.SHOOT: "p1_shoot",
 		Action.PASS: "p1_pass",
+		Action.SWAP: "p1_swap",
 	},
 	Player.ControlScheme.P2: {
 		Action.LEFT: "p2_walk_left",
@@ -18,6 +19,7 @@ const ACTIONS_MAP : Dictionary = {
 		Action.DOWN: "p2_walk_down",
 		Action.SHOOT: "p2_shoot",
 		Action.PASS: "p2_pass",
+		Action.SWAP: "p2_swap",
 	},	
 }
 

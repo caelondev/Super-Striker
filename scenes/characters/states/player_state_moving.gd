@@ -13,24 +13,28 @@ func handle_player_input() -> void:
 	var direction = KeyUtils.get_input_vector(player.control_scheme)
 	player.velocity = direction.normalized() * player.movement_speed
 	
-	if player.is_carrying_ball():
-		if KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT) and ball != null:
+	if KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
+		if player.is_carrying_ball() and ball != null:
 			transition_state(Player.State.PREP_SHOT)
-		elif KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.PASS) and ball != null:
-			transition_state(Player.State.PASSING)
-	elif can_teammate_pass_ball() and KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.PASS):
-		ball.carrier.send_pass_request(player)
-	elif KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.SHOOT):
-		if ball.can_air_interact():
+		elif ball.can_air_interact():
 			if player.velocity == Vector2.ZERO:
 				if player.is_facing_target_goal():
 					transition_state(Player.State.VOLLEY_KICK)
-				else: 
+				else:
 					transition_state(Player.State.BICYCLE_KICK)
 			else:
 				player.switch_state(Player.State.HEADER)
 		elif player.velocity != Vector2.ZERO:
 			transition_state(Player.State.TACKLING)
+	
+	elif KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.PASS):
+		if player.is_carrying_ball() and ball != null:
+			transition_state(Player.State.PASSING)
+		elif can_teammate_pass_ball():
+			ball.carrier.send_pass_request(player)
+	
+	elif KeyUtils.get_actions_just_pressed(player.control_scheme, KeyUtils.Action.SWAP):
+		player.swap_control_scheme_request.emit(player)
 
 func can_pass() -> bool:
 	return true

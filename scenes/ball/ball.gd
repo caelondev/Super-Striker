@@ -4,7 +4,6 @@ extends AnimatableBody2D
 const PARABOLA_DISTANCE_TRESHOLD := 130
 const TUMBLE_HEIGHT_VELOCITY := 10
 
-
 enum State {CARRIED, FREEFORM, SHOT}
 
 @export var BOUNCINESS := 0.8

@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+signal swap_control_scheme_request(player: Player)
+
 const CONTROL_HEIGHT_MAX := 30
 
 const CONTROL_SCHEME_MAP : Dictionary = {
@@ -126,6 +128,7 @@ func handle_player_input() -> void:
 func handle_animations() -> void:
 	var vel_length := velocity.length()
 	if vel_length < 1:
+		velocity = Vector2.ZERO
 		animation_player.play("Idle")
 	elif vel_length < movement_speed * 0.5:
 		animation_player.play("Walk")

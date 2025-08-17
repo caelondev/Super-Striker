@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bne1g6u0dxba3"]
+[gd_scene load_steps=7 format=3 uid="uid://bne1g6u0dxba3"]
 
 [ext_resource type="Script" uid="uid://bxa8fl4wkak35" path="res://addons/touch_screen_joystick/touch_screen_joystick.gd" id="1_n34wq"]
 [ext_resource type="Script" uid="uid://bl12b63bo5uc8" path="res://scenes/utils/mobile_ui.gd" id="1_yd8ix"]
-[ext_resource type="Texture2D" uid="uid://bohaj8sqelvvk" path="res://icon.svg" id="2_yw2sp"]
+[ext_resource type="Texture2D" uid="uid://b3yi0y0lcn0ta" path="res://assets/art/ui/MobileUI/pass.png" id="3_js3qq"]
+[ext_resource type="PackedScene" uid="uid://crnp0ep1wiq31" path="res://scenes/utils/buttons/mobile_button.tscn" id="4_cxhef"]
+[ext_resource type="Texture2D" uid="uid://df7dyjsuhexud" path="res://assets/art/ui/MobileUI/shoot.png" id="4_h4864"]
+[ext_resource type="Texture2D" uid="uid://euyl4dw7yu6r" path="res://assets/art/ui/MobileUI/swap.png" id="5_a40ix"]
 
 [node name="MobileUI" type="Control"]
 layout_mode = 3
@@ -19,19 +22,22 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Pass" type="TouchScreenButton" parent="Player_1"]
-position = Vector2(10, 10)
-scale = Vector2(0.25, 0.25)
-texture_normal = ExtResource("2_yw2sp")
-texture_pressed = ExtResource("2_yw2sp")
+[node name="Pass" parent="Player_1" instance=ExtResource("4_cxhef")]
+position = Vector2(15, 10)
 action = "p1_pass"
+icon_texture = ExtResource("3_js3qq")
+skill_cooldown = 1
 
-[node name="Shoot" type="TouchScreenButton" parent="Player_1"]
-position = Vector2(50, 10)
-scale = Vector2(0.25, 0.25)
-texture_normal = ExtResource("2_yw2sp")
-texture_pressed = ExtResource("2_yw2sp")
+[node name="Shoot" parent="Player_1" instance=ExtResource("4_cxhef")]
+position = Vector2(55, 10)
 action = "p1_shoot"
+icon_texture = ExtResource("4_h4864")
+
+[node name="Swap" parent="Player_1" instance=ExtResource("4_cxhef")]
+position = Vector2(15, 50)
+action = "p1_swap"
+icon_texture = ExtResource("5_a40ix")
+skill_cooldown = 5
 
 [node name="TouchScreenJoystick" type="Control" parent="Player_1"]
 unique_name_in_owner = true
@@ -67,19 +73,21 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 
-[node name="Pass" type="TouchScreenButton" parent="Player_2"]
-position = Vector2(0, 10)
-scale = Vector2(0.25, 0.25)
-texture_normal = ExtResource("2_yw2sp")
-texture_pressed = ExtResource("2_yw2sp")
+[node name="Pass" parent="Player_2" instance=ExtResource("4_cxhef")]
+position = Vector2(-10, 10)
 action = "p2_pass"
+icon_texture = ExtResource("3_js3qq")
 
-[node name="Shoot" type="TouchScreenButton" parent="Player_2"]
-position = Vector2(-40, 11)
-scale = Vector2(0.25, 0.25)
-texture_normal = ExtResource("2_yw2sp")
-texture_pressed = ExtResource("2_yw2sp")
+[node name="Shoot" parent="Player_2" instance=ExtResource("4_cxhef")]
+position = Vector2(-50, 10)
 action = "p2_shoot"
+icon_texture = ExtResource("4_h4864")
+
+[node name="Swap" parent="Player_2" instance=ExtResource("4_cxhef")]
+position = Vector2(-10, 50)
+action = "p2_swap"
+icon_texture = ExtResource("5_a40ix")
+skill_cooldown = 5
 
 [node name="TouchScreenJoystick2" type="Control" parent="Player_2"]
 unique_name_in_owner = true
