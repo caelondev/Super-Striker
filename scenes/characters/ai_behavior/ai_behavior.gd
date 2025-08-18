@@ -52,4 +52,4 @@ func is_ball_carried_by_teammate() -> bool:
 
 func has_opponents_nearby() -> bool:
 	var players := opponent_detection_area.get_overlapping_bodies()
-	return players.find_custom(func(p: Player): return p.country != player.country) > -1
+	return players.find_custom(func(p: Player) -> bool: return p.country != player.country) > -1

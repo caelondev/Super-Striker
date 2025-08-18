@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 KeyUtils="*res://utils/key_utils.gd"
 DataLoader="*res://utils/data_loader.gd"
-AiBehavior="*res://scenes/characters/ai_behavior/ai_behavior.gd"
+GameEvents="*res://scenes/game_events.gd"
 
 [display]
 

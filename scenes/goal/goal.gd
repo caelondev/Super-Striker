@@ -5,11 +5,22 @@ extends Node2D
 @onready var scoring_area : Area2D = %ScoringArea
 @onready var targets : Node2D = %Targets
 
+var country := ""
+
 func _ready():
 	backnet_area.body_entered.connect(on_ball_enter_backnet.bind())
+	scoring_area.body_entered.connect(on_ball_enter_scoring_area.bind())
+
+func initialize(ctx_country: String) -> void:
+	country = ctx_country
+
+
+func on_ball_enter_scoring_area(_ball: Ball) -> void:
+	GameEvents.team_scored.emit(country)
 
 func on_ball_enter_backnet(ball: Ball) -> void:
 	ball.stop()
+
 
 func get_random_target_position() -> Vector2:
 	if targets and targets.get_child_count() > 0:

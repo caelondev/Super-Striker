@@ -10,6 +10,6 @@ func _init() -> void:
 		Player.Role.DEFENSE: AIBehaviorField, #temp behavior
 	}
 
-func get_ai_behavior(role: Player.Role) -> AiBehavior:
+func get_ai_behavior(role: Player.Role) -> AIBehavior:
 	assert(roles.has(role))
 	return roles.get(role).new()

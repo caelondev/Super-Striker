@@ -41,13 +41,16 @@ var p2_swap_was_on_cooldown := false
 func _ready():
 	mobile_ui.has_two_players = two_player
 	home_squad = spawn_players(team_home, goal_home, home_spawner)
+	goal_home.initialize(team_home)
+	goal_away.initialize(team_away)
 	away_squad = spawn_players(team_away, goal_away, away_spawner)
 	time_since_p1_last_swap = Time.get_ticks_msec() - SKILL_COOLDOWN_HANDLER["swap"]
 	time_since_p2_last_swap = Time.get_ticks_msec() - SKILL_COOLDOWN_HANDLER["swap"]
 	player_1 = create_player(player_one_index, Player.ControlScheme.P1)
 	if two_player:
 		player_2 = create_player(player_two_index, Player.ControlScheme.P2)
-  
+ 
+
 func create_player(role_index: int, control_scheme: Player.ControlScheme):  
 	var player : Player = get_children().filter(func(p): return p is Player)[role_index - 1]  
 	player.control_scheme = control_scheme  

@@ -16,7 +16,7 @@ const GRAVITY := 8.0
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENSE, MIDFIELD, OFFENSE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING}
+enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOURNING}
 
 @onready var ball_detection_area : Area2D = %BallDetectionArea
 @onready var character_sprite : Sprite2D = $CharacterSprite
@@ -61,6 +61,7 @@ func _ready() -> void:
 	tackle_damage_emitter.body_entered.connect(on_player_tackle.bind())
 	permanent_damage_emitter_area.body_entered.connect(on_player_tackle.bind())
 	spawn_position = global_position
+	GameEvents.team_scored.connect(on_team_scored.bind())
 
 func _physics_process(delta) -> void:
 	set_control_visibility()
@@ -183,3 +184,10 @@ func send_pass_request(player: Player):
 	if ball.carrier == self and current_state != null and current_state.can_pass():
 		var data = PlayerStateData.build().set_pass_target(player)
 		switch_state(Player.State.PASSING, data)
+
+func on_team_scored(team_scored_on: String) -> void:
+	if country == team_scored_on:
+		switch_state(Player.State.MOURNING)
+	else:
+		switch_state(Player.State.CELEBRATING)
+	

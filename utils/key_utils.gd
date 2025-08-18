@@ -27,10 +27,10 @@ func get_input_vector(scheme: Player.ControlScheme) -> Vector2:
 	var map : Dictionary = ACTIONS_MAP[scheme]
 	return Input.get_vector(map[Action.LEFT], map[Action.RIGHT], map[Action.UP], map[Action.DOWN])
 
-func get_actions_pressed(scheme: Player.ControlScheme, action: Action):
+func get_actions_pressed(scheme: Player.ControlScheme, action: Action) -> bool:
 		return Input.is_action_pressed(ACTIONS_MAP[scheme][action])
 	
-func get_actions_just_pressed(scheme: Player.ControlScheme, action: Action):
+func get_actions_just_pressed(scheme: Player.ControlScheme, action: Action) -> bool:
 	return Input.is_action_just_pressed(ACTIONS_MAP[scheme][action])
 
 

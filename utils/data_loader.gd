@@ -3,12 +3,12 @@ extends Node
 var squads : Dictionary[String, Array]
 
 func _init() -> void:
-	var json_file = FileAccess.open("res://assets/json/squads.json", FileAccess.READ)
+	var json_file := FileAccess.open("res://assets/json/squads.json", FileAccess.READ)
 	if json_file == null:
 		print("Error! Failed to load PlayerData JSON File.")
 		return
-	var json_txt = json_file.get_as_text()
-	var json = JSON.new()
+	var json_txt := json_file.get_as_text()
+	var json := JSON.new()
 	if json.parse(json_txt) != OK:
 		print("Could not parse squads.json")
 		return
