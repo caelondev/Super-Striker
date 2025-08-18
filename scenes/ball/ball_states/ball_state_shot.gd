@@ -15,7 +15,7 @@ func _enter_tree():
 	  
 func _physics_process(delta):
 	if Time.get_ticks_msec() - time_start_shooting > SHOT_DURATION:
-		state_transition_requested.emit(Ball.State.FREEFORM)
+		transition_state(Ball.State.FREEFORM)
 	else:
 		move_and_bounce(delta)
 

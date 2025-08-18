@@ -10,13 +10,18 @@ var ball : Ball = null
 var ball_sprite : Sprite2D = null
 var carrier : Player = null
 var player_detection_area : Area2D = null
+var state_data : BallStateData = null
 
-func setup(context_ball: Ball, context_player_detection_area : Area2D, context_carrier : Player, context_animation_player : AnimationPlayer, context_ball_sprite: Sprite2D) -> void:
+func setup(context_ball: Ball, context_player_detection_area : Area2D, context_carrier : Player, context_animation_player : AnimationPlayer, context_ball_sprite: Sprite2D, ball_state_data: BallStateData) -> void:
 	ball = context_ball
 	player_detection_area = context_player_detection_area
 	carrier = context_carrier
 	animation_player = context_animation_player
 	ball_sprite = context_ball_sprite
+	state_data = ball_state_data
+
+func transition_state(ball_state: Ball.State, data: BallStateData = BallStateData.new()):
+	state_transition_requested.emit(ball_state, data)
 
 func handle_animation() -> void:
 	if ball.velocity.x < 0:

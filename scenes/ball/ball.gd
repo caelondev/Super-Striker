@@ -34,11 +34,11 @@ func _physics_process(delta):
 	else:
 		scoring_ray_cast.rotation = velocity.angle()
 
-func switch_state(state: Ball.State) -> void:
+func switch_state(state: Ball.State, data: BallStateData = BallStateData.new()) -> void:
 	if current_state != null:
 		current_state.queue_free()
 	current_state = state_factory.get_fresh_state(state)
-	current_state.setup(self, player_detection_area, carrier, animation_player, ball_sprite)
+	current_state.setup(self, player_detection_area, carrier, animation_player, ball_sprite, data)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "BallStateMachine " + str(state)
 	call_deferred("add_child", current_state)
@@ -51,7 +51,7 @@ func shoot(shot_velocity: Vector2) -> void:
 func tumble(tumble_velocity: Vector2) -> void:
 	velocity = tumble_velocity
 	carrier = null
-	switch_state(Ball.State.FREEFORM)
+	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duraion(200))
 
 func pass_to(destination: Vector2) -> void:
 	var direction := position.direction_to(destination)
@@ -61,7 +61,7 @@ func pass_to(destination: Vector2) -> void:
 	if distance >= PARABOLA_DISTANCE_TRESHOLD:
 		height_velocity = BallState.GRAVITY * distance / (1.9 * intensity)
 	carrier = null
-	switch_state(Ball.State.FREEFORM)
+	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duraion(200))
 
 func can_air_interact() -> bool:
 	return current_state != null and current_state.can_air_interact()
