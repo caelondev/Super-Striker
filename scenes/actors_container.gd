@@ -12,12 +12,9 @@ const PLAYER_SWAP_COOLDOWN := 5000
   
   
 @onready var mobile_ui := $"../CanvasLayer/MobileUI"  
-  
 @export var ball : Ball  
 @export var goal_home : Goal  
-@export var goal_away : Goal  
-@export var team_home : String  
-@export var team_away : String  
+@export var goal_away : Goal
 @export var two_player : bool  
   
 @onready var home_spawner : Marker2D = %HomeSpawners  
@@ -30,9 +27,10 @@ var time_since_p1_last_swap := Time.get_ticks_msec()
 var time_since_p2_last_swap := Time.get_ticks_msec()  
 var player_one_index := 4  
 var player_two_index := 10  
-
 var player_1 : Player = null
 var player_2 : Player = null
+var team_home := GameManager.countries[0]
+var team_away := GameManager.countries[1]
 
 # Track previous cooldown states to avoid unnecessary signal emissions
 var p1_swap_was_on_cooldown := false

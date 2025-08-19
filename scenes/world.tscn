@@ -36,8 +36,6 @@ script = ExtResource("4_e3hyu")
 ball = NodePath("Ball")
 goal_home = NodePath("FieldObjects/GoalHome")
 goal_away = NodePath("FieldObjects/GoalAway")
-team_home = "BRAZIL"
-team_away = "GERMANY"
 
 [node name="HomeSpawners" type="Marker2D" parent="ActorsContainer"]
 unique_name_in_owner = true

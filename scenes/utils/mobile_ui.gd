@@ -5,6 +5,7 @@ signal enable_button(button : String, control_scheme: Player.ControlScheme)
 
 @onready var player_one_control_buttons := %Player_1
 @onready var player_two_control_buttons := %Player_2
+@onready var player_one_joystick := %TouchScreenJoystick
 @onready var player_two_joystick := %TouchScreenJoystick2
 
 var has_two_players = false
@@ -56,3 +57,7 @@ func get_player_control(player_control_scheme: Player.ControlScheme) -> Array[No
 	elif player_control_scheme == Player.ControlScheme.P2:
 		return player_two_control_buttons.get_children()
 	return []
+
+func disable_joysticks() -> void:
+	player_one_joystick.use_input_actions = false
+	player_two_joystick.use_input_actions = false
