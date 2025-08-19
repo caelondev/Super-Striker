@@ -5,7 +5,7 @@ const MAX_CAPTURE_HEIGHT := 25
 var time_since_freeform := Time.get_ticks_msec()
 
 func _enter_tree():
-	player_detection_area.body_entered.connect(on_player_pickup.bind())
+	player_detection_area.area_entered.connect(on_player_pickup.bind())
 
 func _physics_process(delta: float) -> void:
 	player_detection_area.monitoring = (Time.get_ticks_msec() - time_since_freeform > state_data.lock_duration)
@@ -15,7 +15,8 @@ func _physics_process(delta: float) -> void:
 	ball.velocity = ball.velocity.move_toward(Vector2.ZERO, friction * delta)
 	move_and_bounce(delta)
 
-func on_player_pickup(body: Player) -> void:
+func on_player_pickup(area: Area2D) -> void:
+	var body = area.get_parent()
 	if body.can_carry_ball() and ball.height < MAX_CAPTURE_HEIGHT:
 		ball.carrier = body
 		body.control_ball()
