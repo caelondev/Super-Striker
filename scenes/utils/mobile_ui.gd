@@ -58,6 +58,10 @@ func get_player_control(player_control_scheme: Player.ControlScheme) -> Array[No
 		return player_two_control_buttons.get_children()
 	return []
 
+func enable_joysticks() -> void:
+	player_one_joystick.use_input_actions = true
+	player_two_joystick.use_input_actions = true
+
 func disable_joysticks() -> void:
 	player_one_joystick.use_input_actions = false
 	player_two_joystick.use_input_actions = false

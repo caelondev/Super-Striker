@@ -16,7 +16,7 @@ const GRAVITY := 8.0
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENSE, MIDFIELD, OFFENSE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOURNING}
+enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOURNING, RESETTING}
 
 @onready var ball_carry_area : Area2D = %BallCarryArea
 @onready var ball_detection_area : Area2D = %BallDetectionArea
@@ -45,6 +45,7 @@ var full_name := "PlayerName"
 var heading := Vector2.RIGHT
 var height := 0.0
 var height_velocity := 0.0
+var kickoff_position := Vector2.ZERO
 var role := Player.Role.MIDFIELD
 var skin_color := Player.SkinColor.MEDIUM
 var queue_control := false
@@ -63,6 +64,7 @@ func _ready() -> void:
 	permanent_damage_emitter_area.body_entered.connect(on_player_tackle.bind())
 	spawn_position = global_position
 	GameEvents.team_scored.connect(on_team_scored.bind())
+	GameEvents.team_reset.connect(on_reset.bind())
 
 func _physics_process(delta) -> void:
 	set_control_visibility()
@@ -88,7 +90,7 @@ func set_shader_properties() -> void:
 	country_color = clampi(country_color, 0, COUNTRIES.size() - 1)
 	character_sprite.material.set_shader_parameter("team_color", country_color)
 
-func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_goal: Goal, c_player_data: PlayerResources, c_country: String) -> void:
+func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_goal: Goal, c_player_data: PlayerResources, c_country: String, c_kickoff_position: Vector2) -> void:
 	position = c_position
 	ball = c_ball
 	own_goal = c_own_goal
@@ -101,6 +103,7 @@ func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_go
 	skin_color = c_player_data.skin_color
 	heading = Vector2.LEFT if target_goal.global_position.x < global_position.x else Vector2.RIGHT
 	country = c_country
+	kickoff_position = c_kickoff_position
 
 func process_gravity(delta: float) -> void:
 	if height > 0:
@@ -191,4 +194,14 @@ func on_team_scored(team_scored_on: String) -> void:
 		switch_state(Player.State.MOURNING)
 	else:
 		switch_state(Player.State.CELEBRATING)
-	
+
+func on_reset() -> void:
+	velocity = Vector2.ZERO
+	switch_state(State.RESETTING)
+
+func face_towards_target_goal() -> void:
+	if not is_facing_target_goal():
+		heading *= -1
+
+func is_ready_for_kickoff() -> bool:
+	return current_state != null and current_state.is_ready_for_kickoff()

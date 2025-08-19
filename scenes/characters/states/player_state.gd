@@ -40,3 +40,9 @@ func can_carry_ball() -> bool:
 
 func can_pass() -> bool:
 	return false
+
+func is_mobile_ui_shown() -> bool:
+	return true
+
+func is_ready_for_kickoff() -> bool:
+	return false

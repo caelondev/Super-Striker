@@ -31,11 +31,22 @@ ball = NodePath("../ActorsContainer/Ball")
 [node name="Background" parent="." instance=ExtResource("1_nnsk1")]
 
 [node name="ActorsContainer" type="Node2D" parent="." node_paths=PackedStringArray("ball", "goal_home", "goal_away")]
+unique_name_in_owner = true
 y_sort_enabled = true
 script = ExtResource("4_e3hyu")
 ball = NodePath("Ball")
 goal_home = NodePath("FieldObjects/GoalHome")
 goal_away = NodePath("FieldObjects/GoalAway")
+
+[node name="Kickoff" type="Marker2D" parent="ActorsContainer"]
+unique_name_in_owner = true
+position = Vector2(425, 180)
+
+[node name="KickoffPosition" type="Marker2D" parent="ActorsContainer/Kickoff"]
+position = Vector2(-20, 0)
+
+[node name="KickoffPosition2" type="Marker2D" parent="ActorsContainer/Kickoff"]
+position = Vector2(-5, 30)
 
 [node name="HomeSpawners" type="Marker2D" parent="ActorsContainer"]
 unique_name_in_owner = true
@@ -141,7 +152,7 @@ collision_mask = 0
 polygon = PackedVector2Array(21, 0, 27, 0, 13, 117, 6, 117)
 
 [node name="Ball" parent="ActorsContainer" instance=ExtResource("4_71j4m")]
-position = Vector2(321, 181)
+position = Vector2(425, 180)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -18,8 +18,10 @@ const PLAYER_SWAP_COOLDOWN := 5000
 @export var two_player : bool  
   
 @onready var home_spawner : Marker2D = %HomeSpawners  
-@onready var away_spawner : Marker2D = %AwaySpawners  
-  
+@onready var away_spawner : Marker2D = %AwaySpawners
+@onready var kickoff : Marker2D = %Kickoff
+
+var is_checking_for_kickoff_readiness := false
 var home_squad : Array[Player] = []  
 var away_squad : Array[Player] = []  
 var time_since_last_weight_cache := Time.get_ticks_msec()  
@@ -40,6 +42,7 @@ func _ready():
 	mobile_ui.has_two_players = two_player
 	home_squad = spawn_players(team_home, goal_home, home_spawner)
 	goal_home.initialize(team_home)
+	kickoff.scale.x = -1
 	goal_away.initialize(team_away)
 	away_squad = spawn_players(team_away, goal_away, away_spawner)
 	time_since_p1_last_swap = Time.get_ticks_msec() - SKILL_COOLDOWN_HANDLER["swap"]
@@ -47,7 +50,7 @@ func _ready():
 	player_1 = create_player(player_one_index, Player.ControlScheme.P1)
 	if two_player:
 		player_2 = create_player(player_two_index, Player.ControlScheme.P2)
- 
+	GameEvents.team_reset.connect(on_team_reset.bind())
 
 func create_player(role_index: int, control_scheme: Player.ControlScheme):  
 	var player : Player = get_children().filter(func(p): return p is Player)[role_index - 1]  
@@ -55,9 +58,25 @@ func create_player(role_index: int, control_scheme: Player.ControlScheme):
 	player.set_control_sprite()
 	return player
   
-func _physics_process(_delta: float) -> void:  
-	set_duty_weights()
+func _physics_process(_delta: float) -> void:
+	if Time.get_ticks_msec() - time_since_last_weight_cache > WEIGHT_CACHE_CALCULATION:
+		set_duty_weights()
+	
+	if is_checking_for_kickoff_readiness:
+		check_for_kickoff_readiness()
+	
 	update_button_cooldowns()
+
+func check_for_kickoff_readiness() -> void:
+	for squad in [home_squad, away_squad]:
+		for player : Player in squad:
+			if not player.is_ready_for_kickoff():
+				return
+	GameEvents.kickoff_ready.emit()
+	is_checking_for_kickoff_readiness = false
+
+func on_team_reset() -> void:
+	is_checking_for_kickoff_readiness = true
 
 func update_button_cooldowns() -> void:
 	# Check P1 swap cooldown
@@ -146,15 +165,18 @@ func spawn_players(country: String, own_goal: Goal, spawner: Marker2D) -> Array[
 	var target_goal := goal_home if own_goal == goal_away else goal_away  
 	for i in players.size():  
 		var player_position := spawner.get_child(i).global_position as Vector2  
-		var player_data = players[i] as PlayerResources  
-		var player := spawn_player(player_position, ball, own_goal, target_goal, player_data, country)  
+		var player_data = players[i] as PlayerResources
+		var kickoff_position := player_position
+		if i > 3:
+			kickoff_position = kickoff.get_child(i-4).global_position as Vector2
+		var player := spawn_player(player_position, ball, own_goal, target_goal, player_data, country, kickoff_position)  
 		player_squad.append(player)  
 		add_child(player)  
 	return player_squad  
   
-func spawn_player(player_pos: Vector2, ctx_ball: Ball, own_goal: Goal, target_goal: Goal, player_data: PlayerResources, country: String) -> Player:  
+func spawn_player(player_pos: Vector2, ctx_ball: Ball, own_goal: Goal, target_goal: Goal, player_data: PlayerResources, country: String, kickoff_position: Vector2) -> Player:  
 	var player := PLAYER_SCENE.instantiate()  
-	player.initialize(player_pos, ctx_ball, own_goal, target_goal, player_data, country)  
+	player.initialize(player_pos, ctx_ball, own_goal, target_goal, player_data, country, kickoff_position)  
 	player.swap_control_scheme_request.connect(on_player_swap_request.bind())  
 	return player  
   

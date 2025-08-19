@@ -25,6 +25,7 @@ var velocity := Vector2.ZERO
 
 func _ready():
 	spawn_location = global_position
+	GameEvents.team_reset.connect(on_reset.bind())
 	switch_state(State.FREEFORM)
 
 func _physics_process(delta):
@@ -76,3 +77,8 @@ func is_headed_for_scoring_area(scoring_area: Area2D) -> bool:
 	if not scoring_ray_cast.is_colliding():
 		return false
 	return scoring_ray_cast.get_collider() == scoring_area
+
+func on_reset() -> void:
+	velocity = Vector2.ZERO
+	global_position = spawn_location
+	switch_state(State.FREEFORM)

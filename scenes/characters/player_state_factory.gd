@@ -15,6 +15,7 @@ func _init():
 		Player.State.PASSING: PlayerStatePassing,
 		Player.State.PREP_SHOT: PlayerStatePreppingShot,
 		Player.State.RECOVERING: PlayerStateRecovering,
+		Player.State.RESETTING: PlayerStateResetting,
 		Player.State.SHOOTING: PlayerStateShooting,
 		Player.State.TACKLING: PlayerStateTackling,
 		Player.State.VOLLEY_KICK: PlayerStateVolleyKick,

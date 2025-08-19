@@ -19,18 +19,18 @@
 		"speed": 77,
 		"power": 167,
 	}, {
-		"name": "A. GRIEZMANN",
-		"skin": 0,
-		"role": 2,
-		"speed": 74,
-		"power": 172,
-	}, {
 		"name": "K. MBAPPE",
 		"skin": 1,
 		"role": 3,
 		"speed": 85,
 		"power": 185,
 	}, {
+		"name": "A. GRIEZMANN",
+		"skin": 0,
+		"role": 2,
+		"speed": 74,
+		"power": 172,
+	},  {
 		"name": "O. GIROUD",
 		"skin": 0,
 		"role": 3,
