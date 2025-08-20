@@ -43,6 +43,3 @@ func can_pass() -> bool:
 
 func is_mobile_ui_shown() -> bool:
 	return true
-
-func is_ready_for_kickoff() -> bool:
-	return false

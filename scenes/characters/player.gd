@@ -202,6 +202,3 @@ func on_reset() -> void:
 func face_towards_target_goal() -> void:
 	if not is_facing_target_goal():
 		heading *= -1
-
-func is_ready_for_kickoff() -> bool:
-	return current_state != null and current_state.is_ready_for_kickoff()

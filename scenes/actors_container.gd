@@ -50,7 +50,6 @@ func _ready():
 	player_1 = create_player(player_one_index, Player.ControlScheme.P1)
 	if two_player:
 		player_2 = create_player(player_two_index, Player.ControlScheme.P2)
-	GameEvents.team_reset.connect(on_team_reset.bind())
 
 func create_player(role_index: int, control_scheme: Player.ControlScheme):  
 	var player : Player = get_children().filter(func(p): return p is Player)[role_index - 1]  
@@ -62,22 +61,7 @@ func _physics_process(_delta: float) -> void:
 	if Time.get_ticks_msec() - time_since_last_weight_cache > WEIGHT_CACHE_CALCULATION:
 		set_duty_weights()
 	
-	if is_checking_for_kickoff_readiness:
-		check_for_kickoff_readiness()
-	
 	update_button_cooldowns()
-
-func check_for_kickoff_readiness() -> void:
-	for squad in [home_squad, away_squad]:
-		for player : Player in squad:
-			if not player.is_ready_for_kickoff():
-				return
-	GameEvents.kickoff_ready.emit()
-	is_checking_for_kickoff_readiness = false
-
-func on_team_reset() -> void:
-	is_checking_for_kickoff_readiness = true
-
 func update_button_cooldowns() -> void:
 	# Check P1 swap cooldown
 	var p1_time_left = get_cooldown_time_left(team_home, "swap")
