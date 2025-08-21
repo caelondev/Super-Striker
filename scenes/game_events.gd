@@ -1,4 +1,6 @@
 extends Node
 
-signal team_reset
+signal player_ready()
+signal ready_for_kickoff()
+signal team_reset()
 signal team_scored(team: String)

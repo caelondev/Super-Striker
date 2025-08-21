@@ -21,7 +21,6 @@ const PLAYER_SWAP_COOLDOWN := 5000
 @onready var away_spawner : Marker2D = %AwaySpawners
 @onready var kickoff : Marker2D = %Kickoff
 
-var is_checking_for_kickoff_readiness := false
 var home_squad : Array[Player] = []  
 var away_squad : Array[Player] = []  
 var time_since_last_weight_cache := Time.get_ticks_msec()  
@@ -60,8 +59,8 @@ func create_player(role_index: int, control_scheme: Player.ControlScheme):
 func _physics_process(_delta: float) -> void:
 	if Time.get_ticks_msec() - time_since_last_weight_cache > WEIGHT_CACHE_CALCULATION:
 		set_duty_weights()
-	
 	update_button_cooldowns()
+
 func update_button_cooldowns() -> void:
 	# Check P1 swap cooldown
 	var p1_time_left = get_cooldown_time_left(team_home, "swap")
