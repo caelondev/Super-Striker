@@ -1,5 +1,6 @@
 extends Node
 
+signal start_kickoff()
 signal player_ready()
 signal ready_for_kickoff()
 signal team_reset()

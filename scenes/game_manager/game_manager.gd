@@ -6,6 +6,7 @@ enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAMEOVER}
 
 var countries : Array[String] = ["FRANCE", "USA"]
 var current_state : GameState = null
+var player_setup : Array[String] = ["FRANCE", ""]
 var score := [0, 0]
 var state_factory := GameStateFactory.new()
 var time_left : float
@@ -14,7 +15,7 @@ var ready_players := 0
 func _ready() -> void:
 	time_left = DURATION_GAME_SEC
 	GameEvents.player_ready.connect(on_player_ready.bind())
-	switch_state(State.IN_PLAY)
+	switch_state(State.RESET)
 
 func switch_state(state: State, state_data: GameStateData = GameStateData.new()) -> void:
 	if current_state != null:
@@ -30,3 +31,9 @@ func on_player_ready() -> void:
 	ready_players += 1
 	if ready_players >= 12:
 		GameEvents.ready_for_kickoff.emit()
+
+func is_coop() -> bool:
+	return player_setup[0] == player_setup[1]
+
+func is_single_player() -> bool:
+	return player_setup[1].is_empty()

@@ -37,6 +37,9 @@ var team_away := GameManager.countries[1]
 var p1_swap_was_on_cooldown := false
 var p2_swap_was_on_cooldown := false
 
+func _init() -> void:
+	GameEvents.team_reset.connect(on_team_reset.bind())
+
 func _ready():
 	mobile_ui.has_two_players = two_player
 	home_squad = spawn_players(team_home, goal_home, home_spawner)
@@ -46,15 +49,7 @@ func _ready():
 	away_squad = spawn_players(team_away, goal_away, away_spawner)
 	time_since_p1_last_swap = Time.get_ticks_msec() - SKILL_COOLDOWN_HANDLER["swap"]
 	time_since_p2_last_swap = Time.get_ticks_msec() - SKILL_COOLDOWN_HANDLER["swap"]
-	player_1 = create_player(player_one_index, Player.ControlScheme.P1)
-	if two_player:
-		player_2 = create_player(player_two_index, Player.ControlScheme.P2)
-
-func create_player(role_index: int, control_scheme: Player.ControlScheme):  
-	var player : Player = get_children().filter(func(p): return p is Player)[role_index - 1]  
-	player.control_scheme = control_scheme  
-	player.set_control_sprite()
-	return player
+	setup_control_scheme()
   
 func _physics_process(_delta: float) -> void:
 	if Time.get_ticks_msec() - time_since_last_weight_cache > WEIGHT_CACHE_CALCULATION:
@@ -206,3 +201,23 @@ func on_player_swap_request(requester: Player) -> void:
 		closest_cpu_to_ball.control_scheme = scheme  
 		closest_cpu_to_ball.set_control_sprite()  
 		refresh_cooldown(requester.country, "swap")
+
+func setup_control_scheme() -> void:
+	var p1_team := home_squad if GameManager.player_setup[0] == home_squad[0].country else away_squad
+	var p2_team := away_squad if p1_team == home_squad else home_squad
+	
+	for team in [home_squad, away_squad]:
+		for player : Player in team:
+			player.set_control_scheme(Player.ControlScheme.CPU)
+	
+	if GameManager.is_coop():
+		player_1 = p1_team[4].set_control_scheme(Player.ControlScheme.P1)
+		player_2 = p1_team[5].set_control_scheme(Player.ControlScheme.P2)
+	elif GameManager.is_single_player():
+		player_1 = p1_team[3].set_control_scheme(Player.ControlScheme.P1)
+	else:
+		player_1 = p1_team[3].set_control_scheme(Player.ControlScheme.P1)
+		player_2 = p2_team[3].set_control_scheme(Player.ControlScheme.P2)
+
+func on_team_reset() -> void:
+	setup_control_scheme()

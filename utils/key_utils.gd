@@ -23,6 +23,14 @@ const ACTIONS_MAP : Dictionary = {
 	},	
 }
 
+var _is_screen_pressed := false
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		_is_screen_pressed = true
+	else:
+		_is_screen_pressed = false
+
 func get_input_vector(scheme: Player.ControlScheme) -> Vector2:
 	var map : Dictionary = ACTIONS_MAP[scheme]
 	return Input.get_vector(map[Action.LEFT], map[Action.RIGHT], map[Action.UP], map[Action.DOWN])
@@ -36,3 +44,6 @@ func get_actions_just_pressed(scheme: Player.ControlScheme, action: Action) -> b
 
 func get_actions_just_released(scheme: Player.ControlScheme, action: Action) -> bool:
 	return Input.is_action_just_released(ACTIONS_MAP[scheme][action])
+
+func get_screen_pressed() -> bool:
+	return _is_screen_pressed

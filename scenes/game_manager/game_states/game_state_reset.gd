@@ -6,4 +6,4 @@ func _enter_tree() -> void:
 	GameEvents.team_reset.emit()
 
 func on_kickoff_ready() -> void:
-	transition_state(GameManager.State.KICKOFF)
+	transition_state(GameManager.State.KICKOFF, state_data)

@@ -1,6 +1,6 @@
 class_name GameStateData
 
-var country_scored_on : String
+var country_scored_on : String = GameManager.countries[0]
 
 static func build() -> GameStateData:
 	return GameStateData.new()

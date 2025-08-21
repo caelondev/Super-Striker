@@ -55,7 +55,6 @@ var weight_on_duty_stearing := 0.0
 
 func _ready() -> void:
 	setup_ai()
-	switch_state(State.MOVING)
 	set_control_sprite()
 	set_shader_properties()
 	goalie_hands_collider.disabled = role != Role.GOALIE
@@ -64,7 +63,11 @@ func _ready() -> void:
 	permanent_damage_emitter_area.body_entered.connect(on_player_tackle.bind())
 	spawn_position = global_position
 	GameEvents.team_scored.connect(on_team_scored.bind())
+	GameEvents.start_kickoff.connect(on_kickoff_started.bind())
 	GameEvents.team_reset.connect(on_reset.bind())
+	
+	switch_state(State.RESETTING)
+
 
 func _physics_process(delta) -> void:
 	set_control_visibility()
@@ -197,8 +200,17 @@ func on_team_scored(team_scored_on: String) -> void:
 
 func on_reset() -> void:
 	velocity = Vector2.ZERO
-	switch_state(State.RESETTING)
+	var location := kickoff_position if GameStateData.build().country_scored_on == country else spawn_position
+	switch_state(State.RESETTING, PlayerStateData.build().set_reset_position(location))
 
 func face_towards_target_goal() -> void:
 	if not is_facing_target_goal():
 		heading *= -1
+
+func set_control_scheme(scheme: ControlScheme) -> Player:
+	control_scheme = scheme
+	set_control_sprite()
+	return self
+
+func on_kickoff_started() -> void:
+	switch_state(Player.State.MOVING)
