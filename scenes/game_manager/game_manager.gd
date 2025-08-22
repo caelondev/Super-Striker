@@ -1,6 +1,6 @@
 extends Node
 
-const DURATION_GAME_SEC := 2 * 60
+const DURATION_GAME_SEC := 2 #* 60
 
 enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAMEOVER}
 
@@ -38,3 +38,21 @@ func is_coop() -> bool:
 
 func is_single_player() -> bool:
 	return player_setup[1].is_empty()
+
+func is_game_tied() -> bool:
+	return score[0] == score[1]
+
+func get_winner_country() -> String:
+	assert(not is_game_tied())
+	return countries[0] if score[0] > score[1] else countries[1]
+
+func is_times_up() -> bool:
+	return time_left <= 0
+
+func increase_score(country_scored_on: String) -> void:
+	var index_country_scoring := 1 if  country_scored_on == countries[0] else 0
+	score[index_country_scoring] += 1
+	GameEvents.score_changed.emit()
+
+func has_someone_scored() -> bool:
+	return score[0] > 0 or score[1] > 0

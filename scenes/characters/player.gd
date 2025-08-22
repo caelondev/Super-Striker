@@ -65,6 +65,7 @@ func _ready() -> void:
 	GameEvents.team_scored.connect(on_team_scored.bind())
 	GameEvents.start_kickoff.connect(on_kickoff_started.bind())
 	GameEvents.team_reset.connect(on_reset.bind())
+	GameEvents.game_over.connect(on_game_over.bind())
 	
 	switch_state(State.RESETTING)
 
@@ -214,3 +215,9 @@ func set_control_scheme(scheme: ControlScheme) -> Player:
 
 func on_kickoff_started() -> void:
 	switch_state(Player.State.MOVING)
+
+func on_game_over(winner: String) -> void:
+	if winner == country:
+		animation_player.play("Celebrate")
+	else:
+		animation_player.play("Mourn")
