@@ -31,6 +31,7 @@ func on_player_ready() -> void:
 	ready_players += 1
 	if ready_players >= 12:
 		GameEvents.ready_for_kickoff.emit()
+		ready_players = 0
 
 func is_coop() -> bool:
 	return player_setup[0] == player_setup[1]

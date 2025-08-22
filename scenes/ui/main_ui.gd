@@ -1,14 +1,21 @@
 class_name MainUI
 extends Control
 
+@onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var flag_texture : Array[TextureRect] = [%HomeFlag, %AwayFlag]
+@onready var goal_scorer_label: Label = %GoalScorerLabel
+@onready var score_info_label : Label = %LeadLabel
 @onready var score_label : Label = %ScoreLabel
 @onready var player_label : Label = %PlayerLabel
 @onready var time_label : Label = %TimeLabel
 
+var last_ball_carrier := ""
+
 func _init() -> void:
 	GameEvents.ball_carried.connect(on_ball_carried.bind())
 	GameEvents.ball_freeform.connect(on_ball_freeform.bind())
+	GameEvents.score_changed.connect(on_score_changed.bind())
+	GameEvents.team_reset.connect(on_team_reset.bind())
 
 func _ready() -> void:
 	update_score()
@@ -18,7 +25,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	update_clock()
-	update_score()
 
 func update_flags() -> void:
 	for i in flag_texture.size():
@@ -36,6 +42,16 @@ func update_clock() -> void:
 
 func on_ball_carried(carrier_name: String) -> void:
 	player_label.text = carrier_name
+	last_ball_carrier = carrier_name
 
 func on_ball_freeform() -> void:
 	player_label.text = "FREEFORM"
+
+func on_score_changed() -> void:
+	goal_scorer_label.text = "%s SCORED!" % [last_ball_carrier]
+	score_info_label.text = ScoreHelper.get_current_score_info(GameManager.countries, GameManager.score)
+	animation_player.play("GoalAppear")
+	update_score()
+
+func on_team_reset() -> void:
+	animation_player.play("GoalHide")
