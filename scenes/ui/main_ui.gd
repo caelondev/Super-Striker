@@ -9,7 +9,7 @@ extends Control
 @onready var player_label : Label = %PlayerLabel
 @onready var time_label : Label = %TimeLabel
 
-var last_ball_carrier := ""
+@export var ball : Ball
 
 func _init() -> void:
 	GameEvents.ball_carried.connect(on_ball_carried.bind())
@@ -43,7 +43,6 @@ func update_clock() -> void:
 
 func on_ball_carried(carrier_name: String) -> void:
 	player_label.text = carrier_name
-	last_ball_carrier = carrier_name
 
 func on_ball_freeform() -> void:
 	player_label.text = "FREEFORM"
@@ -52,7 +51,7 @@ func on_score_changed() -> void:
 	if GameManager.is_times_up():
 		return
 	
-	goal_scorer_label.text = "%s SCORED!" % [last_ball_carrier]
+	goal_scorer_label.text = "%s SCORED!" % [ball.last_ball_holder.full_name]
 	score_info_label.text = ScoreHelper.get_current_score_info(GameManager.countries, GameManager.score)
 	animation_player.play("GoalAppear")
 	update_score()

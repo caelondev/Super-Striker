@@ -51,3 +51,6 @@ func move_and_bounce(delta: float) -> void:
 
 func can_air_interact() -> bool:
 	return false
+
+func can_summon_shot_particle() -> bool:
+	return false

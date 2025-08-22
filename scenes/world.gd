@@ -1,10 +1,11 @@
 extends Node2D
 
 @onready var mobile_ui := %MobileUI
+@onready var game_ui := %UI
 @onready var actors_container := %ActorsContainer
 
 func _ready():
-	mobile_ui.show()
+	game_ui.show()
 
 func _physics_process(delta):
 	if Input.is_action_pressed("ui_cancel"):
@@ -14,7 +15,7 @@ func _physics_process(delta):
 	var players := []
 	if actors_container.player_1 != null:
 		players.append(actors_container.player_1)
-	if actors_container.two_player and actors_container.player_2 != null:
+	if actors_container.player_2 != null:
 		players.append(actors_container.player_2)
 
 	# check if any player's state blocks the UI

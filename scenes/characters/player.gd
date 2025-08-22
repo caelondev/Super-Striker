@@ -29,6 +29,8 @@ enum State {MOVING, TACKLING, RECOVERING, PASSING, PREP_SHOT, SHOOTING, HEADER, 
 @onready var teammate_detection_ray : RayCast2D = %TeammateDetectionRay
 @onready var tackle_damage_emitter : Area2D = %TackleDamageEmitter
 @onready var opponent_detection_area : Area2D = %OpponentDetectionArea
+@onready var running_particles : GPUParticles2D = %RunningParticles
+@onready var root_particles : Node2D = %RootParticles
 
 @export var own_goal : Goal
 @export var target_goal : Goal
@@ -75,6 +77,7 @@ func _physics_process(delta) -> void:
 	process_gravity(delta)
 	flip_char_sprite()
 	handle_aim_rotation()
+	handle_particles()
 	move_and_slide()
 
 func handle_aim_rotation() -> void:
@@ -144,6 +147,9 @@ func handle_animations() -> void:
 	else:
 		animation_player.play("Run")
 
+func handle_particles() -> void:
+	running_particles.emitting = velocity.length() > movement_speed * 0.5
+
 func set_control_sprite() -> void:
 	control_sprite.texture = CONTROL_SCHEME_MAP[control_scheme]
 
@@ -158,10 +164,12 @@ func flip_char_sprite() -> void:
 		character_sprite.flip_h = false
 		tackle_damage_emitter.scale.x = 1
 		opponent_detection_area.scale.x = 1
+		root_particles.scale.x = 1
 	elif heading == Vector2.LEFT:
 		character_sprite.flip_h = true
 		tackle_damage_emitter.scale.x = -1
 		opponent_detection_area.scale.x = -1
+		root_particles.scale.x = -1
 
 func is_carrying_ball() -> bool:
 	return ball.carrier == self
@@ -218,6 +226,6 @@ func on_kickoff_started() -> void:
 
 func on_game_over(winner: String) -> void:
 	if winner == country:
-		animation_player.play("Celebrate")
+		switch_state(Player.State.CELEBRATING)
 	else:
-		animation_player.play("Mourn")
+		switch_state(Player.State.MOURNING)

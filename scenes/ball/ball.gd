@@ -1,6 +1,7 @@
 class_name Ball
 extends AnimatableBody2D
 
+const MINIMUM_IMPACT_VELOCITY := 250
 const PARABOLA_DISTANCE_TRESHOLD := 130
 const TUMBLE_HEIGHT_VELOCITY := 10
 
@@ -14,7 +15,9 @@ enum State {CARRIED, FREEFORM, SHOT}
 @onready var ball_sprite : Sprite2D = %BallSprite
 @onready var player_detection_area : Area2D = %PlayerDetectionArea
 @onready var scoring_ray_cast : RayCast2D = %ScoringRayCast
+@onready var shot_particles : GPUParticles2D = %ShotParticles
 
+var last_ball_holder : Player = null
 var carrier : Player = null
 var current_state : BallState = null
 var height := 0.0
@@ -34,6 +37,8 @@ func _physics_process(delta):
 		scoring_ray_cast.rotation = carrier.velocity.angle()
 	else:
 		scoring_ray_cast.rotation = velocity.angle()
+	
+	handle_trail_particle()
 
 func switch_state(state: Ball.State, data: BallStateData = BallStateData.new()) -> void:
 	if current_state != null:
@@ -44,8 +49,10 @@ func switch_state(state: Ball.State, data: BallStateData = BallStateData.new()) 
 	current_state.name = "BallStateMachine " + str(state)
 	call_deferred("add_child", current_state)
 
-func shoot(shot_velocity: Vector2) -> void:
+func shoot(shot_velocity: Vector2, shot_requester: Player) -> void:
 	velocity = shot_velocity
+	last_ball_holder = shot_requester
+	GameEvents.impact_received.emit(global_position, shot_velocity.length() >= MINIMUM_IMPACT_VELOCITY)
 	carrier = null
 	switch_state(Ball.State.SHOT)
 
@@ -54,10 +61,11 @@ func tumble(tumble_velocity: Vector2) -> void:
 	carrier = null
 	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duraion(200))
 
-func pass_to(destination: Vector2) -> void:
+func pass_to(destination: Vector2, ball_passer: Player) -> void:
 	var direction := position.direction_to(destination)
 	var distance := position.distance_to(destination)
 	var intensity := sqrt(2 * distance * FRICTION_GROUND)
+	last_ball_holder = ball_passer
 	velocity = intensity * direction
 	if distance >= PARABOLA_DISTANCE_TRESHOLD:
 		height_velocity = BallState.GRAVITY * distance / (1.9 * intensity)
@@ -82,3 +90,7 @@ func on_reset() -> void:
 	velocity = Vector2.ZERO
 	global_position = spawn_location
 	switch_state(State.FREEFORM)
+
+func handle_trail_particle() -> void:
+	var condition = current_state != null and current_state.can_summon_shot_particle() and velocity != Vector2.ZERO 
+	shot_particles.emitting = condition

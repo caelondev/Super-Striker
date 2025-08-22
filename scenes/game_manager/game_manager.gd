@@ -1,6 +1,7 @@
 extends Node
 
-const DURATION_GAME_SEC := 2 #* 60
+const DURATION_IMPACT_PAUSE := 200
+const DURATION_GAME_SEC := 2 * 60
 
 enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAMEOVER}
 
@@ -11,11 +12,20 @@ var score : Array[int] = [0, 0]
 var state_factory := GameStateFactory.new()
 var time_left : float
 var ready_players := 0
+var time_since_last_pause := Time.get_ticks_msec()
+
+func _init() -> void:
+	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
 	time_left = DURATION_GAME_SEC
+	GameEvents.impact_received.connect(on_impact_received.bind())
 	GameEvents.player_ready.connect(on_player_ready.bind())
 	switch_state(State.RESET)
+
+func _physics_process(delta: float) -> void:
+	if get_tree().paused and Time.get_ticks_msec() - time_since_last_pause > DURATION_IMPACT_PAUSE:
+		get_tree().paused = false
 
 func switch_state(state: State, state_data: GameStateData = GameStateData.new()) -> void:
 	if current_state != null:
@@ -31,7 +41,6 @@ func on_player_ready() -> void:
 	ready_players += 1
 	if ready_players >= 12:
 		GameEvents.ready_for_kickoff.emit()
-		ready_players = 0
 
 func is_coop() -> bool:
 	return player_setup[0] == player_setup[1]
@@ -56,3 +65,8 @@ func increase_score(country_scored_on: String) -> void:
 
 func has_someone_scored() -> bool:
 	return score[0] > 0 or score[1] > 0
+
+func on_impact_received(_impact_position: Vector2, is_high_intensity: bool) -> void:
+	if is_high_intensity:
+		time_since_last_pause = Time.get_ticks_msec()
+		get_tree().paused = true

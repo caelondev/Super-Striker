@@ -1,11 +1,28 @@
-[gd_scene load_steps=34 format=3 uid="uid://p7hq710g3vrm"]
+[gd_scene load_steps=38 format=3 uid="uid://p7hq710g3vrm"]
 
 [ext_resource type="Texture2D" uid="uid://y3vxnx8dkyex" path="res://assets/art/characters/soccer-player.png" id="1_rp718"]
 [ext_resource type="Script" uid="uid://fgmhxntynykg" path="res://scenes/characters/player.gd" id="1_yewv4"]
+[ext_resource type="Texture2D" uid="uid://0lqxnnwoe1fq" path="res://assets/art/particles/white-circle.png" id="2_6eyoc"]
 [ext_resource type="Shader" uid="uid://b2rd3b236j2l0" path="res://shaders/team_handler.gdshader" id="2_kqtwu"]
 [ext_resource type="Texture2D" uid="uid://c3gpuumcxa62a" path="res://assets/art/palettes/skin-colors-palette.png" id="3_6eyoc"]
 [ext_resource type="Texture2D" uid="uid://dv5dkimb607mu" path="res://assets/art/characters/player-shadow.png" id="3_76oj4"]
 [ext_resource type="Texture2D" uid="uid://d0a33be15gp1c" path="res://assets/art/palettes/teams-color-palette.png" id="4_eojnx"]
+
+[sub_resource type="Curve" id="Curve_eojnx"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qgnko"]
+curve = SubResource("Curve_eojnx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7vyk4"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, -80, 0)
+scale_min = 0.3
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_qgnko")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_76oj4"]
 resource_local_to_scene = true
@@ -409,6 +426,16 @@ power = 150.0
 metadata/_edit_horizontal_guides_ = [-22.0]
 metadata/_edit_vertical_guides_ = [-192.0, -197.0]
 
+[node name="RootParticles" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="RunningParticles" type="GPUParticles2D" parent="RootParticles"]
+unique_name_in_owner = true
+position = Vector2(-5, 0)
+texture = ExtResource("2_6eyoc")
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_7vyk4")
+
 [node name="CharacterSprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_76oj4")
 texture = ExtResource("1_rp718")
@@ -483,6 +510,7 @@ target_position = Vector2(300, 0)
 collision_mask = 2
 
 [node name="TeammateDetectionArea" type="Area2D" parent="."]
+visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TeammateDetectionArea"]
@@ -512,6 +540,7 @@ shape = SubResource("CapsuleShape2D_6eyoc")
 
 [node name="BallCarryArea" type="Area2D" parent="."]
 unique_name_in_owner = true
+visible = false
 collision_layer = 64
 collision_mask = 0
 monitoring = false

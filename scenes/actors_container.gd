@@ -8,6 +8,7 @@ const SKILL_COOLDOWN_HANDLER := {
 }  
 const WEIGHT_CACHE_CALCULATION := 200  
 const PLAYER_SCENE := preload("res://scenes/characters/player.tscn")  
+const SPARK_SCENE := preload("res://scenes/sparks/spark.tscn")
 const PLAYER_SWAP_COOLDOWN := 5000  
   
   
@@ -39,6 +40,7 @@ var p2_swap_was_on_cooldown := false
 
 func _init() -> void:
 	GameEvents.team_reset.connect(on_team_reset.bind())
+	GameEvents.impact_received.connect(on_impact_received.bind())
 
 func _ready():
 	mobile_ui.has_two_players = two_player
@@ -221,3 +223,8 @@ func setup_control_scheme() -> void:
 
 func on_team_reset() -> void:
 	setup_control_scheme()
+
+func on_impact_received(impact_position: Vector2, _is_high_impact: bool) -> void:
+	var spark := SPARK_SCENE.instantiate()
+	spark.global_position = impact_position
+	call_deferred("add_child", spark)

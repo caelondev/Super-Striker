@@ -1,15 +1,18 @@
 class_name PlayerStateCelebrating
 extends PlayerState
 
-const AIR_FRICTION := 35
+const AIR_FRICTION := 60
 const CELEBRATING_HEIGHT := 2.0
+
+var initial_delay := randf_range(0, 800)
+var time_since_delay := Time.get_ticks_msec()
 
 func _enter_tree() -> void:
 	GameEvents.team_reset.connect(on_team_reset.bind())
 	celebrate()
 
 func _physics_process(delta: float) -> void:
-	if player.height <= 0:
+	if player.height <= 0 and Time.get_ticks_msec() - time_since_delay > initial_delay:
 		celebrate()
 	player.velocity = player.velocity.move_toward(Vector2.ZERO, delta * AIR_FRICTION)
 

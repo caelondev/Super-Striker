@@ -5,6 +5,59 @@
 [ext_resource type="Texture2D" uid="uid://d021ppiff2mbj" path="res://assets/art/ui/goal.png" id="3_l8t6x"]
 [ext_resource type="Texture2D" uid="uid://dff8npl5qwhup" path="res://assets/art/ui/times-up.png" id="4_travt"]
 
+[sub_resource type="Animation" id="Animation_b1beo"]
+resource_name = "GameOver"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimesUpTexture:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BottomUI:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mask:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.313726)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LeadLabel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_l8t6x"]
 resource_name = "GoalAppear"
 length = 0.4
@@ -55,7 +108,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.313726)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.235294)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -120,7 +173,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.313726), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0.235294), Color(1, 1, 1, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -210,59 +263,6 @@ tracks/5/keys = {
 "values": [Vector2(1e-05, 1e-05)]
 }
 
-[sub_resource type="Animation" id="Animation_b1beo"]
-resource_name = "GameOver"
-length = 0.4
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TimesUpTexture:scale")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1e-05, 1e-05), Vector2(1.1, 1.1), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BottomUI:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Mask:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.313726)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("LeadLabel:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_46cp5"]
 _data = {
 &"GameOver": SubResource("Animation_b1beo"),
@@ -279,6 +279,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hcnxy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_46cp5")
+}
 
 [node name="Mask" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -324,6 +330,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
 text = "PlayerName"
 vertical_alignment = 1
+uppercase = true
 
 [node name="HomeFlag" type="TextureRect" parent="BottomUI/HBoxContainer"]
 unique_name_in_owner = true
@@ -339,6 +346,7 @@ layout_mode = 2
 text = "0-0"
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
 [node name="AwayFlag" type="TextureRect" parent="BottomUI/HBoxContainer"]
 unique_name_in_owner = true
@@ -354,6 +362,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
 horizontal_alignment = 2
 vertical_alignment = 1
+uppercase = true
 
 [node name="GoalTexture" type="TextureRect" parent="."]
 layout_mode = 1
@@ -390,6 +399,7 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0.933333, 0.8, 0, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
+uppercase = true
 
 [node name="LeadLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -409,12 +419,7 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0.933333, 0.584314, 0, 1)
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_46cp5")
-}
+uppercase = true
 
 [node name="TimesUpTexture" type="TextureRect" parent="."]
 layout_mode = 1
@@ -424,9 +429,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -100.0
-offset_top = -80.0
+offset_top = -75.0
 offset_right = 100.0
-offset_bottom = 30.0
+offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)

@@ -156,9 +156,11 @@ polygon = PackedVector2Array(21, 0, 27, 0, 13, 117, 6, 117)
 position = Vector2(425, 180)
 
 [node name="UI" type="CanvasLayer" parent="."]
-
-[node name="MobileUI" parent="UI" instance=ExtResource("4_k0juu")]
 unique_name_in_owner = true
 visible = false
 
-[node name="MainUI" parent="UI" instance=ExtResource("11_e3hyu")]
+[node name="MobileUI" parent="UI" instance=ExtResource("4_k0juu")]
+unique_name_in_owner = true
+
+[node name="MainUI" parent="UI" node_paths=PackedStringArray("ball") instance=ExtResource("11_e3hyu")]
+ball = NodePath("../../ActorsContainer/Ball")
