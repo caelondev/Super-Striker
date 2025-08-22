@@ -9,6 +9,7 @@ var dribble_time := 0.0
 
 func _enter_tree():
 	assert(carrier != null)
+	GameEvents.ball_carried.emit(carrier.full_name)
 
 func _physics_process(delta):
 	process_gravity(delta)
@@ -27,3 +28,6 @@ func _physics_process(delta):
 		animation_player.play("Idle")
 	
 	ball.global_position = carrier.global_position + Vector2(vx + carrier.heading.x * BALL_TO_PLAYER_OFFSET.x, BALL_TO_PLAYER_OFFSET.y)
+
+func _exit_tree() -> void:
+	GameEvents.ball_freeform.emit()

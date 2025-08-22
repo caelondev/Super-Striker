@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1lr5o2ydtchc"]
+[gd_scene load_steps=13 format=3 uid="uid://d1lr5o2ydtchc"]
 
 [ext_resource type="Script" uid="uid://br2bes1b8lrdv" path="res://scenes/world.gd" id="1_k0juu"]
 [ext_resource type="PackedScene" uid="uid://5vuci8rbf0fa" path="res://scenes/background.tscn" id="1_nnsk1"]
@@ -6,10 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://corsystmuyfss" path="res://scenes/ball/ball.tscn" id="4_71j4m"]
 [ext_resource type="Script" uid="uid://co82uhafnbxfw" path="res://scenes/actors_container.gd" id="4_e3hyu"]
 [ext_resource type="PackedScene" uid="uid://c4a5741qtpctx" path="res://scenes/goal/goal.tscn" id="4_i7141"]
-[ext_resource type="PackedScene" uid="uid://bne1g6u0dxba3" path="res://scenes/utils/mobile_ui.tscn" id="4_k0juu"]
+[ext_resource type="PackedScene" uid="uid://bne1g6u0dxba3" path="res://scenes/ui/mobile_ui.tscn" id="4_k0juu"]
 [ext_resource type="Texture2D" uid="uid://cucxb51frrtke" path="res://assets/art/backgrounds/top-wall.png" id="5_4mrxx"]
 [ext_resource type="Texture2D" uid="uid://dgbto0j20l4fc" path="res://assets/art/backgrounds/bottom-wall.png" id="6_7r4gi"]
 [ext_resource type="Texture2D" uid="uid://0miunmh2hrf6" path="res://assets/art/backgrounds/side-wall.png" id="7_w7kh3"]
+[ext_resource type="PackedScene" uid="uid://mrrpi7cekimh" path="res://scenes/ui/main_ui.tscn" id="11_e3hyu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w7kh3"]
 size = Vector2(824, 8)
@@ -154,8 +155,10 @@ polygon = PackedVector2Array(21, 0, 27, 0, 13, 117, 6, 117)
 [node name="Ball" parent="ActorsContainer" instance=ExtResource("4_71j4m")]
 position = Vector2(425, 180)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="MobileUI" parent="CanvasLayer" instance=ExtResource("4_k0juu")]
+[node name="MobileUI" parent="UI" instance=ExtResource("4_k0juu")]
 unique_name_in_owner = true
 visible = false
+
+[node name="MainUI" parent="UI" instance=ExtResource("11_e3hyu")]

@@ -11,7 +11,7 @@ const PLAYER_SCENE := preload("res://scenes/characters/player.tscn")
 const PLAYER_SWAP_COOLDOWN := 5000  
   
   
-@onready var mobile_ui := $"../CanvasLayer/MobileUI"  
+@onready var mobile_ui := %MobileUI
 @export var ball : Ball  
 @export var goal_home : Goal  
 @export var goal_away : Goal
