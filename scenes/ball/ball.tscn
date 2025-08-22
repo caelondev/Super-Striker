@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://corsystmuyfss"]
+[gd_scene load_steps=15 format=3 uid="uid://corsystmuyfss"]
 
 [ext_resource type="Texture2D" uid="uid://d1hqgxi8xn3wu" path="res://assets/art/props/soccer-ball.png" id="1_nv6q1"]
 [ext_resource type="Script" uid="uid://b3hcbys6mh1kj" path="res://scenes/ball/ball.gd" id="1_stoaj"]
@@ -86,19 +86,14 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_rp1mh"]
 radius = 4.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbgth"]
+radius = 60.0
+
 [node name="Ball" type="AnimatableBody2D"]
 collision_layer = 4
 collision_mask = 33
 sync_to_physics = false
 script = ExtResource("1_stoaj")
-
-[node name="ShotParticles" type="GPUParticles2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(0, -8)
-amount = 30
-texture = ExtResource("2_xotqv")
-lifetime = 0.3
-process_material = SubResource("ParticleProcessMaterial_a81tc")
 
 [node name="BallSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -106,6 +101,15 @@ texture = ExtResource("1_nv6q1")
 centered = false
 offset = Vector2(-5, -10)
 hframes = 4
+
+[node name="ShotParticles" type="GPUParticles2D" parent="BallSprite"]
+unique_name_in_owner = true
+z_index = -1
+position = Vector2(0, -8)
+amount = 30
+texture = ExtResource("2_xotqv")
+lifetime = 0.3
+process_material = SubResource("ParticleProcessMaterial_a81tc")
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_stoaj")
@@ -139,3 +143,12 @@ target_position = Vector2(80, 0)
 collision_mask = 16
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="PlayerProximityArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerProximityArea"]
+shape = SubResource("CircleShape2D_jbgth")

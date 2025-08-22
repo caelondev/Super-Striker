@@ -21,6 +21,7 @@ func perform_ai_movement() -> void:
 				total_steering_force += get_spawn_steering_force()
 			elif ball.carrier == null:
 				total_steering_force += get_ball_proximity_steering_force()
+				total_steering_force += get_density_around_ball_steering_force()
 	
 	total_steering_force = total_steering_force.limit_length(1.0)
 	player.velocity = total_steering_force * player.movement_speed
@@ -75,3 +76,18 @@ func has_teammate_in_range() -> bool:
 	else:
 		var players := teammate_detection_area.get_overlapping_bodies()
 		return players.find_custom(func(p: Player): return p != player and p.country == player.country and p.role != Player.Role.GOALIE) > -1
+
+func get_density_around_ball_steering_force() -> Vector2:
+	var nb_teammates_near_ball := ball.get_proximity_teammate_count(player.country)
+
+	# If no teammate is near the ball, do nothing (AI can go chase)
+	if nb_teammates_near_ball <= 0:
+		return Vector2.ZERO
+
+	# Weight gets stronger if there are more teammates already around the ball
+	var weight := clampf(1.0 - (1.0 / float(nb_teammates_near_ball)), 0.0, 1.0)
+
+	# Repel: move AWAY from the ball
+	var direction := ball.global_position.direction_to(player.global_position)
+
+	return weight * direction

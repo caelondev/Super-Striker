@@ -14,6 +14,7 @@ enum State {CARRIED, FREEFORM, SHOT}
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var ball_sprite : Sprite2D = %BallSprite
 @onready var player_detection_area : Area2D = %PlayerDetectionArea
+@onready var player_proximity_area : Area2D = %PlayerProximityArea
 @onready var scoring_ray_cast : RayCast2D = %ScoringRayCast
 @onready var shot_particles : GPUParticles2D = %ShotParticles
 
@@ -94,3 +95,7 @@ func on_reset() -> void:
 func handle_trail_particle() -> void:
 	var condition = current_state != null and current_state.can_summon_shot_particle() and velocity != Vector2.ZERO 
 	shot_particles.emitting = condition
+
+func get_proximity_teammate_count(country: String) -> int:
+	var player := player_proximity_area.get_overlapping_bodies()
+	return player.filter(func(p: Player) -> bool: return p.country == country).size()
