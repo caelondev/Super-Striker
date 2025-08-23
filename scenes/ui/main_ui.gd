@@ -8,10 +8,13 @@ extends Control
 @onready var score_label : Label = %ScoreLabel
 @onready var player_label : Label = %PlayerLabel
 @onready var time_label : Label = %TimeLabel
+@onready var start_label : Label = %StartLabel
 
 @export var ball : Ball
 
 func _init() -> void:
+	GameEvents.ready_for_kickoff.connect(on_ready_kickoff.bind())
+	GameEvents.start_kickoff.connect(on_kickoff_started.bind())
 	GameEvents.ball_carried.connect(on_ball_carried.bind())
 	GameEvents.ball_freeform.connect(on_ball_freeform.bind())
 	GameEvents.score_changed.connect(on_score_changed.bind())
@@ -63,3 +66,11 @@ func on_team_reset() -> void:
 func on_game_over(_winner: String) -> void:
 	score_info_label.text = ScoreHelper.get_final_score_info(GameManager.countries, GameManager.score)
 	animation_player.play("GameOver")
+
+func on_ready_kickoff() -> void:
+	start_label.text = "CLICK ANYWHERE TO CONTINUE..."
+	animation_player.play("StartAppear")
+
+func on_kickoff_started() -> void:
+	animation_player.stop()
+	animation_player.play("blank")

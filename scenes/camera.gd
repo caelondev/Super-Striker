@@ -6,7 +6,7 @@ const DURATION_SHAKE := 100
 const SHAKE_INTENSITY := 5
 const SMOOTHING_BALL_CARRIED = 1.5
 const SMOOTHING_BALL_DEFAULT = 3
-const ZOOM_DISTANCE := Vector2(1.0, 1.0) * 1.5
+const ZOOM_DISTANCE := Vector2(1.0, 1.0) * 1.3
 const FREECAM_BUFFER := Vector2.DOWN * 15
 
 @export var ball : Ball

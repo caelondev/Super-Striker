@@ -2,8 +2,9 @@ class_name PlayerStatePassing
 extends PlayerState  
   
 func _enter_tree():  
-	animation_player.play("Kick")  
-	player.velocity = Vector2.ZERO  
+	animation_player.play("Kick")
+	AudioManager.play(AudioManager.Audio.PASS)
+	player.velocity = Vector2.ZERO
   
 func animation_complete() -> void:  
 	var pass_target = player_state_data.pass_target

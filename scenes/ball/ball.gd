@@ -1,7 +1,7 @@
 class_name Ball
 extends AnimatableBody2D
 
-const MINIMUM_IMPACT_VELOCITY := 250
+const MINIMUM_IMPACT_VELOCITY := 230
 const PARABOLA_DISTANCE_TRESHOLD := 130
 const TUMBLE_HEIGHT_VELOCITY := 10
 

@@ -47,6 +47,7 @@ func move_and_bounce(delta: float) -> void:
 	var collider = ball.move_and_collide(ball.velocity * delta)
 	if collider != null:
 		ball.velocity = ball.velocity.bounce(collider.get_normal()) * ball.BOUNCINESS
+		AudioManager.play(AudioManager.Audio.BOUNCE)
 		ball.switch_state(Ball.State.FREEFORM)
 
 func can_air_interact() -> bool:

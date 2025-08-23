@@ -16,6 +16,7 @@ func initialize(ctx_country: String) -> void:
 
 
 func on_ball_enter_scoring_area(_ball: Ball) -> void:
+	AudioManager.play(AudioManager.Audio.WHISTLE)
 	GameEvents.team_scored.emit(country)
 
 func on_ball_enter_backnet(ball: Ball) -> void:
