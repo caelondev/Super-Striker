@@ -72,7 +72,7 @@ collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBorder"]
-position = Vector2(16, -32.5)
+position = Vector2(17, -32)
 shape = SubResource("RectangleShape2D_0jila")
 
 [node name="ScoringArea" type="Area2D" parent="."]
@@ -82,5 +82,5 @@ collision_mask = 4
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScoringArea"]
-position = Vector2(10, -34)
+position = Vector2(12, -36)
 shape = SubResource("RectangleShape2D_8q8dj")
