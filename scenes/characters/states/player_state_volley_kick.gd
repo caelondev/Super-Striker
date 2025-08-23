@@ -16,4 +16,5 @@ func on_ball_enter(context_ball: Ball) -> void:
 	if context_ball.can_air_connect(BALL_HEIGHT_MIN, BALL_HEIGHT_MAX):
 		var destination = (target_goal.get_random_target_position() - ball.global_position).normalized()
 		AudioManager.play(AudioManager.Audio.POWERSHOT)
+		GameEvents.released_powershot.emit(player)
 		ball.shoot(destination * player.power * BONUS_POWER, player)

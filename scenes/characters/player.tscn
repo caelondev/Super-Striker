@@ -408,9 +408,8 @@ size = Vector2(300, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eojnx"]
 size = Vector2(7, 7)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6eyoc"]
-radius = 4.0
-height = 22.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgnko"]
+size = Vector2(22, 6)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eojnx"]
 radius = 4.0
@@ -465,7 +464,7 @@ offset = Vector2(-8, -15)
 [node name="ControlSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 visible = false
-position = Vector2(0, -40)
+position = Vector2(0, -35)
 centered = false
 offset = Vector2(-7, -6)
 
@@ -529,14 +528,17 @@ position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_eojnx")
 
 [node name="GoalieHands" type="AnimatableBody2D" parent="."]
+unique_name_in_owner = true
 collision_layer = 32
 collision_mask = 0
 sync_to_physics = false
 
 [node name="GoalieHandsCollider" type="CollisionShape2D" parent="GoalieHands"]
 unique_name_in_owner = true
-position = Vector2(0, -15)
-shape = SubResource("CapsuleShape2D_6eyoc")
+position = Vector2(0, -13)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_qgnko")
+one_way_collision = true
 
 [node name="BallCarryArea" type="Area2D" parent="."]
 unique_name_in_owner = true

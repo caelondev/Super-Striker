@@ -63,6 +63,7 @@ func _ready() -> void:
 	tackle_damage_emitter.body_entered.connect(on_player_tackle.bind())
 	permanent_damage_emitter_area.body_entered.connect(on_player_tackle.bind())
 	spawn_position = global_position
+	%GoalieHands.scale.x = 1 if own_goal.name == "GoalHome" else -1
 	GameEvents.team_scored.connect(on_team_scored.bind())
 	GameEvents.start_kickoff.connect(on_kickoff_started.bind())
 	GameEvents.team_reset.connect(on_reset.bind())
@@ -80,9 +81,10 @@ func _physics_process(delta) -> void:
 	move_and_slide()
 
 func handle_aim_rotation() -> void:
+	var direction := KeyUtils.get_input_vector(control_scheme)
 	if velocity != Vector2.ZERO:
-		teammate_detection_ray.rotation = velocity.angle()
-		teammate_detection_area.rotation = velocity.angle()	
+		teammate_detection_ray.rotation = direction.angle()
+		teammate_detection_area.rotation = direction.angle()	
 
 func setup_ai() -> void:
 	current_ai_behavior = ai_behavior_factory.get_ai_behavior(role)

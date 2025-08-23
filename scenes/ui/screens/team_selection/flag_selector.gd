@@ -1,0 +1,22 @@
+class_name FlagSelector
+extends Control
+
+@onready var animation_player : AnimationPlayer = %AnimationPlayer
+@onready var p1_indicator : TextureRect = %Indicator1P
+@onready var p2_indicator : TextureRect = %Indicator2P
+
+var control_scheme : Player.ControlScheme = Player.ControlScheme.P1
+var is_selected := false
+
+func _ready() -> void:
+	p1_indicator.visible = control_scheme == Player.ControlScheme.P1
+	p2_indicator.visible = control_scheme == Player.ControlScheme.P2
+
+func _process(delta: float) -> void:
+	if not is_selected and KeyUtils.get_actions_just_pressed(control_scheme, KeyUtils.Action.SHOOT):
+		is_selected
+		animation_player.play("Selected")
+		AudioManager.play(AudioManager.Audio.UI_SELECT)
+	elif is_selected and KeyUtils.get_actions_just_pressed(control_scheme, KeyUtils.Action.PASS):
+		is_selected = false
+		animation_player.play("Selecting")

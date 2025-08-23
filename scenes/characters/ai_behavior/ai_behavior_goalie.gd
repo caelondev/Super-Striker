@@ -5,9 +5,6 @@ const PROXIMITY_CONCERN := 10.0
 
 func perform_ai_movement() -> void:
 	var total_steering_force := get_goalie_steering_force()
-	
-	
-	
 	total_steering_force = total_steering_force.limit_length(1.0)
 	player.velocity = total_steering_force * player.movement_speed
 
@@ -19,7 +16,8 @@ func perform_ai_decisions() -> void:
 			else:
 				player.switch_state(Player.State.MOVING)
 		else:
-			player.switch_state(Player.State.DIVING)
+			if ball.velocity != Vector2.ZERO:
+				player.switch_state(Player.State.DIVING)
 
 func get_goalie_steering_force() -> Vector2:
 	if ball.carrier == null or ball.carrier.country == player.country:

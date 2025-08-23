@@ -37,9 +37,8 @@ func perform_ai_decisions() -> void:
 				var shot_direction := player.position.direction_to(player.target_goal.get_random_target_position())
 				var data := PlayerStateData.build().set_shot_power(player.power).set_shot_direction(shot_direction)
 				player.switch_state(Player.State.SHOOTING, data)
-			elif has_opponents_nearby() and randf() < PASS_PROBABILITY:
-				if has_opponents_nearby():
-					player.switch_state(Player.State.PASSING)
+			elif has_opponents_nearby() and has_teammate_in_range() and randf() < PASS_PROBABILITY:
+				player.switch_state(Player.State.PASSING)
 
 func get_onduty_steering_force() -> Vector2:
 	if ball.carrier != null:

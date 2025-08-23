@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Super Striker"
-run/main_scene="uid://2gkctcsttsbf"
+run/main_scene="uid://d1lr5o2ydtchc"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 

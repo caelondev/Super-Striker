@@ -32,6 +32,8 @@ func _input(event: InputEvent) -> void:
 		_is_screen_pressed = false
 
 func get_input_vector(scheme: Player.ControlScheme) -> Vector2:
+	if not ACTIONS_MAP.has(scheme):
+		return Vector2.ZERO
 	var map : Dictionary = ACTIONS_MAP[scheme]
 	return Input.get_vector(map[Action.LEFT], map[Action.RIGHT], map[Action.UP], map[Action.DOWN])
 

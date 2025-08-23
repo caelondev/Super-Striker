@@ -252,7 +252,6 @@ texture = ExtResource("2_xsv71")
 stretch_mode = 4
 
 [node name="Mask" type="TextureRect" parent="Background"]
-visible = false
 modulate = Color(0, 0, 0, 0.784314)
 layout_mode = 1
 anchors_preset = 1

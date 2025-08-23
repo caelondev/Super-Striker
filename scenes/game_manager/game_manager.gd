@@ -1,10 +1,10 @@
 extends Node
 
-const DURATION_IMPACT_PAUSE := 200
 const DURATION_GAME_SEC := 2 * 60
 
 enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAMEOVER}
 
+var duration_impact_pause := 400
 var countries : Array[String] = ["FRANCE", "USA"]
 var current_state : GameState = null
 var player_setup : Array[String] = ["FRANCE", ""]
@@ -24,7 +24,7 @@ func _ready() -> void:
 	switch_state(State.RESET)
 
 func _physics_process(delta: float) -> void:
-	if get_tree().paused and Time.get_ticks_msec() - time_since_last_pause > DURATION_IMPACT_PAUSE:
+	if get_tree().paused and Time.get_ticks_msec() - time_since_last_pause > duration_impact_pause:
 		get_tree().paused = false
 
 func switch_state(state: State, state_data: GameStateData = GameStateData.new()) -> void:

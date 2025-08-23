@@ -93,7 +93,7 @@ func on_reset() -> void:
 	switch_state(State.FREEFORM)
 
 func handle_trail_particle() -> void:
-	var condition = current_state != null and current_state.can_summon_shot_particle() and velocity != Vector2.ZERO 
+	var condition = current_state != null and current_state.can_summon_shot_particle()
 	shot_particles.emitting = condition
 
 func get_proximity_teammate_count(country: String) -> int:
