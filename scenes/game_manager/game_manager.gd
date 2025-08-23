@@ -7,7 +7,7 @@ enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAMEOVER}
 var duration_impact_pause := 400
 var countries : Array[String] = ["FRANCE", "USA"]
 var current_state : GameState = null
-var player_setup : Array[String] = ["FRANCE", "FRANCE"]
+var player_setup : Array[String] = ["FRANCE", ""]
 var score : Array[int] = [0, 0]
 var state_factory := GameStateFactory.new()
 var time_left : float
@@ -21,11 +21,13 @@ func _ready() -> void:
 	time_left = DURATION_GAME_SEC
 	GameEvents.impact_received.connect(on_impact_received.bind())
 	GameEvents.player_ready.connect(on_player_ready.bind())
-	switch_state(State.RESET)
 
 func _physics_process(delta: float) -> void:
 	if get_tree().paused and Time.get_ticks_msec() - time_since_last_pause > duration_impact_pause:
 		get_tree().paused = false
+
+func start_game() -> void:
+	switch_state(State.RESET)
 
 func switch_state(state: State, state_data: GameStateData = GameStateData.new()) -> void:
 	if current_state != null:
@@ -56,7 +58,7 @@ func get_winner_country() -> String:
 	return countries[0] if score[0] > score[1] else countries[1]
 
 func is_times_up() -> bool:
-	return time_left <= 0
+	return time_left < 1
 
 func increase_score(country_scored_on: String) -> void:
 	var index_country_scoring := 1 if  country_scored_on == countries[0] else 0

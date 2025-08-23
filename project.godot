@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Super Striker"
-run/main_scene="uid://d1lr5o2ydtchc"
+run/main_scene="uid://boic67bvl43kt"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 KeyUtils="*res://utils/key_utils.gd"
 DataLoader="*res://utils/data_loader.gd"
-GameEvents="*res://scenes/game_events.gd"
+GameEvents="*res://scenes/ui/screens/world/game_events.gd"
 GameManager="*res://scenes/game_manager/game_manager.gd"
 AudioManager="*res://scenes/audio/audio_manager.gd"
 

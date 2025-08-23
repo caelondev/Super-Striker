@@ -76,8 +76,8 @@ func pass_to(destination: Vector2, ball_passer: Player) -> void:
 func can_air_interact() -> bool:
 	return current_state != null and current_state.can_air_interact()
 
-func can_air_connect(AIR_CONNECT_MIN_HEIGHT: float, AIR_CONNECT_MAX_HEIGHT: float) -> bool:
-	return height >= AIR_CONNECT_MIN_HEIGHT and height <= AIR_CONNECT_MAX_HEIGHT
+func can_air_connect(requester: Player, AIR_CONNECT_MIN_HEIGHT: float, AIR_CONNECT_MAX_HEIGHT: float) -> bool:
+	return last_ball_holder != null and requester.country == last_ball_holder.country and height >= AIR_CONNECT_MIN_HEIGHT and height <= AIR_CONNECT_MAX_HEIGHT
 
 func stop() -> void:
 	velocity = Vector2.ZERO

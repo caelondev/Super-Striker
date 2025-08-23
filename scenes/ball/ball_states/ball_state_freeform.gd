@@ -23,4 +23,4 @@ func on_player_pickup(area: Area2D) -> void:
 		transition_state(Ball.State.CARRIED)
 
 func can_air_interact() -> bool:
-	return true
+	return ball.velocity != Vector2.ZERO and ball.height > 0

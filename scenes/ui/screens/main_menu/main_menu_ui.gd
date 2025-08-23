@@ -1,5 +1,5 @@
 class_name MainMenu
-extends Control
+extends Screen
 
 const MENU_TEXTURE := [
 	[preload("res://assets/art/ui/mainmenu/1-player.png"), preload("res://assets/art/ui/mainmenu/1-player-selected.png")],
@@ -55,6 +55,7 @@ func submit_selection() -> void:
 	AudioManager.play(AudioManager.Audio.UI_SELECT)
 	var player_two := "" if current_selected_index == 0 else country_default
 	GameManager.player_setup = ["FRANCE", player_two]
+	transition_screen(SuperStriker.ScreenType.TEAM_SELECTION)
 
 func animation_complete() -> void:
 	refresh_ui()

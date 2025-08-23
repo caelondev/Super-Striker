@@ -50,6 +50,7 @@ func _physics_process(delta):
 			global_position = ball.global_position
 		if is_powershot_used and player != null:
 			distance_to_player = global_position.direction_to(player.global_position)
+			ball.z_index = 1
 			target_zoom = POWERSHOT_HIGHLIGHT_ZOOM
 			global_position = player.global_position
 			highlight_timer -= delta
@@ -57,6 +58,7 @@ func _physics_process(delta):
 			if highlight_timer <= 0.0:
 				is_powershot_used = false
 				player = null
+				ball.z_index = 0
 	else:
 		global_position = ball.last_ball_holder.global_position + FREECAM_BUFFER
 		target_zoom = ZOOM_DISTANCE

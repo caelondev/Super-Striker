@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://boic67bvl43kt"]
+
+[ext_resource type="Script" uid="uid://b3drvw3x1jue2" path="res://super_striker.gd" id="1_u7whq"]
+
+[node name="SuperStriker" type="Node"]
+script = ExtResource("1_u7whq")

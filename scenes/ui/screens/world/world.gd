@@ -1,10 +1,14 @@
-extends Node2D
+class_name WorldScreen
+extends Screen
 
 @onready var mobile_ui := %MobileUI
 @onready var game_ui := %UI
 @onready var actors_container := %ActorsContainer
 
 var players : Array[Player] = []
+
+func _enter_tree() -> void:
+	GameManager.start_game()
 
 func _ready() -> void:
 	game_ui.show()
@@ -15,9 +19,6 @@ func _ready() -> void:
 		players.append(actors_container.player_2)
 
 func _physics_process(delta):
-	if Input.is_action_pressed("ui_cancel"):
-		get_tree().quit()
-
 	var hide_ui := false
 	for player: Player in players:
 		hide_ui = not player.current_state.is_mobile_ui_shown()

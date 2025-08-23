@@ -1,22 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://cn53vf8udvvmp"]
+[gd_scene load_steps=9 format=3 uid="uid://cn53vf8udvvmp"]
 
 [ext_resource type="Texture2D" uid="uid://cji288pewvlnw" path="res://assets/art/ui/teamselection/team-selection-background.png" id="1_2hpw6"]
 [ext_resource type="Script" uid="uid://tsojdgwxe0rg" path="res://scenes/ui/screens/team_selection/team_selection_menu.gd" id="1_rj2gt"]
 [ext_resource type="Texture2D" uid="uid://d2127kx1aa5w2" path="res://assets/art/ui/teamselection/select-team-label.png" id="2_d64sc"]
 [ext_resource type="PackedScene" uid="uid://de4koaxp67dwu" path="res://scenes/ui/screens/team_selection/team_selection_buttons.tscn" id="4_74ce7"]
 [ext_resource type="Texture2D" uid="uid://coiwibbaekvj5" path="res://assets/art/ui/1x1.png" id="5_6khlm"]
+[ext_resource type="Texture2D" uid="uid://bh1sg4xsqo532" path="res://assets/art/ui/teamselection/mobile_ui/buttonSelect.png" id="6_5i84j"]
+[ext_resource type="Texture2D" uid="uid://ddlafnxlue3p1" path="res://assets/art/ui/teamselection/mobile_ui/buttonStart.png" id="7_vh5mm"]
+[ext_resource type="Texture2D" uid="uid://cj0ap7xjt7pom" path="res://assets/art/ui/teamselection/mobile_ui/exitLeft.png" id="8_1fbme"]
 
-[node name="TeamSelectionMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="TeamSelectionMenu" type="Node"]
 script = ExtResource("1_rj2gt")
 
 [node name="Background" type="TextureRect" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -48,7 +44,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TeamSelectionButtons" parent="." instance=ExtResource("4_74ce7")]
-layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_right = 0.0
@@ -64,7 +59,6 @@ up = "p1_walk_up"
 down = "p1_walk_down"
 
 [node name="TeamSelectionButtons2" parent="." instance=ExtResource("4_74ce7")]
-layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -80,7 +74,7 @@ up = "p2_walk_up"
 down = "p2_walk_down"
 
 [node name="Control" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -92,58 +86,64 @@ offset_right = 180.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Select" type="ColorRect" parent="Control"]
+[node name="Select" type="TextureRect" parent="Control"]
+unique_name_in_owner = true
+modulate = Color(1, 0.807843, 0, 1)
 layout_mode = 0
-offset_left = 32.0
-offset_top = 12.0
-offset_right = 88.0
-offset_bottom = 36.0
-color = Color(1, 0.827451, 0.054902, 1)
-
-[node name="Label" type="Label" parent="Control/Select"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.967615, 0.967615, 0.967615, 1)
-text = "Select"
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
+offset_left = 40.0
+offset_top = -20.0
+offset_right = 140.0
+offset_bottom = 80.0
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(100, 0)
+texture = ExtResource("6_5i84j")
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="Control/Select"]
 modulate = Color(1, 1, 1, 0)
-scale = Vector2(56, 24)
+position = Vector2(8.57143, 27.1429)
+scale = Vector2(85.7143, 48.5714)
 texture_normal = ExtResource("5_6khlm")
 action = "p1_shoot"
 
-[node name="Select2" type="ColorRect" parent="Control"]
+[node name="Select2" type="TextureRect" parent="Control"]
+unique_name_in_owner = true
+modulate = Color(1, 0.807843, 0, 1)
 layout_mode = 0
-offset_left = 272.0
-offset_top = 12.0
-offset_right = 328.0
-offset_bottom = 36.0
-color = Color(1, 0.827451, 0.054902, 1)
+offset_left = 232.0
+offset_top = -20.0
+offset_right = 332.0
+offset_bottom = 80.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_5i84j")
 
-[node name="Label2" type="Label" parent="Control/Select2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "Select"
-horizontal_alignment = 1
-vertical_alignment = 1
-uppercase = true
-
-[node name="TouchScreenButton2" type="TouchScreenButton" parent="Control/Select2"]
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Control/Select2"]
 modulate = Color(1, 1, 1, 0)
-scale = Vector2(56, 24)
+position = Vector2(8.33337, 28.3333)
+scale = Vector2(85.7143, 48.5714)
 texture_normal = ExtResource("5_6khlm")
 action = "p2_shoot"
+
+[node name="Enter" type="TextureRect" parent="Control"]
+unique_name_in_owner = true
+modulate = Color(1, 0.596078, 0, 1)
+layout_mode = 0
+offset_left = 152.0
+offset_top = -20.0
+offset_right = 252.0
+offset_bottom = 80.0
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("7_vh5mm")
+
+[node name="TouchScreenButton2" type="TouchScreenButton" parent="Control/Enter"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(8.57143, 28.5714)
+scale = Vector2(85.7143, 47.1429)
+texture_normal = ExtResource("5_6khlm")
+action = "ui_accept"
+
+[node name="Back" type="TouchScreenButton" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0.807843, 0, 1)
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("8_1fbme")
+action = "ui_cancel"
