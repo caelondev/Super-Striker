@@ -4,24 +4,24 @@ extends Node2D
 @onready var game_ui := %UI
 @onready var actors_container := %ActorsContainer
 
-func _ready():
+var players : Array[Player] = []
+
+func _ready() -> void:
 	game_ui.show()
+	if not GameManager.player_setup[0].is_empty():
+		players.append(actors_container.player_1)
+	if not GameManager.player_setup[1].is_empty():
+		mobile_ui.has_two_players = true
+		players.append(actors_container.player_2)
 
 func _physics_process(delta):
 	if Input.is_action_pressed("ui_cancel"):
 		get_tree().quit()
 
-	# collect active players
-	var players := []
-	if actors_container.player_1 != null:
-		players.append(actors_container.player_1)
-	if actors_container.player_2 != null:
-		players.append(actors_container.player_2)
+	var hide_ui := false
+	for player: Player in players:
+		hide_ui = not player.current_state.is_mobile_ui_shown()
 
-	# check if any player's state blocks the UI
-	var hide_ui := players.any(func(p): return not p.current_state.is_mobile_ui_shown())
-
-	# apply result
 	if hide_ui:
 		mobile_ui.disable_joysticks()
 		mobile_ui.hide()

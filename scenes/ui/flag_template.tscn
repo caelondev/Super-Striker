@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bswfn6axbiq5x"]
+
+[ext_resource type="Texture2D" uid="uid://budqfnoc4rkmg" path="res://assets/art/ui/flags/flag-placeholder.png" id="1_dstwx"]
+
+[node name="FlagTemplate" type="TextureRect"]
+z_index = 4
+offset_right = 22.0
+offset_bottom = 14.0
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("1_dstwx")
+stretch_mode = 2

@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://de4koaxp67dwu"]
+
+[ext_resource type="Texture2D" uid="uid://b0rcxi5xb1gs2" path="res://assets/art/ui/teamselection/mobile_ui/arrow_up.png" id="1_fyrdx"]
+[ext_resource type="Script" uid="uid://c8cn11ry8voa2" path="res://scenes/ui/screens/team_selection/team_selection_buttons.gd" id="1_u3d1w"]
+[ext_resource type="Texture2D" uid="uid://e8hey0qmmwht" path="res://assets/art/ui/teamselection/mobile_ui/arrow_down.png" id="2_ul6p5"]
+[ext_resource type="Texture2D" uid="uid://bh0qiefh3rl1j" path="res://assets/art/ui/teamselection/mobile_ui/arrow_left.png" id="3_u3d1w"]
+[ext_resource type="Texture2D" uid="uid://dj2ydt7nqgrjj" path="res://assets/art/ui/teamselection/mobile_ui/arrow_right.png" id="4_t2u74"]
+
+[node name="TeamSelectionButtons" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u3d1w")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = -12.5
+offset_top = -96.0
+offset_right = 27.5
+offset_bottom = -56.0
+
+[node name="ArrowUp" type="TouchScreenButton" parent="Control"]
+unique_name_in_owner = true
+modulate = Color(0.945098, 0.784314, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("1_fyrdx")
+metadata/_edit_lock_ = true
+
+[node name="ArrowDown" type="TouchScreenButton" parent="Control"]
+unique_name_in_owner = true
+modulate = Color(0.945098, 0.784314, 0, 1)
+position = Vector2(0, 24)
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("2_ul6p5")
+
+[node name="ArrowLeft" type="TouchScreenButton" parent="Control"]
+unique_name_in_owner = true
+modulate = Color(0.945098, 0.784314, 0, 1)
+position = Vector2(0, 48)
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("3_u3d1w")
+
+[node name="ArrowRight" type="TouchScreenButton" parent="Control"]
+unique_name_in_owner = true
+modulate = Color(0.945098, 0.784314, 0, 1)
+position = Vector2(0, 72)
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("4_t2u74")

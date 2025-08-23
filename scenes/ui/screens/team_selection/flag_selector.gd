@@ -13,10 +13,10 @@ func _ready() -> void:
 	p2_indicator.visible = control_scheme == Player.ControlScheme.P2
 
 func _process(delta: float) -> void:
-	if not is_selected and KeyUtils.get_actions_just_pressed(control_scheme, KeyUtils.Action.SHOOT):
-		is_selected
-		animation_player.play("Selected")
-		AudioManager.play(AudioManager.Audio.UI_SELECT)
-	elif is_selected and KeyUtils.get_actions_just_pressed(control_scheme, KeyUtils.Action.PASS):
-		is_selected = false
-		animation_player.play("Selecting")
+	if KeyUtils.get_actions_just_pressed(control_scheme, KeyUtils.Action.SHOOT):
+		is_selected = not is_selected
+		if is_selected:
+			animation_player.play("Selected")
+			AudioManager.play(AudioManager.Audio.UI_SELECT)
+		else:
+			animation_player.play("Selecting")

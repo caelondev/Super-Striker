@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://bne1g6u0dxba3"]
 
 [ext_resource type="Script" uid="uid://bxa8fl4wkak35" path="res://addons/touch_screen_joystick/touch_screen_joystick.gd" id="1_n34wq"]
-[ext_resource type="Script" uid="uid://bl12b63bo5uc8" path="res://scenes/utils/mobile_ui.gd" id="1_yd8ix"]
+[ext_resource type="Script" uid="uid://bl12b63bo5uc8" path="res://scenes/ui/mobile_ui.gd" id="1_yd8ix"]
 [ext_resource type="Texture2D" uid="uid://b3yi0y0lcn0ta" path="res://assets/art/ui/MobileUI/pass.png" id="3_js3qq"]
-[ext_resource type="PackedScene" uid="uid://crnp0ep1wiq31" path="res://scenes/utils/buttons/mobile_button.tscn" id="4_cxhef"]
+[ext_resource type="PackedScene" uid="uid://crnp0ep1wiq31" path="res://scenes/ui/buttons/mobile_button.tscn" id="4_cxhef"]
 [ext_resource type="Texture2D" uid="uid://df7dyjsuhexud" path="res://assets/art/ui/MobileUI/shoot.png" id="4_h4864"]
 [ext_resource type="Texture2D" uid="uid://euyl4dw7yu6r" path="res://assets/art/ui/MobileUI/swap.png" id="5_a40ix"]
 
