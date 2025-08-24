@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://crnp0ep1wiq31"]
 
 [ext_resource type="Texture2D" uid="uid://did8nbfafn0g2" path="res://assets/art/ui/Double/Transparent center/panel-transparent-center-015.png" id="3_np57y"]
-[ext_resource type="Script" uid="uid://f65mh7teavpu" path="res://scenes/utils/buttons/mobile_button.gd" id="3_o40ct"]
+[ext_resource type="Script" uid="uid://f65mh7teavpu" path="res://scenes/ui/buttons/mobile_button.gd" id="3_o40ct"]
 [ext_resource type="Texture2D" uid="uid://bohaj8sqelvvk" path="res://icon.svg" id="4_np57y"]
 
 [node name="MobileButton" type="Node2D"]
@@ -11,8 +11,10 @@ script = ExtResource("3_o40ct")
 [node name="CooldownLabel" type="Label" parent="."]
 unique_name_in_owner = true
 z_index = 2
-offset_right = 49.0
-offset_bottom = 49.0
+offset_left = 2.85714
+offset_top = -2.85714
+offset_right = 51.8571
+offset_bottom = 53.1429
 pivot_offset = Vector2(1, 0)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 20
@@ -22,9 +24,8 @@ uppercase = true
 
 [node name="Icon" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-modulate = Color(0.393558, 0.692321, 0.237774, 1)
 position = Vector2(-1.19209e-07, -1.19209e-07)
-scale = Vector2(0.758929, 0.758929)
+scale = Vector2(0.1, 0.1)
 centered = false
 
 [node name="Border" type="Sprite2D" parent="."]
@@ -38,6 +39,7 @@ texture = ExtResource("3_np57y")
 [node name="TouchScreenButton" type="TouchScreenButton" parent="."]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
+position = Vector2(-7.62939e-06, 0)
 scale = Vector2(0.379464, 0.368304)
 texture_normal = ExtResource("4_np57y")
 texture_pressed = ExtResource("4_np57y")

@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bxa8fl4wkak35" path="res://addons/touch_screen_joystick/touch_screen_joystick.gd" id="1_n34wq"]
 [ext_resource type="Script" uid="uid://bl12b63bo5uc8" path="res://scenes/ui/mobile_ui.gd" id="1_yd8ix"]
-[ext_resource type="Texture2D" uid="uid://b3yi0y0lcn0ta" path="res://assets/art/ui/MobileUI/pass.png" id="3_js3qq"]
+[ext_resource type="Texture2D" uid="uid://blbk7f1pilg3q" path="res://assets/art/ui/MobileUI/pass.jpg" id="3_oanhq"]
+[ext_resource type="Texture2D" uid="uid://bco6r375pmpkk" path="res://assets/art/ui/MobileUI/shoot.jpg" id="4_ag4c8"]
 [ext_resource type="PackedScene" uid="uid://crnp0ep1wiq31" path="res://scenes/ui/buttons/mobile_button.tscn" id="4_cxhef"]
-[ext_resource type="Texture2D" uid="uid://df7dyjsuhexud" path="res://assets/art/ui/MobileUI/shoot.png" id="4_h4864"]
-[ext_resource type="Texture2D" uid="uid://euyl4dw7yu6r" path="res://assets/art/ui/MobileUI/swap.png" id="5_a40ix"]
+[ext_resource type="Texture2D" uid="uid://dnchydd75sitj" path="res://assets/art/ui/MobileUI/swap.jpg" id="5_rjt4o"]
 
 [node name="MobileUI" type="Control"]
 layout_mode = 3
@@ -25,18 +25,18 @@ offset_bottom = 40.0
 [node name="Pass" parent="Player_1" instance=ExtResource("4_cxhef")]
 position = Vector2(15, 10)
 action = "p1_pass"
-icon_texture = ExtResource("3_js3qq")
+icon_texture = ExtResource("3_oanhq")
 skill_cooldown = 1
 
 [node name="Shoot" parent="Player_1" instance=ExtResource("4_cxhef")]
 position = Vector2(55, 10)
 action = "p1_shoot"
-icon_texture = ExtResource("4_h4864")
+icon_texture = ExtResource("4_ag4c8")
 
 [node name="Swap" parent="Player_1" instance=ExtResource("4_cxhef")]
 position = Vector2(15, 50)
 action = "p1_swap"
-icon_texture = ExtResource("5_a40ix")
+icon_texture = ExtResource("5_rjt4o")
 skill_cooldown = 5
 
 [node name="TouchScreenJoystick" type="Control" parent="Player_1"]
@@ -76,17 +76,17 @@ grow_horizontal = 0
 [node name="Pass" parent="Player_2" instance=ExtResource("4_cxhef")]
 position = Vector2(-10, 10)
 action = "p2_pass"
-icon_texture = ExtResource("3_js3qq")
+icon_texture = ExtResource("3_oanhq")
 
 [node name="Shoot" parent="Player_2" instance=ExtResource("4_cxhef")]
 position = Vector2(-50, 10)
 action = "p2_shoot"
-icon_texture = ExtResource("4_h4864")
+icon_texture = ExtResource("4_ag4c8")
 
 [node name="Swap" parent="Player_2" instance=ExtResource("4_cxhef")]
 position = Vector2(-10, 50)
 action = "p2_swap"
-icon_texture = ExtResource("5_a40ix")
+icon_texture = ExtResource("5_rjt4o")
 skill_cooldown = 5
 
 [node name="TouchScreenJoystick2" type="Control" parent="Player_2"]

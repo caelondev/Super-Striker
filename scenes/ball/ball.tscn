@@ -5,22 +5,21 @@
 [ext_resource type="Texture2D" uid="uid://doob8xvdxjddq" path="res://assets/art/props/ball-shadow.png" id="2_stoaj"]
 [ext_resource type="Texture2D" uid="uid://0lqxnnwoe1fq" path="res://assets/art/particles/white-circle.png" id="2_xotqv"]
 
-[sub_resource type="Curve" id="Curve_jbgth"]
-_data = [Vector2(0, 0.37547), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_xotqv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.419274), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_yjhvv"]
-curve = SubResource("Curve_jbgth")
+[sub_resource type="CurveTexture" id="CurveTexture_qgnko"]
+curve = SubResource("Curve_xotqv")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a81tc"]
-lifetime_randomness = 0.5
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jbgth"]
 particle_flag_disable_z = true
 emission_shape = 1
 emission_sphere_radius = 1.0
-gravity = Vector3(0, 0, 0)
-scale_min = 0.2
-scale_max = 0.4
-scale_curve = SubResource("CurveTexture_yjhvv")
+gravity = Vector3(0, -80, 0)
+scale_min = 0.3
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_qgnko")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xotqv"]
 radius = 5.0
@@ -97,12 +96,11 @@ script = ExtResource("1_stoaj")
 
 [node name="ShotParticles" type="GPUParticles2D" parent="."]
 unique_name_in_owner = true
-z_index = -1
-position = Vector2(0, -8)
-amount = 30
+modulate = Color(0.964706, 1, 1, 0.705882)
+position = Vector2(0, -5)
 texture = ExtResource("2_xotqv")
-lifetime = 0.3
-process_material = SubResource("ParticleProcessMaterial_a81tc")
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_jbgth")
 
 [node name="BallSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true

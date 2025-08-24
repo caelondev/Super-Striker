@@ -12,7 +12,7 @@
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_qgnko"]
+[sub_resource type="CurveTexture" id="CurveTexture_6eyoc"]
 curve = SubResource("Curve_eojnx")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7vyk4"]
@@ -22,7 +22,7 @@ emission_sphere_radius = 1.0
 gravity = Vector3(0, -80, 0)
 scale_min = 0.3
 scale_max = 0.8
-scale_curve = SubResource("CurveTexture_qgnko")
+scale_curve = SubResource("CurveTexture_6eyoc")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_76oj4"]
 resource_local_to_scene = true
@@ -430,6 +430,7 @@ unique_name_in_owner = true
 
 [node name="RunningParticles" type="GPUParticles2D" parent="RootParticles"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.705882)
 position = Vector2(-5, 0)
 texture = ExtResource("2_6eyoc")
 lifetime = 0.4

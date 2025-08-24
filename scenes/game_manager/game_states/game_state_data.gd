@@ -1,6 +1,6 @@
 class_name GameStateData
 
-var country_scored_on : String = GameManager.current_match.country_home
+var country_scored_on : String = ""
 
 static func build() -> GameStateData:
 	return GameStateData.new()

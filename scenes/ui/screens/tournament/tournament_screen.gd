@@ -1,5 +1,5 @@
 class_name TournamentScreen
-extends Node
+extends Screen
 
 const STAGE_TEXTURE = {
 	Tournament.Stage.QUARTER_FINALS: preload("res://assets/art/ui/teamselection/quarters-label.png"),
@@ -21,11 +21,14 @@ var tournament : Tournament = null
 
 func _input(event: InputEvent) -> void:
 	if event.is_pressed():
-		tournament.advance()
-		refresh_brackets()
+		if tournament.current_stage < Tournament.Stage.COMPLETE:
+			transition_screen(SuperStriker.ScreenType.IN_GAME, screen_data)
+		else:
+			transition_screen(SuperStriker.ScreenType.MAIN_MENU)
+		AudioManager.play(AudioManager.Audio.UI_SELECT)
 
 func _ready() -> void:
-	tournament = Tournament.new()
+	tournament = screen_data.tournament
 	refresh_brackets()
 
 func refresh_brackets() -> void:

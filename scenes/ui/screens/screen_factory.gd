@@ -7,6 +7,7 @@ func _init() -> void:
 	screens = {
 		SuperStriker.ScreenType.MAIN_MENU: preload("res://scenes/ui/screens/main_menu/main_menu_ui.tscn"),
 		SuperStriker.ScreenType.TEAM_SELECTION: preload("res://scenes/ui/screens/team_selection/team_selection_menu.tscn"),
+		SuperStriker.ScreenType.TOURNAMENT: preload("res://scenes/ui/screens/tournament/tournament.tscn"),
 		SuperStriker.ScreenType.IN_GAME: preload("res://scenes/ui/screens/world/world.tscn"),
 	}
 

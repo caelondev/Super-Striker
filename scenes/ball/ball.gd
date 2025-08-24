@@ -38,8 +38,8 @@ func _physics_process(delta):
 		scoring_ray_cast.rotation = carrier.velocity.angle()
 	else:
 		scoring_ray_cast.rotation = velocity.angle()
-	
-	handle_trail_particle()
+	shot_particles.position = Vector2.UP * (height + 5)
+	shot_particles.emitting = height > 1 and velocity.length() > 130
 
 func switch_state(state: Ball.State, data: BallStateData = BallStateData.new()) -> void:
 	if current_state != null:
@@ -91,10 +91,6 @@ func on_reset() -> void:
 	velocity = Vector2.ZERO
 	global_position = spawn_location
 	switch_state(State.FREEFORM)
-
-func handle_trail_particle() -> void:
-	var condition = current_state != null and current_state.can_summon_shot_particle()
-	shot_particles.emitting = condition
 
 func get_proximity_teammate_count(country: String) -> int:
 	var player := player_proximity_area.get_overlapping_bodies()

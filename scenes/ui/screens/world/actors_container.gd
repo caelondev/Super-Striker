@@ -1,5 +1,5 @@
 class_name ActorsContainer      
-extends Node2D      
+extends Screen
 	  
 const SKILL_COOLDOWN_HANDLER := {      
 	"shoot" : 0,      

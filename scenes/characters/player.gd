@@ -3,14 +3,14 @@ extends CharacterBody2D
 
 signal swap_control_scheme_request(player: Player)
 
-const CONTROL_HEIGHT_MAX := 30
-
 const CONTROL_SCHEME_MAP : Dictionary = {
 	ControlScheme.CPU: preload("res://assets/art/props/cpu.png"),
 	ControlScheme.P1: preload("res://assets/art/props/1p.png"),
 	ControlScheme.P2: preload("res://assets/art/props/2p.png"),
 }
 const GRAVITY := 8.0
+
+const CONTROL_HEIGHT := 30
 
 enum ControlScheme {CPU, P1, P2}
 enum Role {GOALIE, DEFENSE, MIDFIELD, OFFENSE}
@@ -185,7 +185,7 @@ func is_facing_target_goal() -> bool:
 	return heading.dot(direction_to_target_goal) > 0
 
 func control_ball() -> void:
-	if ball.height > CONTROL_HEIGHT_MAX and height == 0:
+	if ball.height >= CONTROL_HEIGHT:
 		switch_state(State.CHEST_CONTROL)
 
 func on_player_tackle(tackled_player: Player) -> void:

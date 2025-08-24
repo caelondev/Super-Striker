@@ -164,3 +164,8 @@ unique_name_in_owner = true
 
 [node name="MainUI" parent="UI" node_paths=PackedStringArray("ball") instance=ExtResource("11_7v7uf")]
 ball = NodePath("../../ActorsContainer/Ball")
+
+[node name="GameOverTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
