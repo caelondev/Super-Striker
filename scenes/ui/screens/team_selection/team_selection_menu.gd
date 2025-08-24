@@ -95,7 +95,7 @@ func on_selector_selected() -> void:
 		var country_p1 := GameManager.player_setup[0]
 		var country_p2 := GameManager.player_setup[1]
 		if not country_p2.is_empty():
-			if country_p1 != country_p2:
-				GameManager.countries = [country_p1, country_p2]
+			if country_p1 != country_p2 and not country_p2.is_empty():
+				GameManager.current_match = Match.new(country_p1, country_p2)
 				transition_screen(SuperStriker.ScreenType.IN_GAME)
 	

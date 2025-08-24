@@ -32,8 +32,8 @@ var time_since_player2_last_swap := 0
 
 var player_1 : Player = null    
 var player_2 : Player = null    
-var team_home := GameManager.countries[0]    
-var team_away := GameManager.countries[1]    
+var team_home := GameManager.current_match.country_home
+var team_away := GameManager.current_match.country_away
 	
 var p1_swap_was_on_cooldown := false    
 var p2_swap_was_on_cooldown := false    

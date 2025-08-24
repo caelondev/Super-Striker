@@ -68,7 +68,7 @@ func _ready() -> void:
 	GameEvents.start_kickoff.connect(on_kickoff_started.bind())
 	GameEvents.team_reset.connect(on_reset.bind())
 	GameEvents.game_over.connect(on_game_over.bind())
-	var initial_position := kickoff_position if GameManager.countries[0] == country else spawn_position
+	var initial_position := kickoff_position if GameManager.current_match.country_home == country else spawn_position
 	switch_state(State.RESETTING, PlayerStateData.build().set_reset_position(initial_position))
 
 
