@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dlper04ti72cl"]
 
-[ext_resource type="Script" uid="uid://cql14i6hlt6hk" path="res://scenes/ui/screens/tournament/tournament.gd" id="1_ur48s"]
+[ext_resource type="Script" uid="uid://d0chx0lsqiici" path="res://scenes/ui/screens/tournament/tournament_screen.gd" id="1_4h6ge"]
 [ext_resource type="Texture2D" uid="uid://24ktedfu4yyw" path="res://assets/art/ui/teamselection/tournament-screen.png" id="2_vuqja"]
 [ext_resource type="PackedScene" uid="uid://h3bxrlyoc6c1" path="res://scenes/ui/screens/tournament/bracket_flag.tscn" id="3_q2jbp"]
 [ext_resource type="Texture2D" uid="uid://dkd3wgarr6gx2" path="res://assets/art/ui/flags/flag-vseparator.png" id="4_yvmac"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bog1glcwh145h" path="res://assets/art/ui/teamselection/quarters-label.png" id="7_4riqo"]
 
 [node name="Tournament" type="Node"]
-script = ExtResource("1_ur48s")
+script = ExtResource("1_4h6ge")
 
 [node name="Background" type="TextureRect" parent="."]
 anchors_preset = 15
@@ -33,6 +33,7 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="QFLeftContainer" type="VBoxContainer" parent="Background/BracketsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
@@ -66,6 +67,7 @@ custom_minimum_size = Vector2(4, 0)
 layout_mode = 2
 
 [node name="SFLeftContainer" type="VBoxContainer" parent="Background/BracketsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
@@ -81,6 +83,7 @@ texture = ExtResource("4_yvmac")
 layout_mode = 2
 
 [node name="LeftFinals" type="VBoxContainer" parent="Background/BracketsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
@@ -100,6 +103,7 @@ layout_mode = 2
 texture = ExtResource("5_4h6ge")
 
 [node name="RightFinals" type="VBoxContainer" parent="Background/BracketsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
@@ -113,6 +117,7 @@ custom_minimum_size = Vector2(4, 0)
 layout_mode = 2
 
 [node name="SFRightContainer" type="VBoxContainer" parent="Background/BracketsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
@@ -131,33 +136,34 @@ layout_mode = 2
 custom_minimum_size = Vector2(4, 0)
 layout_mode = 2
 
-[node name="QRightContainer" type="VBoxContainer" parent="Background/BracketsContainer"]
+[node name="QFRightContainer" type="VBoxContainer" parent="Background/BracketsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="BracketFlag" parent="Background/BracketsContainer/QRightContainer" instance=ExtResource("3_q2jbp")]
+[node name="BracketFlag" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("3_q2jbp")]
 layout_mode = 2
 
-[node name="VSeperator" type="TextureRect" parent="Background/BracketsContainer/QRightContainer"]
+[node name="VSeperator" type="TextureRect" parent="Background/BracketsContainer/QFRightContainer"]
 layout_mode = 2
 texture = ExtResource("4_yvmac")
 
-[node name="BracketFlag2" parent="Background/BracketsContainer/QRightContainer" instance=ExtResource("3_q2jbp")]
+[node name="BracketFlag2" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("3_q2jbp")]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="Background/BracketsContainer/QRightContainer"]
+[node name="Control" type="Control" parent="Background/BracketsContainer/QFRightContainer"]
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
-[node name="BracketFlag4" parent="Background/BracketsContainer/QRightContainer" instance=ExtResource("3_q2jbp")]
+[node name="BracketFlag4" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("3_q2jbp")]
 layout_mode = 2
 
-[node name="VSeperator2" type="TextureRect" parent="Background/BracketsContainer/QRightContainer"]
+[node name="VSeperator2" type="TextureRect" parent="Background/BracketsContainer/QFRightContainer"]
 layout_mode = 2
 texture = ExtResource("4_yvmac")
 
-[node name="BracketFlag3" parent="Background/BracketsContainer/QRightContainer" instance=ExtResource("3_q2jbp")]
+[node name="BracketFlag3" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("3_q2jbp")]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Background"]
@@ -176,6 +182,7 @@ theme_override_constants/shadow_outline_size = 0
 text = "CLICK ANYWHERE TO CONTINUE..."
 
 [node name="StageTexture" type="TextureRect" parent="Background"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -205,6 +212,7 @@ scale = Vector2(0.15, 0.15)
 texture = ExtResource("6_4h6ge")
 
 [node name="WinnerContainer" type="Control" parent="Background"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

@@ -37,3 +37,10 @@ func get_squad(country: String) -> Array:
 
 func get_countries() -> Array[String]:
 	return countries
+
+func get_random_countries(amount: int) -> Array[String]:
+	var max_amount := countries.size() - 1
+	amount = clamp(amount, 0, max_amount)
+	var shuffled := countries.slice(1).duplicate()
+	shuffled.shuffle()
+	return shuffled.slice(0, amount)
