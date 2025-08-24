@@ -55,7 +55,7 @@ func on_score_changed() -> void:
 	if GameManager.is_times_up():
 		return
 	
-	goal_scorer_label.text = "%s SCORED!" % [ball.last_ball_holder.full_name]
+	goal_scorer_label.text = "%s SHOT INTO THE GOAL" % [ball.last_ball_holder.full_name]
 	score_info_label.text = ScoreHelper.get_current_score_info(GameManager.current_match)
 	animation_player.play("GoalAppear")
 	update_score()

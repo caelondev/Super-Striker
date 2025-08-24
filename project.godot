@@ -13,7 +13,9 @@ config_version=5
 config/name="Super Striker"
 run/main_scene="uid://boic67bvl43kt"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.0627451, 0.266667, 0.2, 1)
+config/icon="uid://l13aoaayymjj"
+boot_splash/image="uid://bpl10plsqhs1x"
 
 [autoload]
 

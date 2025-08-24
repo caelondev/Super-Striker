@@ -1,4 +1,4 @@
-# ⚽ Super Striker (Godot Soccer Game)
+# ⚽ Super-Striker
 
 > 🚫 This is a **closed source** project. The code and assets are provided for **demonstration purposes only**. Unauthorized use, modification, or distribution is strictly prohibited.
 
@@ -15,7 +15,7 @@
 
 ## 🔒 License
 
-Copyright (c) 2025 ThadTheophilus
+Copyright (c) 2025 Caelondev
 All rights reserved.
 
 This software is closed source and licensed for personal reference only.
