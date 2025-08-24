@@ -17,6 +17,7 @@ size = Vector2(824, 8)
 
 [node name="World" type="Node"]
 script = ExtResource("1_veixy")
+background_music = 1
 metadata/_edit_vertical_guides_ = [-147.0]
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("ball")]

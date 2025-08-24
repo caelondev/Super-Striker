@@ -18,10 +18,11 @@ script = ExtResource("1_u3d1w")
 [node name="Control" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 0
-offset_left = -12.5
-offset_top = -96.0
-offset_right = 27.5
-offset_bottom = -56.0
+offset_left = -18.0
+offset_top = -138.0
+offset_right = 22.0
+offset_bottom = -98.0
+scale = Vector2(1.5, 1.5)
 
 [node name="ArrowUp" type="TouchScreenButton" parent="Control"]
 unique_name_in_owner = true

@@ -9,6 +9,7 @@ extends Screen
 var players : Array[Player] = []
 
 func _enter_tree() -> void:
+	super._enter_tree()
 	GameEvents.game_over.connect(on_gameover.bind())
 
 func _ready() -> void:

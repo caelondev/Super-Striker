@@ -7,7 +7,6 @@ const FLAG_SELECTOR_SCENE := preload("res://scenes/ui/screens/team_selection/fla
 const NB_COLS := 4
 const NB_ROWS := 2
 
-@onready var enter_button := %Enter
 @onready var flags_container := %FlagsContainer
 @onready var player_two_menu := [%Select2, $TeamSelectionButtons2]
 
@@ -40,20 +39,6 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("ui_cancel"):
 			AudioManager.play(AudioManager.Audio.UI_NAV)
 			transition_screen(SuperStriker.ScreenType.MAIN_MENU)
-	update_enter()
-
-func update_enter() -> void:
-	for selector in selectors:
-		if selector.is_selected:
-			all_selected = true
-		else:
-			all_selected = false
-			break
-	
-	if all_selected:
-		enter_button.show()
-	else:
-		enter_button.hide()
 
 func try_navigate(selection_index: int, direction: Vector2i) -> void:
 	var rect : Rect2i = Rect2(0, 0, NB_COLS, NB_ROWS)

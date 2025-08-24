@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cn53vf8udvvmp"]
+[gd_scene load_steps=8 format=3 uid="uid://cn53vf8udvvmp"]
 
 [ext_resource type="Texture2D" uid="uid://cji288pewvlnw" path="res://assets/art/ui/teamselection/team-selection-background.png" id="1_2hpw6"]
 [ext_resource type="Script" uid="uid://tsojdgwxe0rg" path="res://scenes/ui/screens/team_selection/team_selection_menu.gd" id="1_rj2gt"]
@@ -6,11 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://de4koaxp67dwu" path="res://scenes/ui/screens/team_selection/team_selection_buttons.tscn" id="4_74ce7"]
 [ext_resource type="Texture2D" uid="uid://coiwibbaekvj5" path="res://assets/art/ui/1x1.png" id="5_6khlm"]
 [ext_resource type="Texture2D" uid="uid://bh1sg4xsqo532" path="res://assets/art/ui/teamselection/mobile_ui/buttonSelect.png" id="6_5i84j"]
-[ext_resource type="Texture2D" uid="uid://ddlafnxlue3p1" path="res://assets/art/ui/teamselection/mobile_ui/buttonStart.png" id="7_vh5mm"]
 [ext_resource type="Texture2D" uid="uid://cj0ap7xjt7pom" path="res://assets/art/ui/teamselection/mobile_ui/exitLeft.png" id="8_1fbme"]
 
 [node name="TeamSelectionMenu" type="Node"]
 script = ExtResource("1_rj2gt")
+background_music = 3
 
 [node name="Background" type="TextureRect" parent="."]
 anchors_preset = 15
@@ -47,9 +47,9 @@ grow_vertical = 2
 anchors_preset = 2
 anchor_top = 1.0
 anchor_right = 0.0
-offset_left = 16.0
+offset_left = 24.0
 offset_top = -12.0
-offset_right = 16.0
+offset_right = 24.0
 offset_bottom = -12.0
 grow_horizontal = 1
 grow_vertical = 0
@@ -62,7 +62,7 @@ down = "p1_walk_down"
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
-offset_left = -16.0
+offset_left = -24.0
 offset_top = -12.0
 offset_right = -16.0
 offset_bottom = -12.0
@@ -122,24 +122,6 @@ position = Vector2(8.33337, 28.3333)
 scale = Vector2(85.7143, 48.5714)
 texture_normal = ExtResource("5_6khlm")
 action = "p2_shoot"
-
-[node name="Enter" type="TextureRect" parent="Control"]
-unique_name_in_owner = true
-modulate = Color(1, 0.596078, 0, 1)
-layout_mode = 0
-offset_left = 152.0
-offset_top = -20.0
-offset_right = 252.0
-offset_bottom = 80.0
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("7_vh5mm")
-
-[node name="TouchScreenButton2" type="TouchScreenButton" parent="Control/Enter"]
-modulate = Color(1, 1, 1, 0)
-position = Vector2(8.57143, 28.5714)
-scale = Vector2(85.7143, 47.1429)
-texture_normal = ExtResource("5_6khlm")
-action = "ui_accept"
 
 [node name="Back" type="TouchScreenButton" parent="."]
 unique_name_in_owner = true

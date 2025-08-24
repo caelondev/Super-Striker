@@ -3,8 +3,13 @@ extends Node
 
 signal screen_transition_requested(new_screen: SuperStriker.ScreenType, data: ScreenData)
 
+@export var background_music : MusicPlayer.Music
+
 var game : SuperStriker = null
 var screen_data : ScreenData = null
+
+func _enter_tree() -> void:
+	MusicPlayer.play_music(background_music)
 
 func setup(c_game: SuperStriker, c_screen_data: ScreenData) -> void:
 	game = c_game

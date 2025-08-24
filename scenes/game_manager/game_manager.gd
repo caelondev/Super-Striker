@@ -64,3 +64,6 @@ func on_impact_received(_impact_position: Vector2, is_high_intensity: bool) -> v
 	if is_high_intensity:
 		time_since_last_pause = Time.get_ticks_msec()
 		get_tree().paused = true
+
+func show_mobile_ui() -> bool:
+	return current_state != null and current_state.show_mobile_ui()

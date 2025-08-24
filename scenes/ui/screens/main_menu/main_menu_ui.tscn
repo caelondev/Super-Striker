@@ -85,6 +85,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(273, 128)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Background/SelectionIcon:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_0kx0b"]
 resource_name = "Startup"
@@ -175,6 +187,18 @@ tracks/6/keys = {
 "method": &"animation_complete"
 }]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Background/SelectionIcon:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o2mt6"]
 _data = {
@@ -223,6 +247,7 @@ _data = {
 
 [node name="MainMenuUI" type="Node"]
 script = ExtResource("1_rng5r")
+background_music = 2
 
 [node name="Background" type="TextureRect" parent="."]
 anchors_preset = 15
@@ -235,8 +260,8 @@ stretch_mode = 6
 
 [node name="Title" type="TextureRect" parent="Background"]
 layout_mode = 0
-offset_left = 12.0
-offset_right = 671.0
+offset_left = 14.0
+offset_right = 673.0
 offset_bottom = 350.0
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_xsv71")
@@ -313,6 +338,7 @@ stretch_mode = 2
 
 [node name="SelectionIcon" type="TextureRect" parent="Background"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_left = 146.0
 offset_top = 102.0

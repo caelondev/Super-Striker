@@ -15,3 +15,6 @@ func _physics_process(delta: float) -> void:
 func on_team_scored(country_scored_on: String) -> void:
 	var data = GameStateData.build().set_country_scored_on(country_scored_on)
 	transition_state(GameManager.State.SCORED, data)
+
+func show_mobile_ui() -> bool:
+	return true

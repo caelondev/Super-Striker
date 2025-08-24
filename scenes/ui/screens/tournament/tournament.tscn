@@ -10,6 +10,7 @@
 
 [node name="Tournament" type="Node"]
 script = ExtResource("1_4h6ge")
+background_music = 3
 
 [node name="Background" type="TextureRect" parent="."]
 anchors_preset = 15

@@ -72,6 +72,7 @@ func _physics_process(delta):
 		target_zoom = ZOOM_DISTANCE
 
 	zoom = zoom.move_toward(target_zoom, delta * 2)
+	mobile_ui.visible = zoom == Vector2.ONE and GameManager.current_state.show_mobile_ui()
 
 	if Time.get_ticks_msec() - time_since_last_shake < DURATION_SHAKE and is_screen_shaking:
 		offset = Vector2(
