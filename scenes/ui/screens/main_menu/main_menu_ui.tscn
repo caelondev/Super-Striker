@@ -260,8 +260,8 @@ stretch_mode = 6
 
 [node name="Title" type="TextureRect" parent="Background"]
 layout_mode = 0
-offset_left = 14.0
-offset_right = 673.0
+offset_left = 12.0
+offset_right = 671.0
 offset_bottom = 350.0
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_xsv71")

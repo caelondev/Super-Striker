@@ -7,6 +7,8 @@ const STAGE_TEXTURE = {
 	Tournament.Stage.FINAL: preload("res://assets/art/ui/teamselection/finals-label.png"),
 	Tournament.Stage.COMPLETE: preload("res://assets/art/ui/teamselection/winner-label.png")
 }
+const DURATION_WAIT := 1000
+
 
 @onready var flag_container : Dictionary = {
 	Tournament.Stage.QUARTER_FINALS: [%QFLeftContainer, %QFRightContainer],
@@ -15,11 +17,16 @@ const STAGE_TEXTURE = {
 	Tournament.Stage.COMPLETE: [%WinnerContainer],
 }
 @onready var stage_texture : TextureRect = %StageTexture
+@onready var click_label : Label = %ClickLabel
 
 var player_country : String = GameManager.player_setup[0]
 var tournament : Tournament = null
+var time_since_enter := Time.get_ticks_msec()
 
 func _input(event: InputEvent) -> void:
+	if Time.get_ticks_msec() - time_since_enter < DURATION_WAIT:
+		return
+	
 	if event.is_pressed():
 		if tournament.current_stage < Tournament.Stage.COMPLETE:
 			transition_screen(SuperStriker.ScreenType.IN_GAME, screen_data)
@@ -30,6 +37,9 @@ func _input(event: InputEvent) -> void:
 func _ready() -> void:
 	tournament = screen_data.tournament
 	refresh_brackets()
+
+func _process(delta: float) -> void:
+	click_label.visible = Time.get_ticks_msec() - time_since_enter > DURATION_WAIT
 
 func refresh_brackets() -> void:
 	for stage in range(tournament.current_stage + 1):

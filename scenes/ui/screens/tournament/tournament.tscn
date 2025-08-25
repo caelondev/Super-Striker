@@ -167,7 +167,8 @@ texture = ExtResource("4_yvmac")
 [node name="BracketFlag3" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("3_q2jbp")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Background"]
+[node name="ClickLabel" type="Label" parent="Background"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
