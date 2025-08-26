@@ -7,3 +7,6 @@ func _enter_tree() -> void:
 func on_team_scored(country_scored_on) -> void:
 	manager.increase_score(country_scored_on)
 	transition_state(GameManager.State.GAMEOVER)
+
+func show_mobile_ui() -> bool:
+	return true

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dlper04ti72cl"]
 
-[ext_resource type="Script" uid="uid://d0chx0lsqiici" path="res://scenes/ui/screens/tournament/tournament_screen.gd" id="1_4h6ge"]
+[ext_resource type="Script" uid="uid://vfvw40ivmk0g" path="res://scenes/ball/ball_states/ball_states.gd" id="1_4h6ge"]
 [ext_resource type="Texture2D" uid="uid://24ktedfu4yyw" path="res://assets/art/ui/teamselection/tournament-screen.png" id="2_vuqja"]
 [ext_resource type="PackedScene" uid="uid://h3bxrlyoc6c1" path="res://scenes/ui/screens/tournament/bracket_flag.tscn" id="3_q2jbp"]
 [ext_resource type="Texture2D" uid="uid://dkd3wgarr6gx2" path="res://assets/art/ui/flags/flag-vseparator.png" id="4_yvmac"]
@@ -10,7 +10,6 @@
 
 [node name="Tournament" type="Node"]
 script = ExtResource("1_4h6ge")
-background_music = 3
 
 [node name="Background" type="TextureRect" parent="."]
 anchors_preset = 15

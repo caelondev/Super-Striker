@@ -39,8 +39,9 @@ func update_score() -> void:
 	score_label.text = ScoreHelper.get_score_value(GameManager.current_match)
 
 func update_clock() -> void:
-	if GameManager.time_left < 0:
+	if GameManager.time_left <= 0:
 		time_label.modulate = Color.YELLOW
+		time_label.text = "OVERTIME"
 	else:
 		time_label.modulate = Color.WHITE
 	time_label.text = TimeHelper.get_time_value(GameManager.time_left)
